@@ -1,10 +1,5 @@
 import { MaybeArray } from './index';
 
-export type DeepArrayValue<T> = {
-    depth: number;
-    value: T;
-}
-
 export type RequestQuery = {
     /**
      * Determine which database items to fetch.

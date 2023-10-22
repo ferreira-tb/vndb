@@ -5,8 +5,19 @@ const vndb = new VNDB();
 
 test('stats', async () => {
     const query = new QueryBuilder<'vn'>();
-    query.filter('search')
-    query.filter('developer')
+    query
+        .and(({ f, or }) => {
+            or(() => {
+                f('lang').eq.v('en');
+                f('lang').eq.v('de');
+                f('lang').eq.v('fr');
+            });
+        })
 
-    console.log(query.toJSON());
+    console.log(query.toJSON(4));
 });
+
+test('lock proxy', () => {
+    const query = new QueryBuilder<'vn'>({ filters: 'some-compact-filter' });
+    expect(() => query.f('anime_id')).toThrowError();
+})
