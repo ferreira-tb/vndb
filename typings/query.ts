@@ -1,4 +1,16 @@
-import { MaybeArray } from './index';
+import type { QueryBuilder, QueryBuilderOperator } from '../src/query';
+
+export type QueryBuilderBaseFilterName<T extends RequestQueryEntryType> =
+    T extends 'vn' ? RequestQueryFiltersVisualNovel : never;
+
+export type QueryBuilderBase<T extends RequestQueryEntryType> = {
+    and: (cb: (builder: QueryBuilderBase<T>) => void) => QueryBuilder<T>;
+    or: (cb: (builder: QueryBuilderBase<T>) => void) => QueryBuilder<T>;
+    f: (name: QueryBuilderBaseFilterName<T>) => QueryBuilderOperator<T>;
+    filter: (name: QueryBuilderBaseFilterName<T>) => QueryBuilderOperator<T>;
+    v: (value: any) => QueryBuilder<T>;
+    value: (value: any) => QueryBuilder<T>;
+}
 
 export type RequestQuery = {
     /**

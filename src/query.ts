@@ -1,19 +1,11 @@
 import type {
+    QueryBuilderBase,
+    QueryBuilderBaseFilterName,
     RequestQuery,
-    RequestQueryEntryType,
-    RequestQueryFiltersVisualNovel
+    RequestQueryEntryType
 } from '../typings';
 
-type QueryBuilderAndOrParams<T extends RequestQueryEntryType> = {
-    and: QueryBuilder<T>['_and'];
-    or: QueryBuilder<T>['_or'];
-    f: QueryBuilder<T>['_filter'];
-    filter: QueryBuilder<T>['_filter'];
-    v: QueryBuilder<T>['_value'];
-    value: QueryBuilder<T>['_value'];
-}
-
-export class QueryBuilder<T extends RequestQueryEntryType> {
+export class QueryBuilder<T extends RequestQueryEntryType> implements QueryBuilderBase<T> {
     private readonly filters: any[] = [];
     private readonly indexMap: IndexMap;
     
@@ -38,14 +30,14 @@ export class QueryBuilder<T extends RequestQueryEntryType> {
         this.operator = new QueryBuilderOperator(this, this.push.bind(this));
     }
 
-    public readonly and: QueryBuilder<T>['_and'] = this.proxify(this._and);
-    public readonly or: QueryBuilder<T>['_or'] = this.proxify(this._or);
-    public readonly f: QueryBuilder<T>['_filter'] = this.proxify(this._filter);
-    public readonly filter: QueryBuilder<T>['_filter'] = this.proxify(this._filter);
-    public readonly v: QueryBuilder<T>['_value'] = this.proxify(this._value);
-    public readonly value: QueryBuilder<T>['_value'] = this.proxify(this._value);
+    public readonly and:(cb: (builder: QueryBuilderBase<T>) => void) => QueryBuilder<T> = this.proxify(this._and);
+    public readonly or: (cb: (builder: QueryBuilderBase<T>) => void) => QueryBuilder<T> = this.proxify(this._or);
+    public readonly f: (name: QueryBuilderBaseFilterName<T>) => QueryBuilderOperator<T> = this.proxify(this._filter);
+    public readonly filter: (name: QueryBuilderBaseFilterName<T>) => QueryBuilderOperator<T> = this.proxify(this._filter);
+    public readonly v: (value: any) => QueryBuilder<T> = this.proxify(this._value);
+    public readonly value: (value: any) => QueryBuilder<T> = this.proxify(this._value);
 
-    private readonly logicalCallback: QueryBuilderAndOrParams<T> = {
+    private readonly logicalCallback: QueryBuilderBase<T> = {
         and: this._and.bind(this),
         or: this._or.bind(this),
         f: this._filter.bind(this),
@@ -54,16 +46,14 @@ export class QueryBuilder<T extends RequestQueryEntryType> {
         value: this._value.bind(this)
     }
 
-    private _and(cb: (builder: QueryBuilderAndOrParams<T>) => void) {
+    private _and(cb: (builder: QueryBuilderBase<T>) => void) {
         this.pushLogicalOperator('and');
         cb(this.logicalCallback);
         this.reduceDepth();
         return this;
     }
 
-    private _filter(
-        name: T extends 'vn' ? RequestQueryFiltersVisualNovel : never
-    ) {
+    private _filter(name: QueryBuilderBaseFilterName<T>) {
         // Filters always start a new block.
         // Therefore, the value of the next index will always be 1.
         // e.g. ["lang", "=", "en"]
@@ -71,7 +61,7 @@ export class QueryBuilder<T extends RequestQueryEntryType> {
         return this.operator;
     }
 
-    private _or(cb: (builder: QueryBuilderAndOrParams<T>) => void) {
+    private _or(cb: (builder: QueryBuilderBase<T>) => void) {
         this.pushLogicalOperator('or');
         cb(this.logicalCallback);
         this.reduceDepth();
@@ -245,3 +235,5 @@ class IndexMap extends Map<number, number> {
         return super.set(depth, index);
     }
 }
+
+export type { QueryBuilderOperator, IndexMap };

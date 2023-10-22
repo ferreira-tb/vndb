@@ -12,7 +12,7 @@ try {
         prerelease: true,
         generate_release_notes: true,
         owner: 'ferreira-tb',
-        repo: 'vndb.js',
+        repo: 'vndb-query',
         headers: {
             'X-GitHub-Api-Version': '2022-11-28',
             accept: 'application/vnd.github+json'
