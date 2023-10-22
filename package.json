@@ -13,7 +13,7 @@
         "email": "andrew.shien2@gmail.com"
     },
     "license": "MIT",
-    "private": true,
+    "private": false,
     "main": "index.js",
     "scripts": {
         "build": "rollup --config rollup.config.ts --configPlugin typescript={tsconfig:'tsconfig.rollup.json'}",
