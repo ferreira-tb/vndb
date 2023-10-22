@@ -63,6 +63,7 @@ export type RequestQuery = {
 export type RequestQueryEntryType = 'vn' | 'release' | 'producer' | 'character' | 'staff' | 'tag' | 'trait';
 
 export type RequestQueryFiltersVisualNovel =
+    | 'id'
     | 'search'
     | 'lang'
     | 'olang'

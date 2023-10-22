@@ -2,6 +2,8 @@ import { QueryBuilder } from './query';
 import { searchParams, toArray } from './utils';
 import type {
     MaybeArray,
+    RequestBasicOptions,
+    RequestQuery,
     RequestQueryEntryType,
     RequestUserOptionalFields,
     ResponseAuthinfo,
@@ -15,9 +17,14 @@ export class VNDB {
      * @see https://api.vndb.org/kana#get-authinfo
      */
     public authinfo(token: string): Promise<ResponseAuthinfo> {
-        const headers = new Headers();
-        headers.append('Authorization', `token ${token}`);
+        const headers = this.headers(token);
         return this.json(VNDB.endpoint('authinfo'), { headers });
+    }
+
+    private headers(token?: string) {
+        const headers = new Headers();
+        if (token) headers.append('Authorization', `token ${token}`);
+        return headers;
     }
 
     private async json<T extends Record<string, any>>(input: RequestInfo | URL, init?: RequestInit): Promise<T> {
@@ -26,8 +33,19 @@ export class VNDB {
         return response.json();
     }
 
-    public query<T extends RequestQueryEntryType>(query: QueryBuilder<T>) {
-        console.log(query);
+    public query<T extends RequestQueryEntryType>(query: QueryBuilder<T>, options: RequestBasicOptions = {}) {
+        const headers = this.headers(options.token);
+        headers.append('Content-Type', 'application/json');
+
+        const filters = query.compactFilters ? query.compactFilters : query.toArray();
+        const body: RequestQuery = { filters, ...query.options };
+        const request = new Request(VNDB.endpoint('vn'), {
+            method: 'POST',
+            headers,
+            body: JSON.stringify(body, null, 0)
+        });
+
+        return this.json(request);
     }
 
     /**
@@ -35,16 +53,18 @@ export class VNDB {
      * which fields are available for querying and a list of supported external links.
      * @see https://api.vndb.org/kana#get-schema 
      */
-    public schema() {
-        return this.json(VNDB.endpoint('schema'));
+    public schema(options: RequestBasicOptions = {}) {
+        const headers = this.headers(options.token);
+        return this.json(VNDB.endpoint('schema'), { headers });
     }
 
     /**
      * Returns a few overall database statistics.
      * @see https://api.vndb.org/kana#get-stats 
      */
-    public stats(): Promise<ResponseStats> {
-        return this.json(VNDB.endpoint('stats'));
+    public stats(options: RequestBasicOptions = {}): Promise<ResponseStats> {
+        const headers = this.headers(options.token);
+        return this.json(VNDB.endpoint('stats'), { headers });
     }
 
     /** 
@@ -54,15 +74,21 @@ export class VNDB {
      * The `id` and `username` fields are always selected and should not be specified here.
      * @see https://api.vndb.org/kana#get-user
      */
-    public user(q: MaybeArray<string | number>, fields?: MaybeArray<RequestUserOptionalFields>): Promise<ResponseUser> {
+    public user(
+        q: MaybeArray<string | number>,
+        fields: MaybeArray<RequestUserOptionalFields> = [],
+        options: RequestBasicOptions = {}
+    ): Promise<ResponseUser> {
         const url = VNDB.endpoint('user');
         const users = toArray(q).map((u) => typeof u === 'string' ? u : `u${u.toString(10)}`);
         url.search = searchParams('q', users).toString();
         if (fields) url.searchParams.append('fields', toArray(fields).join(','));
-        return this.json(url);
+
+        const headers = this.headers(options.token);
+        return this.json(url, { headers });
     }
 
-    private static endpoint(input = '') {
+    public static endpoint(input = '') {
         return new URL(`https://api.vndb.org/kana/${input}`);
     }
 }

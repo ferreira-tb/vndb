@@ -2,6 +2,13 @@ export * from './query';
 
 export type MaybeArray<T> = T | T[];
 
+export type RequestBasicOptions = {
+    /**
+     * @see https://api.vndb.org/kana#user-authentication
+     */
+    token?: string;
+}
+
 /**
  * `listread`: Allows read access to private labels and entries in the user’s visual novel list.
  * 

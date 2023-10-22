@@ -34,9 +34,5 @@
         "tslib": "^2.6.2",
         "typescript": "^5.2.2",
         "vitest": "^0.34.6"
-    },
-    "dependencies": {
-        "date-fns": "^2.30.0",
-        "lodash-es": "^4.17.21"
     }
 }

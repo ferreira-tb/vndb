@@ -18,8 +18,8 @@ export class QueryBuilder<T extends RequestQueryEntryType> {
     private readonly indexMap: IndexMap;
     
     private readonly operator: QueryBuilderOperator<T>;
-    private readonly options: Omit<RequestQuery, 'filters'>;
-    private readonly compactFilters: string | null;
+    public readonly compactFilters: string | null;
+    public readonly options: Omit<RequestQuery, 'filters'>;
 
     constructor(query: RequestQuery = {}) {
         const { filters, ...options } = query;
@@ -39,6 +39,7 @@ export class QueryBuilder<T extends RequestQueryEntryType> {
     }
 
     public readonly and: QueryBuilder<T>['_and'] = this.proxify(this._and);
+    public readonly or: QueryBuilder<T>['_or'] = this.proxify(this._or);
     public readonly f: QueryBuilder<T>['_filter'] = this.proxify(this._filter);
     public readonly filter: QueryBuilder<T>['_filter'] = this.proxify(this._filter);
     public readonly v: QueryBuilder<T>['_value'] = this.proxify(this._value);
@@ -56,6 +57,7 @@ export class QueryBuilder<T extends RequestQueryEntryType> {
     private _and(cb: (builder: QueryBuilderAndOrParams<T>) => void) {
         this.pushLogicalOperator('and');
         cb(this.logicalCallback);
+        this.reduceDepth();
         return this;
     }
 
@@ -72,13 +74,13 @@ export class QueryBuilder<T extends RequestQueryEntryType> {
     private _or(cb: (builder: QueryBuilderAndOrParams<T>) => void) {
         this.pushLogicalOperator('or');
         cb(this.logicalCallback);
+        this.reduceDepth();
         return this;
     }
 
     private _value(value: any) {
         // Values follow operators.
-        // They also cause the current block to close.
-        // This will decrease the depth level, then the parent index should be used.
+        // They will close the current block and decrease the depth level.
         const depth = this.indexMap.depth();
         const parentIndex = this.indexMap.get(depth - 1);
         this.push(value, (d) => d - 1, () => parentIndex + 1);
@@ -116,30 +118,62 @@ export class QueryBuilder<T extends RequestQueryEntryType> {
     ) {
         const depth = this.indexMap.depth();
         const index = this.indexMap.index();
-
         const array = this.goToCurrentDepth();
         array[index] = value;
 
-        this.indexMap.set(
-            depthFn ? depthFn(depth) : depth,
-            indexFn ? indexFn(index) : index
-        );
+        this.setIndex(depthFn, indexFn, depth, index);
     }
 
     private pushLogicalOperator(operator: 'and' | 'or') {
         // This kind of operator normally starts a new block by inserting itself at the beginning of it afterwards.
         // However, if the root array is empty, it should not start a block.
         // The depth must not increase in such cases, but the index should.
-        const _operator = this.filters.length === 0 ? operator : [operator];
+        const op = this.filters.length === 0 ? operator : [operator];
         this.push(
-            _operator,
-            (d) => Array.isArray(_operator) ? d + 1 : d,
-            (i) => Array.isArray(_operator) ? 1 : i + 1
+            op,
+            (d) => Array.isArray(op) ? d + 1 : d,
+            (i) => Array.isArray(op) ? 1 : i + 1
         );
     }
 
+    private reduceDepth() {
+        const depth = this.indexMap.depth();
+        const reduceBy = depth === 0 ? 0 : depth - 1;
+        const parentIndex = this.indexMap.get(reduceBy);
+        this.setIndex((d) => d - 1, () => parentIndex + 1);
+    }
+
+    private setIndex(
+        depthFn: ((depth: number) => number) | null,
+        indexFn: ((index: number) => number) | null,
+        depth = this.indexMap.depth(),
+        index = this.indexMap.index()
+    ) {
+        this.indexMap.set(
+            depthFn ? depthFn(depth) : depth,
+            indexFn ? indexFn(index) : index
+        );
+    }
+
+    private sanitizeFilters() {
+        let filters = this.filters;
+        if (filters.length === 1 && Array.isArray(filters[0])) {
+            filters = filters[0];
+        }
+
+        if (Array.isArray(filters) && filters.every((f) => Array.isArray(f))) {
+            throw new TypeError('Every root value is an array.');
+        }
+
+        return filters;
+    }
+
+    public toArray(): any[] {
+        return JSON.parse(this.toJSON(0));
+    }
+
     public toJSON(space: string | number = 4) {
-        return JSON.stringify(this.filters, null, space);
+        return JSON.stringify(this.sanitizeFilters(), null, space);
     }
 }
 
