@@ -1,0 +1,11 @@
+{
+    "vsicons.associations.files": [
+        {
+            "icon": "tsconfig",
+            "extensions": ["tsconfig.rollup.json"],
+            "filename": true,
+            "format": "svg"
+        }
+    ],
+    "conventionalCommits.promptScopes": false,
+}

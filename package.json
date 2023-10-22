@@ -1,0 +1,38 @@
+{
+    "name": "vndb.js",
+    "version": "0.1.0",
+    "description": "VNDB Javascript API",
+    "author": {
+        "name": "Andrew Ferreira",
+        "email": "andrew.shien2@gmail.com",
+        "url": "https://github.com/ferreira-tb"
+    },
+    "homepage": "https://github.com/ferreira-tb/EDITAR",
+    "bugs": {
+        "url": "https://github.com/ferreira-tb/EDITAR/issues",
+        "email": "andrew.shien2@gmail.com"
+    },
+    "license": "MIT",
+    "private": true,
+    "main": "index.js",
+    "scripts": {
+        "build": "rollup --config rollup.config.ts --configPlugin typescript={tsconfig:'tsconfig.rollup.json'}",
+        "minify": "node scripts/minify.mjs",
+        "publish": "run-s build minify && node scripts/publish.mjs",
+        "taze": "npx taze -w -f",
+        "test": "vitest",
+        "test:ui": "vitest --ui"
+    },
+    "devDependencies": {
+        "@octokit/core": "^5.0.1",
+        "@rollup/plugin-typescript": "^11.1.5",
+        "@types/lodash-es": "^4.17.10",
+        "@vitest/ui": "^0.34.6",
+        "rollup": "^4.1.4",
+        "taze": "^0.11.4",
+        "terser": "^5.22.0",
+        "tslib": "^2.6.2",
+        "typescript": "^5.2.2",
+        "vitest": "^0.34.6"
+    }
+}
