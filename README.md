@@ -8,6 +8,20 @@ You can use VNDB Query to create applications, browser extensions or simply for 
 npm install --save vndb-query
 ```
 
+## Usage
+```ts
+import { QueryBuilder, VNDB } from 'vndb-query';
+
+const fields = ['title', 'image.url'];
+const query = new QueryBuilder({ fields });
+
+// Same as ['id', '=', 'v30168']
+query.f('id').eq.v('v30168');
+
+const { results } = await vndb.post.vn(query);
+console.log(results);
+```
+
 ## Documentation
 To check out docs, visit [tb.dev.br/vndb-query](https://tb.dev.br/vndb-query/).
 
