@@ -363,8 +363,50 @@ export type ResponsePostTrait = {
     char_count?: number;
 }
 
+export type ResponsePostUserListLabel = {
+    id: number;
+    label?: string;
+}
+
+export type ResponsePostUserListVisualNovel = ResponsePostVisualNovel;
+
+export type ResponsePostUserListRelease = ResponsePostRelease & {
+    /** 0 for “Unknown”, 1 for “Pending”, 2 for “Obtained”, 3 for “On loan”, 4 for “Deleted”. */
+    list_status?: 0 | 1 | 2 | 3 | 4;
+}
+
 export type ResponsePostUserList = {
-    
+    id: string;
+    /**
+     * Unix timestamp.
+     * @see https://developer.mozilla.org/en-US/docs/Glossary/Unix_time
+     */
+    added?: number;
+    /**
+     * Integer, can be `null`, unix timestamp of when the user voted on this VN.
+     * @see https://developer.mozilla.org/en-US/docs/Glossary/Unix_time
+     */
+    voted?: number | null;
+    /**
+     * Integer, unix timestamp when the user last modified their list for this VN.
+     * @see https://developer.mozilla.org/en-US/docs/Glossary/Unix_time
+     */
+    lastmod?: number;
+    /** Integer, can be `null`, 10 - 100. */
+    vote?: number | null;
+    /** Start date, can be null, `yyyy-MM-dd` format. */
+    started?: string | null;
+    /** Finish date, can be null, `yyyy-MM-dd` format. */
+    finished?: string | null;
+    notes?: string | null;
+    /**
+     * User labels assigned to this VN.
+     * Private labels are only listed when the user is authenticated.
+     */
+    labels?: ResponsePostUserListLabel[];
+    /** Visual novel info. */
+    vn?: ResponsePostUserListVisualNovel;
+    releases?: ResponsePostUserListRelease[];
 }
 
 export type ResponseGetUserListLabelsLabel = {
