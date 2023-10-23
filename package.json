@@ -1,6 +1,6 @@
 {
     "name": "vndb-query",
-    "version": "0.1.2",
+    "version": "0.1.6",
     "description": "VNDB HTTPS API with custom query builder",
     "author": {
         "name": "Andrew Ferreira",
@@ -21,7 +21,7 @@
         "query-builder"
     ],
     "private": false,
-    "main": "index.js",
+    "main": "dist/index.js",
     "scripts": {
         "build": "run-s rollup minify",
         "minify": "node scripts/minify.mjs",

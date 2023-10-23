@@ -1,3 +1,4 @@
+import type { MaybeArray } from './index';
 import type { QueryBuilder, QueryBuilderOperator } from '../src/query';
 
 export type QueryBuilderBaseFilterName<T extends RequestQueryEntryType> =
@@ -12,6 +13,9 @@ export type QueryBuilderBase<T extends RequestQueryEntryType> = {
     value: (value: any) => QueryBuilder<T>;
 }
 
+/**
+ * @see https://api.vndb.org/kana#query-format
+ */
 export type RequestQuery = {
     /**
      * Determine which database items to fetch.
@@ -36,7 +40,29 @@ export type RequestQuery = {
      * ```
      */
     filters?: string | any[];
-    fields?: string;
+    /**
+     * Comma-separated list or array of fields to fetch for each database item.
+     * Dot notation can be used to select nested JSON objects,
+     * e.g. `"image.url"` will select the url field inside the image object.
+     * 
+     * Multiple nested fields can be selected with brackets,
+     * e.g. `"image{id,url,dims}"` is equivalent to `"image.id, image.url, image.dims"`. 
+     * 
+     * Every field of interest must be explicitely mentioned, there is no support for wildcard matching.
+     * The same applies to nested objects, it is an error to list image without sub-fields in the example above. 
+     * 
+     * The top-level `id` field is always selected by default and does not have to be mentioned in this list.
+     * 
+     * @example
+     * ```
+     * // Comma-separated string.
+     * const list = "title, titles.main, image.url, developers.original";
+     * 
+     * // String array.
+     * const array = ["title", "titles.main", "image.url", "developers.original"];
+     * ```
+     */
+    fields?: MaybeArray<string>;
     /**
      * Field to sort on. Supported values depend on the type of data being queried and are documented separately. 
      */
@@ -52,6 +78,10 @@ export type RequestQuery = {
      * @see https://api.vndb.org/kana#pagination
      */
     page?: number;
+    /**
+     * User ID. This field is mainly used for `ulist`,
+     * but it also sets the default user ID to use for the visual novel `label` filter.
+     */
     user?: string;
     /**
      * Whether the response should include the count field.
@@ -98,7 +128,7 @@ export type RequestQueryFiltersVisualNovel =
     | 'staff'
     | 'developer';
 
-export type ResponseQuery<T = unknown> = {
+export type ResponseQuery<T = any> = {
     /** Array of objects representing the query results. */
     results: Array<T>;
     /**
@@ -115,10 +145,10 @@ export type ResponseQuery<T = unknown> = {
      * Only present if the query contained `"compact_filters": true`.
      * This is a compact string representation of the filters given in the query.
      */
-    compact_filters: string;
+    compact_filters?: string;
     /**
      * Only present if the query contained `"normalized_filters": true`.
      * This is a normalized JSON representation of the filters given in the query. 
      */
-    normalized_filters: string[];
+    normalized_filters?: string[];
 }

@@ -5,17 +5,22 @@ import type { ResponseAuthinfo, ResponseStats, User, ResponseUser } from '../typ
 
 const vndb = new VNDB();
 
-test.skip('stats', async () => {
+test('stats', async () => {
     const stats = await vndb.stats();
     assertType<ResponseStats>(stats);
 });
 
-test.skip('schema', async () => {
+test('stats with token', async () => {
+    const stats = await vndb.stats({ token: config.token });
+    assertType<ResponseStats>(stats);
+});
+
+test('schema', async () => {
     const schema = await vndb.schema();
     expectTypeOf(schema).toMatchTypeOf<Record<string, any>>();
 });
 
-test.skip('user', async () => {
+test('user', async () => {
     const user = await vndb.user([500, 'u135653', 'NoUserWithThisNameExists']);
 
     assertType<ResponseUser>(user);
@@ -28,7 +33,7 @@ test.skip('user', async () => {
     assertType<null>(user['NoUserWithThisNameExists']);
 });
 
-test.skip('user fields', async () => {
+test('user fields', async () => {
     const user = await vndb.user(
         [500, 'u135653', 'NoUserWithThisNameExists'],
         ['lengthvotes', 'lengthvotes_sum']
@@ -40,7 +45,7 @@ test.skip('user fields', async () => {
     expect(user['u135653']).toHaveProperty('lengthvotes_sum');
 });
 
-test.skip('authinfo', async () => {
+test('authinfo', async () => {
     const authinfo = await vndb.authinfo(config.token);
     assertType<ResponseAuthinfo>(authinfo);
 });

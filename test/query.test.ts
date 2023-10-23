@@ -42,9 +42,9 @@ test('query builder', () => {
 test('lock proxy', () => {
     const query = new QueryBuilder<'vn'>({ filters: 'some-compact-filter' });
     expect(() => query.f('anime_id')).toThrowError();
-})
+});
 
-test.skip('query', async () => {
+test('query', async () => {
     const query = new QueryBuilder<'vn'>({ fields: 'title', results: 5 });
     query
         .and(({ f, or }) => {
@@ -56,5 +56,17 @@ test.skip('query', async () => {
             f('olang').not.v('ja');
         })
     
-    console.log(await vndb.query(query));
-})
+    const { results } = await vndb.query(query);
+    expect(results).toHaveLength(5);
+});
+
+test('fields array', async () => {
+    const fields = ['title', 'titles.main', 'titles.title', 'image.url', 'developers.original'];
+    const query = new QueryBuilder<'vn'>({ fields });
+    query.f('id').eq.v('v2713');
+
+    const { results } = await vndb.query(query);
+    expect(results[0].title).toBe('Bishoujo');
+    expect(results[0].developers[0].original).toBe('たぬきそふと');
+    expect(results[0].titles[0].title).toBe('微少女');
+});
