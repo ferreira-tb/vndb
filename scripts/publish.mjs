@@ -9,7 +9,7 @@ try {
         tag_name: version,
         name: version,
         draft: false,
-        prerelease: true,
+        prerelease: false,
         generate_release_notes: true,
         owner: 'ferreira-tb',
         repo: 'vndb-query',
