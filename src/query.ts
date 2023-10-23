@@ -1,6 +1,6 @@
 import type {
     QueryBuilderBase,
-    QueryBuilderBaseFilterName,
+    QueryBuilderFilter,
     RequestQuery,
     RequestQueryEntryType
 } from '../typings';
@@ -11,9 +11,9 @@ export class QueryBuilder<T extends RequestQueryEntryType> implements QueryBuild
     
     private readonly operator: QueryBuilderOperator<T>;
     public readonly compactFilters: string | null;
-    public readonly options: Omit<RequestQuery, 'filters'>;
+    public readonly options: Omit<RequestQuery<T>, 'filters'>;
 
-    constructor(query: RequestQuery = {}) {
+    constructor(query: RequestQuery<T> = {}) {
         const { filters, ...options } = query;
         this.options = options;
 
@@ -32,8 +32,8 @@ export class QueryBuilder<T extends RequestQueryEntryType> implements QueryBuild
 
     public readonly and:(cb: (builder: QueryBuilderBase<T>) => void) => QueryBuilder<T> = this.proxify(this._and);
     public readonly or: (cb: (builder: QueryBuilderBase<T>) => void) => QueryBuilder<T> = this.proxify(this._or);
-    public readonly f: (name: QueryBuilderBaseFilterName<T>) => QueryBuilderOperator<T> = this.proxify(this._filter);
-    public readonly filter: (name: QueryBuilderBaseFilterName<T>) => QueryBuilderOperator<T> = this.proxify(this._filter);
+    public readonly f: (name: QueryBuilderFilter<T>) => QueryBuilderOperator<T> = this.proxify(this._filter);
+    public readonly filter: (name: QueryBuilderFilter<T>) => QueryBuilderOperator<T> = this.proxify(this._filter);
     public readonly v: (value: any) => QueryBuilder<T> = this.proxify(this._value);
     public readonly value: (value: any) => QueryBuilder<T> = this.proxify(this._value);
 
@@ -53,7 +53,7 @@ export class QueryBuilder<T extends RequestQueryEntryType> implements QueryBuild
         return this;
     }
 
-    private _filter(name: QueryBuilderBaseFilterName<T>) {
+    private _filter(name: QueryBuilderFilter<T>) {
         // Filters always start a new block.
         // Therefore, the value of the next index will always be 1.
         // e.g. ["lang", "=", "en"]

@@ -42,7 +42,7 @@ export class VNDB {
         fields = Array.isArray(fields) ? fields.join(',') : (fields ?? '');
         const filters = query.compactFilters ? query.compactFilters : query.toArray();
 
-        const body: RequestQuery = { ...queryOptions, fields, filters };
+        const body: RequestQuery<T> = { ...queryOptions, fields, filters };
         const request = new Request(VNDB.endpoint('vn'), {
             method: 'POST',
             headers,

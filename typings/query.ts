@@ -1,14 +1,11 @@
 import type { MaybeArray } from './index';
 import type { QueryBuilder, QueryBuilderOperator } from '../src/query';
 
-export type QueryBuilderBaseFilterName<T extends RequestQueryEntryType> =
-    T extends 'vn' ? RequestQueryFiltersVisualNovel : never;
-
 export type QueryBuilderBase<T extends RequestQueryEntryType> = {
     and: (cb: (builder: QueryBuilderBase<T>) => void) => QueryBuilder<T>;
     or: (cb: (builder: QueryBuilderBase<T>) => void) => QueryBuilder<T>;
-    f: (name: QueryBuilderBaseFilterName<T>) => QueryBuilderOperator<T>;
-    filter: (name: QueryBuilderBaseFilterName<T>) => QueryBuilderOperator<T>;
+    f: (name: QueryBuilderFilter<T>) => QueryBuilderOperator<T>;
+    filter: (name: QueryBuilderFilter<T>) => QueryBuilderOperator<T>;
     v: (value: any) => QueryBuilder<T>;
     value: (value: any) => QueryBuilder<T>;
 }
@@ -16,7 +13,7 @@ export type QueryBuilderBase<T extends RequestQueryEntryType> = {
 /**
  * @see https://api.vndb.org/kana#query-format
  */
-export type RequestQuery = {
+export type RequestQuery<T extends RequestQueryEntryType> = {
     /**
      * Determine which database items to fetch.
      * @see https://api.vndb.org/kana#filters
@@ -66,7 +63,7 @@ export type RequestQuery = {
     /**
      * Field to sort on. Supported values depend on the type of data being queried and are documented separately. 
      */
-    sort?: string;
+    sort?: QueryBuilderSort<T>;
     /** Set to true to sort in descending order. */
     reverse?: boolean;
     /** Number of results per page, max 100. Can also be set to 0 if you’re not interested in the results at all,
@@ -102,8 +99,10 @@ export type RequestQuery = {
     normalized_filters?: boolean;
 }
 
-export type RequestQueryEntryType = 'vn' | 'release' | 'producer' | 'character' | 'staff' | 'tag' | 'trait';
+/** @see https://api.vndb.org/kana#database-querying */
+export type RequestQueryEntryType = 'vn' | 'release' | 'producer' | 'character' | 'tag' | 'trait';
 
+/** @see https://api.vndb.org/kana#vn-filters */
 export type RequestQueryFiltersVisualNovel =
     | 'id'
     | 'search'
@@ -127,6 +126,129 @@ export type RequestQueryFiltersVisualNovel =
     | 'character'
     | 'staff'
     | 'developer';
+
+/** @see https://api.vndb.org/kana#release-filters */
+export type RequestQueryFiltersRelease =
+    | 'id'
+    | 'search'
+    | 'lang'
+    | 'platform'
+    | 'released'
+    | 'resolution'
+    | 'resolution_aspect'
+    | 'minage'
+    | 'medium'
+    | 'voiced'
+    | 'engine'
+    | 'rtype'
+    | 'extlink'
+    | 'patch'
+    | 'freeware'
+    | 'uncensored'
+    | 'official'
+    | 'has_ero'
+    | 'vn'
+    | 'producer';
+
+/** @see https://api.vndb.org/kana#producer-filters */
+export type RequestQueryFiltersProducer =
+    | 'id'
+    | 'search'
+    | 'lang'
+    | 'type';
+
+/** @see https://api.vndb.org/kana#character-filters */
+export type RequestQueryFiltersCharacter =
+    | 'id'
+    | 'search'
+    | 'role'
+    | 'blood_type'
+    | 'sex'
+    | 'height'
+    | 'weight'
+    | 'bust'
+    | 'waist'
+    | 'hips'
+    | 'cup'
+    | 'age'
+    | 'trait'
+    | 'dtrait'
+    | 'birthday'
+    | 'seiyuu'
+    | 'vn';
+
+/** @see https://api.vndb.org/kana#filters-1 */
+export type RequestQueryFiltersTag =
+    | 'id'
+    | 'search'
+    | 'category';
+
+/** @see https://api.vndb.org/kana#filters-2 */
+export type RequestQueryFiltersTrait =
+    | 'id'
+    | 'search';
+
+/** @see https://api.vndb.org/kana#post-vn */
+export type RequestQuerySortVisualNovel =
+    | 'id'
+    | 'title'
+    | 'released'
+    | 'rating'
+    | 'votecount'
+    | 'searchrank';
+
+/** @see https://api.vndb.org/kana#post-release */
+export type RequestQuerySortRelease =
+    | 'id'
+    | 'title'
+    | 'released'
+    | 'searchrank';
+
+/** @see https://api.vndb.org/kana#post-producer */
+export type RequestQuerySortProducer =
+    | 'id'
+    | 'name'
+    | 'searchrank';
+
+/** @see https://api.vndb.org/kana#post-tag */
+export type RequestQuerySortTag =
+    | 'id'
+    | 'name'
+    | 'vn_count'
+    | 'searchrank';
+
+/** @see https://api.vndb.org/kana#post-trait */
+export type RequestQuerySortTrait =
+    | 'id'
+    | 'name'
+    | 'char_count'
+    | 'searchrank';
+
+/** @see https://api.vndb.org/kana#post-character */
+export type RequestQuerySortCharacter =
+    | 'id'
+    | 'name'
+    | 'searchrank';
+
+/** @see https://api.vndb.org/kana#database-querying */
+export type QueryBuilderFilter<T extends RequestQueryEntryType> =
+    T extends 'vn' ? RequestQueryFiltersVisualNovel :
+    T extends 'release' ? RequestQueryFiltersRelease :
+    T extends 'producer' ? RequestQueryFiltersProducer :
+    T extends 'character' ? RequestQueryFiltersCharacter :
+    T extends 'tag' ? RequestQueryFiltersTag :
+    T extends 'trait' ? RequestQueryFiltersTrait :
+    never;
+
+/** @see https://api.vndb.org/kana#database-querying */
+export type QueryBuilderSort<T extends RequestQueryEntryType> =
+    T extends 'vn' ? RequestQuerySortVisualNovel :
+    T extends 'release' ? RequestQuerySortRelease :
+    T extends 'producer' ? RequestQuerySortProducer :
+    T extends 'character' ? RequestQuerySortCharacter :
+    T extends 'tag' ? RequestQuerySortTag :
+    T extends 'trait' ? RequestQuerySortTrait :
+    never;
 
 export type ResponseQuery<T = any> = {
     /** Array of objects representing the query results. */
