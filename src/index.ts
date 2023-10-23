@@ -7,6 +7,7 @@ import type {
     RequestQueryEntryType,
     RequestUserOptionalFields,
     ResponseAuthinfo,
+    ResponseQuery,
     ResponseStats,
     ResponseUser
 } from '../typings';
@@ -37,15 +38,18 @@ export class VNDB {
         const headers = this.headers(options.token);
         headers.append('Content-Type', 'application/json');
 
+        let { fields, ...queryOptions } = query.options;
+        fields = Array.isArray(fields) ? fields.join(',') : (fields ?? '');
         const filters = query.compactFilters ? query.compactFilters : query.toArray();
-        const body: RequestQuery = { filters, ...query.options };
+
+        const body: RequestQuery = { ...queryOptions, fields, filters };
         const request = new Request(VNDB.endpoint('vn'), {
             method: 'POST',
             headers,
             body: JSON.stringify(body, null, 0)
         });
 
-        return this.json(request);
+        return this.json<ResponseQuery>(request);
     }
 
     /**
