@@ -1,10 +1,32 @@
-import type { MaybeArray, RequestBasicOptions } from './index';
+import type { MaybeArray } from './index';
 import type { QueryBuilder, QueryBuilderOperator } from '../src/query';
+import type {
+    RequestPostCharacterFilters,
+    RequestPostCharacterSort,
+    RequestPostProducerFilters,
+    RequestPostProducerSort,
+    RequestPostReleaseFilters,
+    RequestPostReleaseSort,
+    RequestPostTagFilters,
+    RequestPostTagSort,
+    RequestPostTraitFilters,
+    RequestPostTraitSort,
+    RequestPostUserListFilters,
+    RequestPostUserListSort,
+    RequestPostVisualNovelFilters,
+    RequestPostVisualNovelSort
+} from './request';
+import type {
+    ResponsePostCharacter,
+    ResponsePostProducer,
+    ResponsePostRelease,
+    ResponsePostTag,
+    ResponsePostTrait,
+    ResponsePostUserList,
+    ResponsePostVisualNovel
+} from './response';
 
-export type RequestQueryFunctionType<T extends RequestQueryEntryType> =
-    (query: QueryBuilder<T>, options?: RequestBasicOptions) => Promise<ResponseQuery>;
-
-export type QueryBuilderBase<T extends RequestQueryEntryType> = {
+export type QueryBuilderBase<T extends QueryBuilderEndpoint> = {
     and: (cb: (builder: QueryBuilderBase<T>) => void) => QueryBuilder<T>;
     or: (cb: (builder: QueryBuilderBase<T>) => void) => QueryBuilder<T>;
     f: (name: QueryBuilderFilter<T>) => QueryBuilderOperator<T>;
@@ -16,7 +38,7 @@ export type QueryBuilderBase<T extends RequestQueryEntryType> = {
 /**
  * @see https://api.vndb.org/kana#query-format
  */
-export type RequestQuery<T extends RequestQueryEntryType> = {
+export type QueryBuilderOptions<T extends QueryBuilderEndpoint> = {
     /**
      * Determine which database items to fetch.
      * @see https://api.vndb.org/kana#filters
@@ -102,184 +124,44 @@ export type RequestQuery<T extends RequestQueryEntryType> = {
     normalized_filters?: boolean;
 }
 
-/** @see https://api.vndb.org/kana#post-ulist */
-export type RequestQueryUserList =
-    Omit<RequestQuery<'ulist'>, 'user'> & Pick<Required<RequestQuery<'ulist'>>, 'user'>;
+/** @see https://api.vndb.org/kana#database-querying */
+export type QueryBuilderEndpoint = 'vn' | 'release' | 'producer' | 'character' | 'tag' | 'trait' | 'ulist';
 
 /** @see https://api.vndb.org/kana#database-querying */
-export type RequestQueryEntryType = 'vn' | 'release' | 'producer' | 'character' | 'tag' | 'trait' | 'ulist';
-
-/** @see https://api.vndb.org/kana#vn-filters */
-export type RequestQueryFiltersVisualNovel =
-    | 'id'
-    | 'search'
-    | 'lang'
-    | 'olang'
-    | 'platform'
-    | 'length'
-    | 'released'
-    | 'rating'
-    | 'votecount'
-    | 'has_description'
-    | 'has_anime'
-    | 'has_screenshot'
-    | 'has_review'
-    | 'devstatus'
-    | 'tag'
-    | 'dtag'
-    | 'anime_id'
-    | 'label'
-    | 'release'
-    | 'character'
-    | 'staff'
-    | 'developer';
-
-/** @see https://api.vndb.org/kana#release-filters */
-export type RequestQueryFiltersRelease =
-    | 'id'
-    | 'search'
-    | 'lang'
-    | 'platform'
-    | 'released'
-    | 'resolution'
-    | 'resolution_aspect'
-    | 'minage'
-    | 'medium'
-    | 'voiced'
-    | 'engine'
-    | 'rtype'
-    | 'extlink'
-    | 'patch'
-    | 'freeware'
-    | 'uncensored'
-    | 'official'
-    | 'has_ero'
-    | 'vn'
-    | 'producer';
-
-/** @see https://api.vndb.org/kana#producer-filters */
-export type RequestQueryFiltersProducer =
-    | 'id'
-    | 'search'
-    | 'lang'
-    | 'type';
-
-/** @see https://api.vndb.org/kana#character-filters */
-export type RequestQueryFiltersCharacter =
-    | 'id'
-    | 'search'
-    | 'role'
-    | 'blood_type'
-    | 'sex'
-    | 'height'
-    | 'weight'
-    | 'bust'
-    | 'waist'
-    | 'hips'
-    | 'cup'
-    | 'age'
-    | 'trait'
-    | 'dtrait'
-    | 'birthday'
-    | 'seiyuu'
-    | 'vn';
-
-/** @see https://api.vndb.org/kana#filters-1 */
-export type RequestQueryFiltersTag =
-    | 'id'
-    | 'search'
-    | 'category';
-
-/** @see https://api.vndb.org/kana#filters-2 */
-export type RequestQueryFiltersTrait =
-    | 'id'
-    | 'search';
-
-/** @see https://api.vndb.org/kana#post-ulist */
-export type RequestQueryFiltersUserList = RequestQueryFiltersVisualNovel;
-
-/** @see https://api.vndb.org/kana#post-vn */
-export type RequestQuerySortVisualNovel =
-    | 'id'
-    | 'title'
-    | 'released'
-    | 'rating'
-    | 'votecount'
-    | 'searchrank';
-
-/** @see https://api.vndb.org/kana#post-release */
-export type RequestQuerySortRelease =
-    | 'id'
-    | 'title'
-    | 'released'
-    | 'searchrank';
-
-/** @see https://api.vndb.org/kana#post-producer */
-export type RequestQuerySortProducer =
-    | 'id'
-    | 'name'
-    | 'searchrank';
-
-/** @see https://api.vndb.org/kana#post-tag */
-export type RequestQuerySortTag =
-    | 'id'
-    | 'name'
-    | 'vn_count'
-    | 'searchrank';
-
-/** @see https://api.vndb.org/kana#post-trait */
-export type RequestQuerySortTrait =
-    | 'id'
-    | 'name'
-    | 'char_count'
-    | 'searchrank';
-
-/** @see https://api.vndb.org/kana#post-character */
-export type RequestQuerySortCharacter =
-    | 'id'
-    | 'name'
-    | 'searchrank';
-
-/** @see https://api.vndb.org/kana#post-ulist */
-export type RequestQuerySortUserList =
-    | 'id'
-    | 'title'
-    | 'released'
-    | 'rating'
-    | 'votecount'
-    | 'voted'
-    | 'vote'
-    | 'added'
-    | 'lastmod'
-    | 'started'
-    | 'finished'
-    | 'searchrank';
-
-/** @see https://api.vndb.org/kana#database-querying */
-export type QueryBuilderFilter<T extends RequestQueryEntryType> =
-    T extends 'vn' ? RequestQueryFiltersVisualNovel :
-    T extends 'release' ? RequestQueryFiltersRelease :
-    T extends 'producer' ? RequestQueryFiltersProducer :
-    T extends 'character' ? RequestQueryFiltersCharacter :
-    T extends 'tag' ? RequestQueryFiltersTag :
-    T extends 'trait' ? RequestQueryFiltersTrait :
-    T extends 'ulist' ? RequestQueryFiltersUserList :
+export type QueryBuilderFilter<T extends QueryBuilderEndpoint> =
+    T extends 'vn' ? RequestPostVisualNovelFilters :
+    T extends 'release' ? RequestPostReleaseFilters :
+    T extends 'producer' ? RequestPostProducerFilters :
+    T extends 'character' ? RequestPostCharacterFilters :
+    T extends 'tag' ? RequestPostTagFilters :
+    T extends 'trait' ? RequestPostTraitFilters :
+    T extends 'ulist' ? RequestPostUserListFilters :
     never;
 
 /** @see https://api.vndb.org/kana#database-querying */
-export type QueryBuilderSort<T extends RequestQueryEntryType> =
-    T extends 'vn' ? RequestQuerySortVisualNovel :
-    T extends 'release' ? RequestQuerySortRelease :
-    T extends 'producer' ? RequestQuerySortProducer :
-    T extends 'character' ? RequestQuerySortCharacter :
-    T extends 'tag' ? RequestQuerySortTag :
-    T extends 'trait' ? RequestQuerySortTrait :
-    T extends 'ulist' ? RequestQuerySortUserList :
+export type QueryBuilderSort<T extends QueryBuilderEndpoint> =
+    T extends 'vn' ? RequestPostVisualNovelSort :
+    T extends 'release' ? RequestPostReleaseSort :
+    T extends 'producer' ? RequestPostProducerSort :
+    T extends 'character' ? RequestPostCharacterSort :
+    T extends 'tag' ? RequestPostTagSort :
+    T extends 'trait' ? RequestPostTraitSort :
+    T extends 'ulist' ? RequestPostUserListSort :
     never;
 
-export type ResponseQuery<T = any> = {
+export type QueryBuilderResponseResult<T extends QueryBuilderEndpoint> =
+    T extends 'vn' ? ResponsePostVisualNovel :
+    T extends 'release' ? ResponsePostRelease :
+    T extends 'producer' ? ResponsePostProducer :
+    T extends 'character' ? ResponsePostCharacter :
+    T extends 'tag' ? ResponsePostTag :
+    T extends 'trait' ? ResponsePostTrait :
+    T extends 'ulist' ? ResponsePostUserList :
+    never;
+
+export type QueryBuilderResponse<T extends QueryBuilderEndpoint> = {
     /** Array of objects representing the query results. */
-    results: Array<T>;
+    results: QueryBuilderResponseResult<T>[];
     /**
      * When `true`, repeating the query with an incremented page number will yield more results.
      * This is a cheaper form of pagination than using the `count` field. 
