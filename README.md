@@ -23,7 +23,7 @@ console.log(results);
 ```
 
 ## Documentation
-To check out docs, visit [tb.dev.br/vndb-query](https://tb.dev.br/vndb-query/).
+To check out docs, visit [tb.dev.br/vndb-query](https://tb.dev.br/vndb-query/api/getting-started.html).
 
 ## License
 [MIT](https://github.com/ferreira-tb/vndb-query/blob/main/LICENSE)
