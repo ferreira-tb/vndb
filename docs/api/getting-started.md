@@ -9,6 +9,12 @@ You can use VNDB Query to create applications, browser extensions or simply for 
 npm install --save vndb-query
 ```
 
+Alternatively, you can use VNDB Query directly from a CDN via a script tag:
+```html
+<script src="https://unpkg.com/vndb-query"></script>
+```
+Here we are using [unpkg](https://unpkg.com/), but you can also use any other CDN that serves npm packages. Of course, you can also download this file and serve it yourself.
+
 ### Prerequisites
 VNDB Query can be used in any javascript environment, such as browsers and [Node.js](https://nodejs.org/), as long as it supports [private class features](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Classes/Private_class_fields#browser_compatibility) and [proxies](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Proxy#browser_compatibility).
 
