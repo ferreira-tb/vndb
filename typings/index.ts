@@ -16,5 +16,7 @@ export type VNDBEndpoint =
     | 'tag'
     | 'trait'
     | 'ulist'
+    | `ulist/${string}`
     | 'ulist_labels'
-    | 'rlist';
+    | 'rlist'
+    | `rlist/${string}`;

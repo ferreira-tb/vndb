@@ -1,7 +1,7 @@
 import { assertType, expect, test } from 'vitest';
 import { QueryBuilder, VNDB } from '../src';
 import type { ResponseGetUserListLabelsLabel } from '../typings';
-// import config from '../config.json' assert { type: 'json' };
+import config from '../config.json' assert { type: 'json' };
 
 const vndb = new VNDB();
 
@@ -27,4 +27,30 @@ test('GET /ulist_labels', async () => {
     const { labels } = await vndb.get.ulistLabels('u2', 'count');
     expect(labels[0]).toHaveProperty('count');
     assertType<ResponseGetUserListLabelsLabel>(labels[0]);
+});
+
+test('PATCH /ulist/<id>', async () => {
+    const response = await vndb.patch.ulist('v2713', {
+        token: config.token,
+        vote: 100,
+        notes: new Date().toLocaleString()
+    });
+
+    expect(response.ok).toBe(true);
+});
+
+test('DELETE /ulist/<id>', async () => {
+    const response = await vndb.delete.ulist('v1', {
+        token: config.token
+    });
+
+    expect(response.ok).toBe(true);
+});
+
+test('DELETE /rlist/<id>', async () => {
+    const response = await vndb.patch.ulist('v1', {
+        token: config.token
+    });
+
+    expect(response.ok).toBe(true);
 });

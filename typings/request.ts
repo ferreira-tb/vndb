@@ -1,9 +1,13 @@
-export type RequestBasicOptions = {
+import type { ResponsePostUserListRelease } from './response';
+
+export type RequestWithToken = {
     /**
      * @see https://api.vndb.org/kana#user-authentication
      */
-    token?: string;
+    token: string;
 }
+
+export type RequestBasicOptions = Partial<RequestWithToken>;
 
 export type RequestGetUserFields = 'lengthvotes' | 'lengthvotes_sum';
 
@@ -152,3 +156,57 @@ export type RequestPostUserListSort =
     | 'started'
     | 'finished'
     | 'searchrank';
+
+export type RequestDeletePatchUserListGenericOptions<T extends 'u' | 'r', U extends 'DELETE' | 'PATCH'> =
+    U extends 'PATCH' ? (T extends 'u' ? RequestPatchUserList : RequestPatchUserListReleaseList) :
+    U extends 'DELETE' ? (T extends 'u' ? RequestDeleteUserList : RequestDeleteUserListReleaseList) :
+    never;
+
+/**
+ * All members are be optional (except the token), missing members are not modified.
+ * A `null` value can be used to unset a field (except for labels).
+ * 
+ * The virtual labels with id 0 (“No label”) and 7 (“Voted”) can not be set.
+ * The “voted” label is automatically added/removed based on the vote field.
+ * 
+ * **Wonky behavior alert:** this API does not verify label ids and lets you add non-existent labels.
+ * These are not displayed on the website and not returned by `POST /ulist`,
+ * but they’re still stored in the database and may magically show up if a label with that id is created in the future.
+ * Don’t rely on this behavior, it’s a bug.
+ * 
+ * **More wonky behavior:** the website automatically unsets the other
+ * Playing/Finished/Stalled/Dropped labels when you select one of those,
+ * but this is not enforced server-side and the API lets you set all labels at the same time.
+ * This is totally not a bug.
+ * 
+ * **Slightly unintuitive behavior alert:**
+ * this API always adds the visual novel to the user’s list if it’s not already present.
+ * Use `DELETE` if you want to remove a VN from the list.
+ * 
+ * @see https://api.vndb.org/kana#patch-ulistid
+ */
+export type RequestPatchUserList = RequestWithToken & {
+    /** Integer between 10 and 100. */
+    vote?: number;
+    notes?: string;
+    started?: Date;
+    finished?: Date;
+    /**
+     * Array of integers, label ids.
+     * Setting this will overwrite any existing labels assigned to the VN with the given array.
+     */
+    labels?: number[];
+    /**
+     * Array of label ids to add to the VN, any already existing labels will be unaffected.
+     */
+    labels_set?: number[];
+    /** Array of label ids to remove from the VN. */
+    labels_unset?: number[];
+}
+
+export type RequestPatchUserListReleaseList = RequestWithToken & {
+    status?: ResponsePostUserListRelease['list_status'];
+}
+
+export type RequestDeleteUserList = RequestWithToken;
+export type RequestDeleteUserListReleaseList = RequestWithToken;
