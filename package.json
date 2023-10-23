@@ -23,9 +23,10 @@
     "private": false,
     "main": "dist/index.js",
     "scripts": {
-        "build": "run-s rollup minify",
-        "minify": "node scripts/minify.mjs",
+        "build": "run-s rollup script:minify",
         "rollup": "rollup --config rollup.config.ts --configPlugin typescript={tsconfig:'tsconfig.rollup.json'}",
+        "script:minify": "node scripts/minify.mjs",
+        "script:publish": "node scripts/publish.mjs",
         "taze": "npx taze -w -f",
         "test": "vitest",
         "test:ui": "vitest --ui"
