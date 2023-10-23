@@ -13,9 +13,9 @@ export class QueryBuilder<T extends RequestQueryEntryType> implements QueryBuild
     public readonly compactFilters: string | null;
     public readonly options: Omit<RequestQuery<T>, 'filters'>;
 
-    constructor(query: RequestQuery<T> = {}) {
-        const { filters, ...options } = query;
-        this.options = options;
+    constructor(options: RequestQuery<T> = {}) {
+        const { filters, ...members } = options;
+        this.options = members;
 
         if (typeof filters === 'string' && filters.length > 0) {
             this.compactFilters = filters;

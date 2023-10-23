@@ -4,7 +4,7 @@ export default defineConfig({
     test: {
         globals: false,
         environment: 'node',
-        watch: true,
+        watch: false,
         typecheck: {
             tsconfig: './tsconfig.json'
         }
