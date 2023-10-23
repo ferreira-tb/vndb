@@ -15,6 +15,7 @@ test('POST /vn', async () => {
             f('olang').not.v('ja');
         })
     
+        console.log(query.toArray());
     const { results } = await vndb.vn(query);
     expect(results).toHaveLength(5);
 });
