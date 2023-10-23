@@ -1,5 +1,8 @@
-import type { MaybeArray } from './index';
+import type { MaybeArray, RequestBasicOptions } from './index';
 import type { QueryBuilder, QueryBuilderOperator } from '../src/query';
+
+export type RequestQueryFunctionType<T extends RequestQueryEntryType> =
+    (query: QueryBuilder<T>, options?: RequestBasicOptions) => Promise<ResponseQuery>;
 
 export type QueryBuilderBase<T extends RequestQueryEntryType> = {
     and: (cb: (builder: QueryBuilderBase<T>) => void) => QueryBuilder<T>;
@@ -99,8 +102,12 @@ export type RequestQuery<T extends RequestQueryEntryType> = {
     normalized_filters?: boolean;
 }
 
+/** @see https://api.vndb.org/kana#post-ulist */
+export type RequestQueryUserList =
+    Omit<RequestQuery<'ulist'>, 'user'> & Pick<Required<RequestQuery<'ulist'>>, 'user'>;
+
 /** @see https://api.vndb.org/kana#database-querying */
-export type RequestQueryEntryType = 'vn' | 'release' | 'producer' | 'character' | 'tag' | 'trait';
+export type RequestQueryEntryType = 'vn' | 'release' | 'producer' | 'character' | 'tag' | 'trait' | 'ulist';
 
 /** @see https://api.vndb.org/kana#vn-filters */
 export type RequestQueryFiltersVisualNovel =
@@ -188,6 +195,9 @@ export type RequestQueryFiltersTrait =
     | 'id'
     | 'search';
 
+/** @see https://api.vndb.org/kana#post-ulist */
+export type RequestQueryFiltersUserList = RequestQueryFiltersVisualNovel;
+
 /** @see https://api.vndb.org/kana#post-vn */
 export type RequestQuerySortVisualNovel =
     | 'id'
@@ -230,6 +240,21 @@ export type RequestQuerySortCharacter =
     | 'name'
     | 'searchrank';
 
+/** @see https://api.vndb.org/kana#post-ulist */
+export type RequestQuerySortUserList =
+    | 'id'
+    | 'title'
+    | 'released'
+    | 'rating'
+    | 'votecount'
+    | 'voted'
+    | 'vote'
+    | 'added'
+    | 'lastmod'
+    | 'started'
+    | 'finished'
+    | 'searchrank';
+
 /** @see https://api.vndb.org/kana#database-querying */
 export type QueryBuilderFilter<T extends RequestQueryEntryType> =
     T extends 'vn' ? RequestQueryFiltersVisualNovel :
@@ -238,6 +263,7 @@ export type QueryBuilderFilter<T extends RequestQueryEntryType> =
     T extends 'character' ? RequestQueryFiltersCharacter :
     T extends 'tag' ? RequestQueryFiltersTag :
     T extends 'trait' ? RequestQueryFiltersTrait :
+    T extends 'ulist' ? RequestQueryFiltersUserList :
     never;
 
 /** @see https://api.vndb.org/kana#database-querying */
@@ -248,6 +274,7 @@ export type QueryBuilderSort<T extends RequestQueryEntryType> =
     T extends 'character' ? RequestQuerySortCharacter :
     T extends 'tag' ? RequestQuerySortTag :
     T extends 'trait' ? RequestQuerySortTrait :
+    T extends 'ulist' ? RequestQuerySortUserList :
     never;
 
 export type ResponseQuery<T = any> = {
