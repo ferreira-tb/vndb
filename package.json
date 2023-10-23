@@ -24,6 +24,7 @@
     "main": "dist/index.js",
     "scripts": {
         "build": "run-s rollup script:minify",
+        "prepare": "husky install",
         "rollup": "rollup --config rollup.config.ts --configPlugin typescript={tsconfig:'tsconfig.rollup.json'}",
         "script:minify": "node scripts/minify.mjs",
         "script:publish": "node scripts/publish.mjs",
