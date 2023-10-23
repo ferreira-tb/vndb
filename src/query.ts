@@ -1,19 +1,19 @@
 import type {
     QueryBuilderBase,
     QueryBuilderFilter,
-    RequestQuery,
-    RequestQueryEntryType
+    QueryBuilderOptions,
+    QueryBuilderEndpoint
 } from '../typings';
 
-export class QueryBuilder<T extends RequestQueryEntryType> implements QueryBuilderBase<T> {
+export class QueryBuilder<T extends QueryBuilderEndpoint> implements QueryBuilderBase<T> {
     private readonly filters: any[] = [];
     private readonly indexMap: IndexMap;
     
     private readonly operator: QueryBuilderOperator<T>;
     public readonly compactFilters: string | null;
-    public readonly options: Omit<RequestQuery<T>, 'filters'>;
+    public readonly options: Omit<QueryBuilderOptions<T>, 'filters'>;
 
-    constructor(options: RequestQuery<T> = {}) {
+    constructor(options: QueryBuilderOptions<T> = {}) {
         const { filters, ...members } = options;
         this.options = members;
 
@@ -167,7 +167,7 @@ export class QueryBuilder<T extends RequestQueryEntryType> implements QueryBuild
     }
 }
 
-class QueryBuilderOperator<T extends RequestQueryEntryType> {
+class QueryBuilderOperator<T extends QueryBuilderEndpoint> {
     declare public readonly eq: QueryBuilder<T>;
     declare public readonly equal: QueryBuilder<T>;
     declare public readonly not: QueryBuilder<T>;

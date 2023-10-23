@@ -1,51 +1,55 @@
-import { expect, expectTypeOf, test, assertType } from 'vitest';
-import { VNDB } from '../src';
-import config from '../config.json' assert { type: 'json' };
-import type { ResponseAuthinfo, ResponseStats, User, ResponseUser } from '../typings';
+import { expect, test } from 'vitest';
+import { QueryBuilder, VNDB } from '../src';
 
 const vndb = new VNDB();
 
-test('stats', async () => {
-    const stats = await vndb.stats();
-    assertType<ResponseStats>(stats);
+test('query builder', () => {
+    const query = new QueryBuilder();
+    query
+        .and(({ f, or }) => {
+            or(() => {
+                f('lang').eq.v('en');
+                f('lang').eq.v('de');
+                f('lang').eq.v('fr');
+            });
+        
+            f('olang').not.v('ja');
+            f('release').eq.and(() => {
+                f('released').gte.v('2020-01-01');
+                f('anime_id').eq.f('dtag').eq.v('p30');
+            });
+        });
+
+    const example = [
+        'and',
+            ['or',
+                ['lang', '=', 'en'],
+                ['lang', '=', 'de'],
+                ['lang', '=', 'fr']
+            ],
+            ['olang', '!=', 'ja'],
+            ['release', '=', ['and',
+                    ['released', '>=', '2020-01-01'],
+                    ['anime_id', '=', ['dtag', '=', 'p30']]
+                ]
+            ]
+        ];
+
+    expect(query.toArray()).toEqual(example);
 });
 
-test('stats with token', async () => {
-    const stats = await vndb.stats({ token: config.token });
-    assertType<ResponseStats>(stats);
+test('lock proxy', () => {
+    const query = new QueryBuilder({ filters: 'some-compact-filter' });
+    expect(() => query.f('anime_id')).toThrowError();
 });
 
-test('schema', async () => {
-    const schema = await vndb.schema();
-    expectTypeOf(schema).toMatchTypeOf<Record<string, any>>();
-});
+test('fields as array', async () => {
+    const fields = ['title', 'titles.main', 'titles.title', 'image.url', 'developers.original'];
+    const query = new QueryBuilder({ fields });
+    query.f('id').eq.v('v2713');
 
-test('user', async () => {
-    const user = await vndb.user([500, 'u135653', 'NoUserWithThisNameExists']);
-
-    assertType<ResponseUser>(user);
-    expect(user['u135653']).toHaveProperty('username');
-    expect(user['u135653']).not.toHaveProperty('lengthvotes');
-
-    // @ts-expect-error
-    assertType<User>(user['u135653']);
-    // @ts-expect-error
-    assertType<null>(user['NoUserWithThisNameExists']);
-});
-
-test('user fields', async () => {
-    const user = await vndb.user(
-        [500, 'u135653', 'NoUserWithThisNameExists'],
-        ['lengthvotes', 'lengthvotes_sum']
-    );
-
-    assertType<ResponseUser>(user);
-    expect(user['u135653']).toHaveProperty('username');
-    expect(user['u135653']).toHaveProperty('lengthvotes');
-    expect(user['u135653']).toHaveProperty('lengthvotes_sum');
-});
-
-test('authinfo', async () => {
-    const authinfo = await vndb.authinfo(config.token);
-    assertType<ResponseAuthinfo>(authinfo);
+    const { results } = await vndb.post.vn(query);
+    expect(results[0].title).toBe('Bishoujo');
+    expect(results?.[0].developers?.[0].original).toBe('たぬきそふと');
+    expect(results?.[0].titles?.[0].title).toBe('微少女');
 });
