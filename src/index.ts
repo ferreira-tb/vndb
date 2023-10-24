@@ -22,7 +22,7 @@ export class VNDB {
          * Remove a visual novel from the user’s list. Returns success even if the VN is not on the user’s list.
          * Removing a VN also removes any associated releases from the user’s list.
          */
-        ulist: this.#patchUserList('u', 'DELETE'),
+        ulist: this.#ulist('u', 'DELETE'),
 
         /**
          * Remove a release from the user’s list. Returns success even if the release is not on the user’s list.
@@ -30,7 +30,7 @@ export class VNDB {
          * Removing a release does not remove the associated visual novels from the user’s visual novel list,
          * that requires separate calls to `DELETE /ulist/<id>`.
          */
-        rlist: this.#patchUserList('r', 'DELETE')
+        rlist: this.#ulist('r', 'DELETE')
     }
 
     readonly #get = {
@@ -107,13 +107,13 @@ export class VNDB {
          * if they aren’t in the list yet.
          * @see https://api.vndb.org/kana#patch-rlistid
          */
-        rlist: this.#patchUserList('r', 'PATCH'),
+        rlist: this.#ulist('r', 'PATCH'),
 
         /**
          * Add or update a visual novel in the user’s list. Requires the `listwrite` permission.
          * @see https://api.vndb.org/kana#patch-ulistid
          */
-        ulist: this.#patchUserList('u', 'PATCH')
+        ulist: this.#ulist('u', 'PATCH')
     }
 
     readonly #post = {
@@ -271,25 +271,6 @@ export class VNDB {
         return response.json();
     }
 
-    #patchUserList<T extends 'u' | 'r', U extends 'DELETE' | 'PATCH'>(prefix: T, method: U) {
-        return (
-            id: string,
-            options: RequestDeletePatchUserListGenericOptions<T, U>
-        ) => {
-            const { token, ...data } = options;
-            const headers = this.#headers(token);
-            if (method === 'PATCH') headers.append('Content-Type', 'application/json');
-
-            const request = new Request(VNDB.endpoint(`${prefix}list/${id}`), {
-                method,
-                headers,
-                body: JSON.stringify(data, null, 0)
-            });
-
-            return fetch(request);
-        }
-    }
-
     #query<T extends QueryBuilderEndpoint>(endpoint: T) {
         return (query: QueryBuilder<T>, options: RequestBasicOptions = {}): Promise<QueryBuilderResponse<T>> => {
             const headers = this.#headers(options.token);
@@ -307,6 +288,25 @@ export class VNDB {
             });
 
             return this.#json(request);
+        }
+    }
+
+    #ulist<T extends 'u' | 'r', U extends 'DELETE' | 'PATCH'>(prefix: T, method: U) {
+        return (
+            id: string,
+            options: RequestDeletePatchUserListGenericOptions<T, U>
+        ) => {
+            const { token, ...data } = options;
+            const headers = this.#headers(token);
+            if (method === 'PATCH') headers.append('Content-Type', 'application/json');
+
+            const request = new Request(VNDB.endpoint(`${prefix}list/${id}`), {
+                method,
+                headers,
+                body: JSON.stringify(data, null, 0)
+            });
+
+            return fetch(request);
         }
     }
 

@@ -7,6 +7,10 @@ export default defineConfig({
     lang: 'en',
     lastUpdated: true,
 
+    head: [
+        ['script', { src: 'https://unpkg.com/vndb-query/dist/index.umd.js' }]
+    ],
+
     themeConfig: {
         nav: [
             { text: 'Guide', link: '/api/getting-started', activeMatch: '/api/getting-started' }
