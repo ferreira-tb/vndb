@@ -35,6 +35,12 @@ export type QueryBuilderBase<T extends QueryBuilderEndpoint> = {
     value: (value: any) => QueryBuilder<T>;
 }
 
+export type QueryBuilderInternalPush = (
+    value: any,
+    depthFn: ((depth: number) => number) | null,
+    indexFn: ((index: number) => number) | null
+) => void;
+
 /**
  * @see https://api.vndb.org/kana#query-format
  */
