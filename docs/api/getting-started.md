@@ -1,7 +1,3 @@
-<script setup>
-import JSFiddle from '../components/JSFiddle.vue';
-</script>
-
 # Getting Started
 VNDB Query is a tool designed to help you interact with the VNDB database via its [HTTPS API](https://api.vndb.org/kana). For this purpose, it has a [query builder](./query-builder.md) created specifically to build queries for the VNDB API.
 
@@ -48,6 +44,3 @@ console.log(results);
 ::: tip TYPESCRIPT
 Thanks to [TypeScript](https://www.typescriptlang.org/), VNDB Query provides detailed typing for each VNDB enpoint, drastically reducing the need to consult the VNDB documentation. And that's even if you don't use it!
 :::
-
-## Try Online
-<JSFiddle />

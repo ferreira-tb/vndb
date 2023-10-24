@@ -14,3 +14,9 @@ hero:
       text: View on GitHub
       link: https://github.com/ferreira-tb/vndb-query
 ---
+
+<script setup>
+import JSFiddle from './components/JSFiddle.vue';
+</script>
+
+<JSFiddle />

@@ -13,7 +13,8 @@ export default defineConfig({
 
     themeConfig: {
         nav: [
-            { text: 'Guide', link: '/api/getting-started', activeMatch: '/api/getting-started' }
+            { text: 'Guide', link: '/api/getting-started', activeMatch: '/api/getting-started' },
+            { text: 'Playground', link: 'https://jsfiddle.net/ferreiratb/0Lezvkfa/27/' }
         ],
         
         sidebar: {

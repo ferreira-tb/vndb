@@ -1,11 +1,30 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+interface Props {
+    width?: string;
+    height?: string;
+}
+
+withDefaults(defineProps<Props>(), {
+    width: '60%',
+    height: '400px'
+});
+</script>
 
 <template>
-    <iframe
-        width="100%"
-        height="500"
-        src="//jsfiddle.net/ferreiratb/0Lezvkfa/21/embedded/result,html,css/dark/"
-        frameborder="0"
-    >
-    </iframe>
+    <div :class="$style['js-fiddle']">
+        <iframe
+            src="//jsfiddle.net/ferreiratb/0Lezvkfa/27/embedded/result,js,html,css/dark/"
+            :width="width"
+            :height="height"
+            frameborder="0"
+        >
+        </iframe>
+    </div>
 </template>
+
+<style module lang="scss">
+.js-fiddle {
+    display: flex;
+    justify-content: center;
+}
+</style>
