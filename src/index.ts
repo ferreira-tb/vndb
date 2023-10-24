@@ -311,6 +311,15 @@ export class VNDB {
     }
 
     // Static
+    public static readonly regex = {
+        character: /c\d+/,
+        producer: /p\d+/,
+        release: /r\d+/,
+        tag: /g\d+/,
+        trait: /i\d+/,
+        vn: /v\d+/
+    }
+
     public static endpoint(input?: VNDBEndpoint) {
         return new URL(`https://api.vndb.org/kana/${input ?? ''}`);
     }
