@@ -20,7 +20,7 @@ export default defineConfig({
 			},
 			{
 				text: 'Guide',
-				link: '/api'
+				link: '/api/index.html'
 			},
 			{
 				text: 'Playground',

@@ -14,7 +14,7 @@ jobs:
       with:
         node-version: '20.x'
 
-    - run: npm install vitepress sass typescript typedoc && npm run docs:build && npx typedoc
+    - run: npm install vitepress typescript typedoc && npm run docs:build && npx typedoc
 
     - uses: crazy-max/ghaction-github-pages@v2
       with:
