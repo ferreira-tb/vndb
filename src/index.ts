@@ -368,3 +368,4 @@ export class VNDB {
 }
 
 export * from './query';
+export * from '../typings';
