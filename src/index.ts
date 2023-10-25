@@ -15,10 +15,17 @@ import type {
 	QueryBuilderResponse,
 	RequestDeletePatchUserListGenericOptions,
 	QueryBuilderFilter,
-	RequestSearchOptions
+	RequestSearchOptions,
+	VNDBConstructorOptions
 } from '../typings';
 
 export class VNDB {
+	#token: string | null = null;
+
+	constructor(options?: VNDBConstructorOptions) {
+		if (options?.token) this.#token = options.token;
+	}
+
 	readonly #delete = {
 		/**
 		 * Remove a visual novel from the user’s list. Returns success even if the VN is not on the user’s list.
@@ -38,9 +45,10 @@ export class VNDB {
 	readonly #get = {
 		/**
 		 * Validates and returns information about the given API token.
+		 * The token can be omitted if the it has already been given to the class constructor.
 		 * @see https://api.vndb.org/kana#get-authinfo
 		 */
-		authinfo: (token: string): Promise<ResponseGetAuthinfo> => {
+		authinfo: (token?: string): Promise<ResponseGetAuthinfo> => {
 			const headers = this.#headers(token);
 			return this.#json(VNDB.endpoint('authinfo'), { headers });
 		},
@@ -202,6 +210,10 @@ export class VNDB {
 		vn: this.#query('vn')
 	};
 
+	/**
+	 * Performs a simple search from a string.
+	 * The search algorithm is the same as used on the VNDB site.
+	 */
 	public search<T extends QueryBuilderEndpoint>(
 		endpoint: T,
 		value: string,
@@ -269,6 +281,7 @@ export class VNDB {
 		return this.#post.trait;
 	}
 
+	/** Query visual novel entries. */
 	get vn() {
 		return this.#post.vn;
 	}
@@ -279,12 +292,14 @@ export class VNDB {
 		return this.#post.ulist;
 	}
 
+	/** Fetch the list labels for a certain user. */
 	get ulistLabels() {
 		return this.#get.ulistLabels;
 	}
 
 	// Internal
-	#headers(token?: string) {
+	#headers(token?: string | null) {
+		token ??= this.#token;
 		const headers = new Headers();
 		if (token) headers.append('Authorization', `token ${token}`);
 		return headers;
@@ -362,6 +377,15 @@ export class VNDB {
 		vn: /v\d+/
 	};
 
+	/**
+	 * @example
+	 * ```
+	 * const vnEndpoint = VNDB.endpoint('vn');
+	 *
+	 * // Prints: "https://api.vndb.org/kana/vn"
+	 * console.log(vnEndpoint);
+	 * ```
+	 */
 	public static endpoint(input?: VNDBEndpoint) {
 		return new URL(`https://api.vndb.org/kana/${input ?? ''}`);
 	}

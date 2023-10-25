@@ -5,12 +5,12 @@ The query builder is the tool used to refine the database searches. It provides 
 As long as you pay attention to the order in which each function is used, you don't have to use them exactly as in the examples. This gives you the flexibility to find your own style.
 
 ::: tip
-You can use the `toArray()` and `toJSON()` methods while testing to see how the query looks.
+You can use the [`toArray()`](https://tb.dev.br/vndb-query/api/classes/QueryBuilder.html#toArray) and [`toJSON()`](https://tb.dev.br/vndb-query/api/classes/QueryBuilder.html#toJSON) methods while testing to see how the query looks.
 :::
 
 ## Basic search
 
-If you just want, for example, to search for some visual novels or characters by name, you can use the `search` method present in objects of the `VNDB` class.
+If you just want, for example, to search for some visual novels or characters by name, you can use the [`search()`](https://tb.dev.br/vndb-query/api/classes/VNDB.html#search) method present in objects of the [`VNDB`](https://tb.dev.br/vndb-query/api/classes/VNDB.html) class.
 
 ```ts
 import { VNDB } from 'vndb-query';
@@ -22,7 +22,7 @@ const vns = await vndb.search('vn', 'Kagura Reimeiki', {
 })
 ```
 
-If we were to use the Query Builder, the search above would look like this:
+If we were to use the [Query Builder](https://tb.dev.br/vndb-query/api/classes/QueryBuilder.html), the search above would look like this:
 
 ```ts
 import { VNDB, QueryBuilder } from 'vndb-query';
@@ -81,13 +81,13 @@ query.and(({ f, or }) => {
 });
 ```
 
-Look carefully at the query built above and the order in which each function was used. First, we call `and` to start combining with the **AND** predicate. Next, we call `or` to define that any of the blocks defined within it are valid for our purposes (after all, we use `eq` as an operator in all of them).
+Look carefully at the query built above and the order in which each function was used. First, we call [`and`](https://tb.dev.br/vndb-query/api/classes/QueryBuilder.html#and) to start combining with the **AND** predicate. Next, we call [`or`](https://tb.dev.br/vndb-query/api/classes/QueryBuilder.html#or) to define that any of the blocks defined within it are valid for our purposes (after all, we use [`eq`](https://tb.dev.br/vndb-query/api/classes/QueryBuilderOperator.html#eq) as an operator in all of them).
 
-After closing `or`, we start building a new block, where we call `f` (or `filter`) to define that `olang` cannot be equal to `ja`. Immediately after creating this block, we have the end of the `and` that we called at the beginning, which ends the construction of the query.
+After closing `or`, we start building a new block, where we call [`f`](https://tb.dev.br/vndb-query/api/classes/QueryBuilder.html#f) (or `filter`) to define that `olang` cannot be equal to `ja`. Immediately after creating this block, we have the end of the `and` that we called at the beginning, which ends the construction of the query.
 
 What we have now is a query that will fetch a visual novel whose language (`lang`) **can be any of** `en`, `de` or `fr`, but its original language (`olang`) **must be different** from `ja`.
 
-If we use the `toArray()` method of the query object to inspect the resulting filters, it will return:
+If we use the [`toArray()`](https://tb.dev.br/vndb-query/api/classes/QueryBuilder.html#toArray) method of the query object to inspect the resulting filters, it will return:
 
 ```js
 [
