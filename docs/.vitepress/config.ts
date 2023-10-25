@@ -20,7 +20,7 @@ export default defineConfig({
 			},
 			{
 				text: 'API',
-				link: '/api/index.html'
+				link: 'https://tb.dev.br/vndb-query/api/index.html'
 			},
 			{
 				text: 'Playground',
