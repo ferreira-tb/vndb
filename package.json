@@ -40,7 +40,9 @@
 		"script:publish": "node scripts/publish.mjs",
 		"taze": "npx taze -w -f",
 		"test": "vitest",
-		"test:ui": "vitest --ui"
+		"test:coverage": "vitest run --coverage",
+		"test:ui": "vitest --ui --watch --coverage.enabled=true",
+		"test:watch": "vitest --watch"
 	},
 	"lint-staged": {
 		"*.{?(c|m)@(j|t)s,css,vue,md,json}": "prettier --write"
@@ -48,6 +50,7 @@
 	"devDependencies": {
 		"@octokit/core": "^5.0.1",
 		"@rollup/plugin-typescript": "^11.1.5",
+		"@vitest/coverage-istanbul": "^0.34.6",
 		"@vitest/ui": "^0.34.6",
 		"husky": "^8.0.3",
 		"lint-staged": "^15.0.2",
