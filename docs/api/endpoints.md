@@ -23,7 +23,7 @@ query
 
 const vns = await vndb.post.vn(query);
 
-// Maybe you want to PATCH a visual in a user's list:
+// Maybe you want to PATCH a visual in an user's list:
 const token = 'TOP SECRET';
 await vndb.patch.ulist('v2713', {
     token,
