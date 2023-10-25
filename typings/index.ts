@@ -6,9 +6,7 @@ export * from './request';
 
 export type MaybeArray<T> = T | T[];
 
-export type VNDBConstructorOptions = {
-	token?: RequestWithToken['token'];
-};
+export type VNDBConstructorOptions = Partial<Pick<RequestWithToken, 'token'>>;
 
 export type VNDBEndpoint =
 	| 'schema'

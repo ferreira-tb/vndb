@@ -134,6 +134,9 @@ export type RequestPostUserListSort =
 	| 'finished'
 	| 'searchrank';
 
+/**
+ * @internal
+ */
 export type RequestDeletePatchUserListGenericOptions<
 	T extends 'u' | 'r',
 	U extends 'DELETE' | 'PATCH'
