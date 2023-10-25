@@ -19,7 +19,7 @@ export default defineConfig({
 				activeMatch: '/guide/introduction'
 			},
 			{
-				text: 'Guide',
+				text: 'API',
 				link: '/api/index.html'
 			},
 			{
