@@ -40,7 +40,7 @@
 		"script:publish": "node scripts/publish.mjs",
 		"taze": "npx taze -w -f",
 		"test": "vitest",
-		"test:coverage": "vitest run --coverage",
+		"test:coverage": "vitest --coverage",
 		"test:ui": "vitest --ui --watch --coverage.enabled=true",
 		"test:watch": "vitest --watch"
 	},
