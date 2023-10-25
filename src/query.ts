@@ -3,7 +3,7 @@ import type {
 	QueryBuilderFilter,
 	QueryBuilderOptions,
 	QueryBuilderEndpoint,
-	QueryBuilderInternalPush
+	QueryBuilderPush
 } from '../typings';
 
 export class QueryBuilder<T extends QueryBuilderEndpoint>
@@ -211,11 +211,8 @@ export class QueryBuilder<T extends QueryBuilderEndpoint>
 	}
 }
 
-/**
- * @internal
- */
 class QueryBuilderOperator<T extends QueryBuilderEndpoint> {
-	/** Alias for {@link QueryBuilderOperator["equal"]} */
+	/** Alias for {@link QueryBuilderOperator.equal} */
 	public declare readonly eq: QueryBuilder<T>;
 
 	/** Equality operator (`=`). */
@@ -224,31 +221,31 @@ class QueryBuilderOperator<T extends QueryBuilderEndpoint> {
 	/** Inequality operator (`!=`). */
 	public declare readonly not: QueryBuilder<T>;
 
-	/** Alias for {@link QueryBuilderOperator["greater"]} */
+	/** Alias for {@link QueryBuilderOperator.greater} */
 	public declare readonly gt: QueryBuilder<T>;
 
 	/**  "Greater than" operator (`>`). */
 	public declare readonly greater: QueryBuilder<T>;
 
-	/** Alias for {@link QueryBuilderOperator["greaterOrEqual"]} */
+	/** Alias for {@link QueryBuilderOperator.greaterOrEqual} */
 	public declare readonly gte: QueryBuilder<T>;
 
 	/** "Greater than or equal" operator (`>=`). */
 	public declare readonly greaterOrEqual: QueryBuilder<T>;
 
-	/** Alias for {@link QueryBuilderOperator["lower"]} */
+	/** Alias for {@link QueryBuilderOperator.lower} */
 	public declare readonly lt: QueryBuilder<T>;
 
 	/** "Lower than" operator (`<`). */
 	public declare readonly lower: QueryBuilder<T>;
 
-	/** Alias for {@link QueryBuilderOperator["lowerOrEqual"]} */
+	/** Alias for {@link QueryBuilderOperator.lowerOrEqual} */
 	public declare readonly lte: QueryBuilder<T>;
 
 	/** "Lower than or equal" operator (`<=`). */
 	public declare readonly lowerOrEqual: QueryBuilder<T>;
 
-	constructor(builder: QueryBuilder<T>, push: QueryBuilderInternalPush) {
+	constructor(builder: QueryBuilder<T>, push: QueryBuilderPush) {
 		// Operators follow a filter.
 		return new Proxy(this, {
 			get: (_target, key) => {

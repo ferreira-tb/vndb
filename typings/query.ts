@@ -38,7 +38,7 @@ export type QueryBuilderBase<T extends QueryBuilderEndpoint> = {
 /**
  * @internal
  */
-export type QueryBuilderInternalPush = (
+export type QueryBuilderPush = (
 	value: any,
 	depthFn: ((depth: number) => number) | null,
 	indexFn: ((index: number) => number) | null
