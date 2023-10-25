@@ -26,7 +26,7 @@ console.log(results);
 
 ## Documentation
 
-To check out docs, visit [tb.dev.br/vndb-query](https://tb.dev.br/vndb-query/api/introduction.html).
+To check out docs, visit [tb.dev.br/vndb-query](https://tb.dev.br/vndb-query/guide/introduction.html).
 
 ## License
 

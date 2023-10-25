@@ -15,8 +15,12 @@ export default defineConfig({
 		nav: [
 			{
 				text: 'Guide',
-				link: '/api/introduction',
-				activeMatch: '/api/introduction'
+				link: '/guide/introduction',
+				activeMatch: '/guide/introduction'
+			},
+			{
+				text: 'Guide',
+				link: '/api'
 			},
 			{
 				text: 'Playground',
@@ -30,10 +34,10 @@ export default defineConfig({
 					text: 'Getting Started',
 					collapsed: false,
 					items: [
-						{ text: 'Introduction ', link: '/api/introduction' },
+						{ text: 'Introduction ', link: '/guide/introduction' },
 						{
 							text: 'Troubleshooting',
-							link: '/api/troubleshooting'
+							link: '/guide/troubleshooting'
 						}
 					]
 				},
@@ -41,8 +45,8 @@ export default defineConfig({
 					text: 'Essentials',
 					collapsed: false,
 					items: [
-						{ text: 'Endpoints', link: '/api/endpoints' },
-						{ text: 'Query Builder', link: '/api/query-builder' }
+						{ text: 'Endpoints', link: '/guide/endpoints' },
+						{ text: 'Query Builder', link: '/guide/query-builder' }
 					]
 				}
 			]

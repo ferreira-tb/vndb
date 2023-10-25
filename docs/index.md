@@ -9,7 +9,7 @@ hero:
     actions:
         - theme: brand
           text: Get Started
-          link: /api/introduction
+          link: /guide/introduction
         - theme: alt
           text: View on GitHub
           link: https://github.com/ferreira-tb/vndb-query
