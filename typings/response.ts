@@ -66,9 +66,9 @@ export type ResponsePostVisualNovelImage = {
 	/** Pixel dimensions of the image, array with two integer elements indicating the width and height. */
 	dims?: [number, number];
 	/** Average image flagging vote for sexual content. */
-	sexual?: 0 | 1 | 2;
+	sexual?: number;
 	/** Average image flagging vote for violence. */
-	violence?: 0 | 1 | 2;
+	violence?: number;
 	/** Number of image flagging votes. */
 	votecount?: number;
 };
