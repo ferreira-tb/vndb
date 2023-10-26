@@ -369,12 +369,13 @@ export class VNDB {
 
 	// Static
 	public static readonly regex = {
-		endpoint: {
+		id: {
 			character: /c\d+/,
 			producer: /p\d+/,
 			release: /r\d+/,
 			tag: /g\d+/,
 			trait: /i\d+/,
+			user: /u\d+/,
 			vn: /v\d+/
 		},
 		image: {
