@@ -45,7 +45,7 @@ export class VNDB {
 	readonly #get = {
 		/**
 		 * Validates and returns information about the given API token.
-		 * The token can be omitted if the it has already been given to the class constructor.
+		 * The token can be omitted if it has already been given to the class constructor.
 		 * @see https://api.vndb.org/kana#get-authinfo
 		 */
 		authinfo: (token?: string): Promise<ResponseGetAuthinfo> => {
