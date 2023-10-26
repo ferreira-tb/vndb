@@ -1,5 +1,6 @@
 import { QueryBuilder } from './query';
 import { toArray } from './utils';
+import { regexId } from './utils/regex';
 import type {
 	MaybeArray,
 	RequestBasicOptions,
@@ -369,22 +370,8 @@ export class VNDB {
 
 	// Static
 	public static readonly regex = {
-		id: {
-			character: /c\d+/,
-			producer: /p\d+/,
-			release: /r\d+/,
-			tag: /g\d+/,
-			trait: /i\d+/,
-			user: /u\d+/,
-			vn: /v\d+/
-		},
-		image: {
-			character: /ch\d+/,
-			screenshot: /sf\d+/,
-			thumbnail: /st\d+/,
-			vn: /cv\d+/
-		}
-	};
+		id: regexId
+	} as const;
 
 	/**
 	 * @example
