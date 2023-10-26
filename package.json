@@ -1,6 +1,6 @@
 {
 	"name": "vndb-query",
-	"version": "1.3.2",
+	"version": "1.4.0",
 	"description": "VNDB HTTPS API with custom query builder",
 	"author": {
 		"name": "Andrew Ferreira",
