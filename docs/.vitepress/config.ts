@@ -8,10 +8,12 @@ export default defineConfig({
 	lastUpdated: true,
 
 	head: [
+		['link', { rel: 'icon', href: '/vndb-query/favicon.ico' }],
 		['script', { src: 'https://unpkg.com/vndb-query/dist/index.umd.js' }]
 	],
 
 	themeConfig: {
+		logo: '/favicon.ico',
 		nav: [
 			{
 				text: 'Guide',
