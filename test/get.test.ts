@@ -18,13 +18,13 @@ test('GET /schema', async () => {
 
 test('GET /stats', async () => {
 	const parser = z.object({
-		chars: z.number(),
-		producers: z.number(),
-		releases: z.number(),
-		staff: z.number(),
-		tags: z.number(),
-		traits: z.number(),
-		vn: z.number()
+		chars: z.number().int(),
+		producers: z.number().int(),
+		releases: z.number().int(),
+		staff: z.number().int(),
+		tags: z.number().int(),
+		traits: z.number().int(),
+		vn: z.number().int()
 	});
 
 	const stats = await vndb.stats();
@@ -38,9 +38,9 @@ test('GET /user', async () => {
 	);
 
 	const parser = z.object({
-		id: z.string(),
-		lengthvotes: z.number().optional(),
-		lengthvotes_sum: z.number().optional(),
+		id: z.string().regex(VNDB.regex.id.user),
+		lengthvotes: z.number().int().optional(),
+		lengthvotes_sum: z.number().int().optional(),
 		username: z.string()
 	});
 
@@ -49,20 +49,16 @@ test('GET /user', async () => {
 	parser.parse(user['u135653']);
 	expect(() => parser.parse(user['NoUserWithThisNameExists'])).toThrowError();
 	z.null().parse(user['NoUserWithThisNameExists']);
-
-	expect(user['u135653']).toHaveProperty('username');
-	expect(user['u135653']).toHaveProperty('lengthvotes');
-	expect(user['u135653']).toHaveProperty('lengthvotes_sum');
 });
 
 test('GET /authinfo', async () => {
 	const authinfo = await vndb.authinfo(config.token);
 	const parser = z.object({
-		id: z.string(),
+		id: z.string().regex(VNDB.regex.id.user),
+		username: z.string(),
 		permissions: z.array(
 			z.union([z.literal('listread'), z.literal('listwrite')])
-		),
-		username: z.string()
+		)
 	});
 
 	parser.parse(authinfo);
@@ -71,8 +67,8 @@ test('GET /authinfo', async () => {
 test('GET /ulist_labels', async () => {
 	const { labels } = await vndb.get.ulistLabels('u2', 'count');
 	const parser = z.object({
-		count: z.number(),
-		id: z.number(),
+		id: z.number().int(),
+		count: z.number().int(),
 		label: z.string(),
 		private: z.boolean()
 	});

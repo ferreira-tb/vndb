@@ -8,6 +8,7 @@ test('search', async () => {
 	const sora = await vndb.search('vn', 'Sorairo Sorauta Soranooto', {
 		results: 3
 	});
+
 	expect(sora.results.some((vn) => vn.id === 'v21668')).toBe(true);
 });
 
@@ -44,7 +45,7 @@ test('POST /ulist', async () => {
 
 	const { results } = await vndb.post.ulist(query);
 	const parser = z.object({
-		id: z.string(),
+		id: z.string().regex(VNDB.regex.id.vn),
 		vote: z.union([z.number().int(), z.null()]),
 		vn: z.object({
 			title: z.string()
