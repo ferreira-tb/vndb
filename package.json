@@ -1,6 +1,6 @@
 {
 	"name": "vndb-query",
-	"version": "1.4.0",
+	"version": "1.4.1",
 	"description": "VNDB HTTPS API with custom query builder",
 	"author": {
 		"name": "Andrew Ferreira",
@@ -65,7 +65,8 @@
 		"typescript": "^5.2.2",
 		"vitepress": "^1.0.0-rc.23",
 		"vitest": "^0.34.6",
-		"vue": "^3.3.6"
+		"vue": "^3.3.6",
+		"zod": "^3.22.4"
 	},
 	"files": [
 		"dist/**/*"

@@ -4,6 +4,8 @@ The query builder is the tool used to refine the database searches. It provides 
 
 As long as you pay attention to the order in which each function is used, you don't have to use them exactly as in the examples. This gives you the flexibility to find your own style.
 
+For more details, check out the [Query Builder API](https://tb.dev.br/vndb-query/api/classes/QueryBuilder.html).
+
 ::: tip
 You can use the [`toArray()`](https://tb.dev.br/vndb-query/api/classes/QueryBuilder.html#toArray) and [`toJSON()`](https://tb.dev.br/vndb-query/api/classes/QueryBuilder.html#toJSON) methods while testing to see how the query looks.
 :::
@@ -17,9 +19,9 @@ import { VNDB } from 'vndb-query';
 
 const vndb = new VNDB();
 const vns = await vndb.search('vn', 'Kagura Reimeiki', {
-    fields: ['title', 'alttitle', 'devstatus', 'image.url']
-    results: 20
-})
+	fields: ['title', 'alttitle', 'devstatus', 'image.url'],
+	results: 20
+});
 ```
 
 If we were to use the [Query Builder](https://tb.dev.br/vndb-query/api/classes/QueryBuilder.html), the search above would look like this:
@@ -28,8 +30,8 @@ If we were to use the [Query Builder](https://tb.dev.br/vndb-query/api/classes/Q
 import { VNDB, QueryBuilder } from 'vndb-query';
 
 const query = new QueryBuilder({
-    fields: ['title', 'alttitle', 'devstatus', 'image.url']
-    results: 20
+	fields: ['title', 'alttitle', 'devstatus', 'image.url'],
+	results: 20
 });
 
 query.filter('search').equal.value('Kagura Reimeiki');
@@ -40,7 +42,7 @@ const vns = await vndb.post.vn(query);
 
 ## Building queries
 
-To build: `["id", "=", "v17"]`.
+To build `["id", "=", "v17"]`:
 
 ```ts
 import { QueryBuilder } from 'vndb-query';
@@ -89,57 +91,33 @@ What we have now is a query that will fetch a visual novel whose language (`lang
 
 If we use the [`toArray()`](https://tb.dev.br/vndb-query/api/classes/QueryBuilder.html#toArray) method of the query object to inspect the resulting filters, it will return:
 
+<!-- prettier-ignore-start -->
 ```js
 [
 	'and',
-	['or', ['lang', '=', 'en'], ['lang', '=', 'de'], ['lang', '=', 'fr']],
-	['olang', '!=', 'ja']
+        ['or',
+            ['lang', '=', 'en'],
+            ['lang', '=', 'de'],
+            ['lang', '=', 'fr']
+        ],
+        ['olang', '!=', 'ja']
 ];
 ```
+<!-- prettier-ignore-end -->
 
-### Type
+## Raw query
+
+You can also enter the filters manually, if for some reason you don't want to use the Query Builder.
 
 ```ts
-interface QueryBuilder {
-	// Starts building a filter block (like ["id", "=", "v17"]).
-	f: (name: string) => QueryBuilderOperator;
-	filter: (name: string) => QueryBuilderOperator;
+import { VNDB, QueryBuilder } from 'vndb-query';
 
-	// Declares a value.
-	// Should ONLY be used after operators (like "equal" or "greater").
-	// For example, in the block ["id", "=", "v17"], the value would be "v17".
-	v: (value: any) => QueryBuilder;
-	value: (value: any) => QueryBuilder;
+const query = new QueryBuilder({
+	fields: ['title'],
+	filters: ['id', '=', 'v31055'],
+	results: 20
+});
 
-	// Used to combine different filters.
-	and: (cb: (builder: QueryBuilderOperator) => void) => QueryBuilder;
-	or: (cb: (builder: QueryBuilderOperator) => void) => QueryBuilder;
-}
-
-// Operators can be used only right after `filter`;
-// Like the functions, they also have shorthands, such as `equal` and `eq`.
-interface QueryBuilderOperator {
-	// Equality operator (=).
-	eq: QueryBuilder;
-	equal: QueryBuilder;
-
-	// Inequality operator (!=).
-	not: QueryBuilder;
-
-	// "Greater than" operator (>).
-	gt: QueryBuilder;
-	greater: QueryBuilder;
-
-	// "Greater than or equal" operator (>=).
-	gte: QueryBuilder;
-	greaterOrEqual: QueryBuilder;
-
-	// "Lower than" operator (<).
-	lt: QueryBuilder;
-	lower: QueryBuilder;
-
-	// "Lower than or equal" operator (<=).
-	lte: QueryBuilder;
-	lowerOrEqual: QueryBuilder;
-}
+const vndb = new VNDB();
+const vn = await vndb.post.vn(query);
 ```

@@ -1,4 +1,8 @@
-export type ResponseGetSchema = Record<string, unknown>;
+export type ResponseGetSchema = {
+	api_fields: unknown;
+	enums: unknown;
+	extlinks: unknown;
+};
 
 export type ResponseGetStats = {
 	chars: number;
