@@ -5,10 +5,8 @@ import { VNDB, QueryBuilder } from '../src';
 const vndb = new VNDB();
 
 test('search', async () => {
-	const sora = await vndb.search('vn', 'Sorairo Sorauta Soranooto', {
-		results: 3
-	});
-
+	const options = { results: 3 };
+	const sora = await vndb.search('vn', 'Sorairo Sorauta Soranooto', options);
 	expect(sora.results.some((vn) => vn.id === 'v21668')).toBe(true);
 });
 

@@ -214,15 +214,35 @@ export class VNDB {
 	/**
 	 * Performs a simple search from a string.
 	 * The search algorithm is the same as used on the VNDB site.
+	 *
+	 * @param endpoint The endpoint to search.
+	 * @param value The value to search for.
+	 * @param options The options to pass to the query builder.
+	 *
+	 * @example
+	 * ```ts
+	 * const vndb = new VNDB();
+	 * const options = { fields: 'title', results: 5 };
+	 * vndb.search('vn', 'kagura', options).then(({ results }) => {
+	 *     console.log(results);
+	 * });
+	 *
+	 * // The above is equivalent to:
+	 * const query = new QueryBuilder(options);
+	 * query.filter('search').equal.value('kagura');
+	 * vndb.post.vn(query).then(({ results }) => {
+	 *    console.log(results);
+	 * });
+	 * ```
 	 */
 	public search<T extends QueryBuilderEndpoint>(
 		endpoint: T,
 		value: string,
 		options: RequestSearchOptions<T> = {}
 	): Promise<QueryBuilderResponse<T>> {
-		const { token, ...other } = options;
-		const query = new QueryBuilder<T>(other);
-		query.filter('search' as QueryBuilderFilter<T>).eq.value(value);
+		const { token, ...rest } = options;
+		const query = new QueryBuilder<T>(rest);
+		query.f('search' as QueryBuilderFilter<T>).eq.v(value);
 		return this.post.query(endpoint, query, token ? { token } : undefined);
 	}
 
@@ -378,7 +398,7 @@ export class VNDB {
 	 * ```
 	 * const vnEndpoint = VNDB.endpoint('vn');
 	 *
-	 * // Prints: "https://api.vndb.org/kana/vn"
+	 * // Should be "https://api.vndb.org/kana/vn"
 	 * console.log(vnEndpoint);
 	 * ```
 	 */
