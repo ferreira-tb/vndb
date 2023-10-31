@@ -1,4 +1,5 @@
 import DefaultTheme from 'vitepress/theme';
-import './theme.scss';
+import 'virtual:uno.css';
+import './theme.css';
 
 export default DefaultTheme;
