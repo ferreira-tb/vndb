@@ -1,4 +1,5 @@
 import { defineConfig } from 'vitepress';
+import UnoCSS from 'unocss/vite';
 
 export default defineConfig({
 	base: '/vndb-query/',
@@ -11,9 +12,20 @@ export default defineConfig({
 		hostname: 'https://tb.dev.br'
 	},
 
+	vite: {
+		plugins: [UnoCSS()]
+	},
+
 	head: [
 		['link', { rel: 'icon', href: '/vndb-query/favicon.ico' }],
-		['script', { src: 'https://unpkg.com/vndb-query/dist/index.umd.js' }]
+		['script', { src: 'https://unpkg.com/vndb-query/dist/index.umd.js' }],
+		[
+			'meta ',
+			{
+				name: 'google-site-verification',
+				content: 'FpKCfhe8tgbogFn89w4fUPpqlYF_Hcrv7h6GpUL8rdE'
+			}
+		]
 	],
 
 	themeConfig: {
