@@ -1,6 +1,6 @@
 {
 	"name": "vndb-query",
-	"version": "1.5.3",
+	"version": "1.5.4",
 	"description": "VNDB HTTPS API with custom query builder",
 	"author": {
 		"name": "Andrew Ferreira",
@@ -28,12 +28,20 @@
 	"private": false,
 	"main": "dist/index.js",
 	"type": "module",
+	"files": [
+		"dist/**/*"
+	],
+	"types": "dist/src/index.d.ts",
+	"lint-staged": {
+		"*.{?(c|m)@(j|t)s,css,vue,md,json}": "prettier --write"
+	},
 	"scripts": {
 		"build": "run-s rollup script:minify",
-		"deploy": "npm run docs:build && npx typedoc",
+		"deploy": "run-s docs:build docs:typedoc",
 		"docs:dev": "vitepress dev docs",
 		"docs:build": "vitepress build docs",
 		"docs:preview": "vitepress preview docs",
+		"docs:typedoc": "npx typedoc --plugin typedoc-plugin-mdn-links",
 		"format": "prettier . --write",
 		"prepare": "husky install",
 		"rollup": "rollup --config rollup.config.ts --configPlugin typescript={tsconfig:'tsconfig.rollup.json'}",
@@ -44,9 +52,6 @@
 		"test:coverage": "vitest --coverage",
 		"test:ui": "vitest --ui --watch --coverage.enabled=true",
 		"test:watch": "vitest --watch"
-	},
-	"lint-staged": {
-		"*.{?(c|m)@(j|t)s,css,vue,md,json}": "prettier --write"
 	},
 	"devDependencies": {
 		"@octokit/core": "^5.0.1",
@@ -63,14 +68,11 @@
 		"terser": "^5.22.0",
 		"tslib": "^2.6.2",
 		"typedoc": "^0.25.2",
+		"typedoc-plugin-mdn-links": "^3.1.0",
 		"typescript": "^5.2.2",
 		"vitepress": "^1.0.0-rc.23",
 		"vitest": "^0.34.6",
 		"vue": "^3.3.6",
 		"zod": "^3.22.4"
-	},
-	"files": [
-		"dist/**/*"
-	],
-	"types": "dist/src/index.d.ts"
+	}
 }

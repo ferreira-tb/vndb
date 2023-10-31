@@ -2,12 +2,12 @@
 
 VNDB Query is a tool designed to help you interact with the VNDB database via its [HTTPS API](https://api.vndb.org/kana). For this purpose, it has a [query builder](./query-builder.md) created specifically to build queries for the VNDB API.
 
-You can use VNDB Query to create applications, browser extensions or simply for some quick queries.
+You can use VNDB Query to create applications, browser extensions or simply for some quick queries. It is up to you!
 
 ## Installation
 
 ```sh
-npm install --save vndb-query
+npm i vndb-query
 ```
 
 ### Prerequisites
@@ -32,6 +32,8 @@ const query = new VNDBQuery.QueryBuilder();
 ```
 
 ## Usage
+
+This is a simple example of how to use VNDB Query to search for a visual novel by its ID:
 
 ```ts
 import { QueryBuilder, VNDB } from 'vndb-query';

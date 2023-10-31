@@ -7,6 +7,10 @@ export default defineConfig({
 	lang: 'en',
 	lastUpdated: true,
 
+	sitemap: {
+		hostname: 'https://tb.dev.br'
+	},
+
 	head: [
 		['link', { rel: 'icon', href: '/vndb-query/favicon.ico' }],
 		['script', { src: 'https://unpkg.com/vndb-query/dist/index.umd.js' }]

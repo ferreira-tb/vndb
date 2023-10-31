@@ -28,6 +28,10 @@ console.log(results);
 
 To check out docs, visit [tb.dev.br/vndb-query](https://tb.dev.br/vndb-query/guide/introduction.html).
 
+## Playground
+
+You can play with VNDB Query in the [playground](https://jsfiddle.net/ferreiratb/0Lezvkfa/27/).
+
 ## License
 
 [MIT](https://github.com/ferreira-tb/vndb-query/blob/main/LICENSE)
