@@ -6,7 +6,7 @@ For this purpose, it has a custom query builder created specifically to build qu
 You can use VNDB Query to create applications, browser extensions or simply for some quick queries.
 
 ```
-npm install --save vndb-query
+npm i vndb-query
 ```
 
 ## Usage
