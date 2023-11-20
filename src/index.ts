@@ -18,7 +18,10 @@ import type {
 	QueryBuilderFilter,
 	RequestSearchOptions,
 	VNDBConstructorOptions
-} from '../typings';
+} from '../types';
+
+export * from './query';
+export * from '../types';
 
 export class VNDB {
 	#token: string | null = null;
@@ -406,6 +409,3 @@ export class VNDB {
 		return new URL(`https://api.vndb.org/kana/${input ?? ''}`);
 	}
 }
-
-export * from './query';
-export * from '../typings';

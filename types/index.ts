@@ -5,6 +5,7 @@ export * from './response';
 export * from './request';
 
 export type MaybeArray<T> = T | T[];
+export type MaybePromise<T> = T | Promise<T>;
 
 export type VNDBConstructorOptions = Partial<Pick<RequestWithToken, 'token'>>;
 
