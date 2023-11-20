@@ -1,7 +1,10 @@
 {
 	"name": "vndb-query",
-	"version": "1.5.6",
+	"version": "1.6.0",
 	"description": "VNDB HTTPS API with custom query builder",
+	"type": "module",
+	"private": false,
+	"packageManager": "pnpm@8.10.5",
 	"author": {
 		"name": "Andrew Ferreira",
 		"email": "andrew.shien2@gmail.com",
@@ -25,28 +28,33 @@
 		"query builder",
 		"visual novel"
 	],
-	"private": false,
-	"main": "dist/index.js",
-	"type": "module",
 	"files": [
-		"dist/**/*"
+		"dist"
 	],
-	"types": "dist/src/index.d.ts",
+	"main": "./dist/index.cjs",
+	"module": "./dist/index.mjs",
+	"exports": {
+		".": {
+			"import": "./dist/index.mjs",
+			"require": "./dist/index.cjs",
+			"types": "./dist/index.d.ts"
+		}
+	},
 	"lint-staged": {
 		"*.{?(c|m)@(j|t)s,css,vue,md,json}": "prettier --write"
 	},
 	"scripts": {
-		"build": "run-s rollup script:minify",
+		"build": "node --loader ts-node/esm scripts/build.ts",
 		"deploy": "run-s docs:build docs:typedoc",
 		"docs:dev": "vitepress dev docs",
 		"docs:build": "vitepress build docs",
 		"docs:preview": "vitepress preview docs",
 		"docs:typedoc": "npx typedoc --plugin typedoc-plugin-mdn-links",
+		"minify": "npx minify-it dist",
 		"prepare": "husky install",
 		"prettier": "npx prettier . --write",
 		"rollup": "rollup --config rollup.config.ts --configPlugin typescript={tsconfig:'tsconfig.rollup.json'}",
-		"script:minify": "node scripts/minify.mjs",
-		"script:publish": "node scripts/publish.mjs",
+		"script:publish": "node --loader ts-node/esm scripts/publish.ts",
 		"taze": "npx taze -w -f",
 		"test": "vitest",
 		"test:coverage": "vitest --coverage",
@@ -56,22 +64,27 @@
 	"devDependencies": {
 		"@octokit/core": "^5.0.1",
 		"@rollup/plugin-typescript": "^11.1.5",
-		"@unocss/preset-uno": "^0.57.4",
+		"@types/node": "^20.9.2",
+		"@unocss/preset-uno": "^0.57.6",
 		"@vitest/coverage-istanbul": "^0.34.6",
 		"@vitest/ui": "^0.34.6",
+		"execa": "^8.0.1",
 		"husky": "^8.0.3",
 		"lint-staged": "^15.1.0",
+		"minify-it": "^1.0.1",
 		"npm-run-all2": "^6.1.1",
 		"prettier": "^3.1.0",
-		"rollup": "^4.4.1",
+		"rollup": "^4.5.0",
 		"taze": "^0.12.0",
-		"terser": "^5.24.0",
+		"ts-node": "^10.9.1",
 		"tslib": "^2.6.2",
 		"typedoc": "^0.25.3",
-		"typedoc-plugin-mdn-links": "^3.1.0",
+		"typedoc-plugin-mdn-links": "^3.1.4",
 		"typescript": "^5.2.2",
-		"unocss": "^0.57.4",
-		"vitepress": "^1.0.0-rc.25",
+		"unocss": "^0.57.6",
+		"vite": "^5.0.0",
+		"vite-plugin-dts": "^3.6.3",
+		"vitepress": "^1.0.0-rc.29",
 		"vitest": "^0.34.6",
 		"vue": "^3.3.8",
 		"zod": "^3.22.4"

@@ -35,9 +35,6 @@ export type QueryBuilderBase<T extends QueryBuilderEndpoint> = {
 	value: (value: any) => QueryBuilder<T>;
 };
 
-/**
- * @internal
- */
 export type QueryBuilderPush = (
 	value: any,
 	depthFn: ((depth: number) => number) | null,
@@ -147,52 +144,52 @@ export type QueryBuilderEndpoint =
 export type QueryBuilderFilter<T extends QueryBuilderEndpoint> = T extends 'vn'
 	? RequestPostVisualNovelFilters
 	: T extends 'release'
-	? RequestPostReleaseFilters
-	: T extends 'producer'
-	? RequestPostProducerFilters
-	: T extends 'character'
-	? RequestPostCharacterFilters
-	: T extends 'tag'
-	? RequestPostTagFilters
-	: T extends 'trait'
-	? RequestPostTraitFilters
-	: T extends 'ulist'
-	? RequestPostUserListFilters
-	: never;
+	  ? RequestPostReleaseFilters
+	  : T extends 'producer'
+	    ? RequestPostProducerFilters
+	    : T extends 'character'
+	      ? RequestPostCharacterFilters
+	      : T extends 'tag'
+	        ? RequestPostTagFilters
+	        : T extends 'trait'
+	          ? RequestPostTraitFilters
+	          : T extends 'ulist'
+	            ? RequestPostUserListFilters
+	            : never;
 
 /** @see https://api.vndb.org/kana#database-querying */
 export type QueryBuilderSort<T extends QueryBuilderEndpoint> = T extends 'vn'
 	? RequestPostVisualNovelSort
 	: T extends 'release'
-	? RequestPostReleaseSort
-	: T extends 'producer'
-	? RequestPostProducerSort
-	: T extends 'character'
-	? RequestPostCharacterSort
-	: T extends 'tag'
-	? RequestPostTagSort
-	: T extends 'trait'
-	? RequestPostTraitSort
-	: T extends 'ulist'
-	? RequestPostUserListSort
-	: never;
+	  ? RequestPostReleaseSort
+	  : T extends 'producer'
+	    ? RequestPostProducerSort
+	    : T extends 'character'
+	      ? RequestPostCharacterSort
+	      : T extends 'tag'
+	        ? RequestPostTagSort
+	        : T extends 'trait'
+	          ? RequestPostTraitSort
+	          : T extends 'ulist'
+	            ? RequestPostUserListSort
+	            : never;
 
 export type QueryBuilderResponseResult<T extends QueryBuilderEndpoint> =
 	T extends 'vn'
 		? ResponsePostVisualNovel
 		: T extends 'release'
-		? ResponsePostRelease
-		: T extends 'producer'
-		? ResponsePostProducer
-		: T extends 'character'
-		? ResponsePostCharacter
-		: T extends 'tag'
-		? ResponsePostTag
-		: T extends 'trait'
-		? ResponsePostTrait
-		: T extends 'ulist'
-		? ResponsePostUserList
-		: never;
+		  ? ResponsePostRelease
+		  : T extends 'producer'
+		    ? ResponsePostProducer
+		    : T extends 'character'
+		      ? ResponsePostCharacter
+		      : T extends 'tag'
+		        ? ResponsePostTag
+		        : T extends 'trait'
+		          ? ResponsePostTrait
+		          : T extends 'ulist'
+		            ? ResponsePostUserList
+		            : never;
 
 export type QueryBuilderResponse<T extends QueryBuilderEndpoint> = {
 	/** Array of objects representing the query results. */

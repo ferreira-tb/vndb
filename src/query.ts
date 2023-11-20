@@ -4,7 +4,7 @@ import type {
 	QueryBuilderOptions,
 	QueryBuilderEndpoint,
 	QueryBuilderPush
-} from '../typings';
+} from '../types';
 
 export class QueryBuilder<T extends QueryBuilderEndpoint>
 	implements QueryBuilderBase<T>
@@ -285,9 +285,6 @@ class QueryBuilderOperator<T extends QueryBuilderEndpoint> {
 	}
 }
 
-/**
- * @internal
- */
 class IndexMap extends Map<number, number> {
 	/** Returns the deepest block level. */
 	public depth() {

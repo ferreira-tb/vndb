@@ -134,9 +134,6 @@ export type RequestPostUserListSort =
 	| 'finished'
 	| 'searchrank';
 
-/**
- * @internal
- */
 export type RequestDeletePatchUserListGenericOptions<
 	T extends 'u' | 'r',
 	U extends 'DELETE' | 'PATCH'
@@ -145,10 +142,10 @@ export type RequestDeletePatchUserListGenericOptions<
 		? RequestPatchUserList
 		: RequestPatchUserListReleaseList
 	: U extends 'DELETE'
-	? T extends 'u'
-		? RequestDeleteUserList
-		: RequestDeleteUserListReleaseList
-	: never;
+	  ? T extends 'u'
+			? RequestDeleteUserList
+			: RequestDeleteUserListReleaseList
+	  : never;
 
 /**
  * All members are be optional (except the token), missing members are not modified.
