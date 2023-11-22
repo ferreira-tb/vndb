@@ -102,6 +102,13 @@ export type ResponsePostVisualNovelTag = ResponsePostTag & {
 	lie?: boolean;
 };
 
+export type ResponsePostVisualNovelRelations = ResponsePostVisualNovel & {
+	/** Relation type. */
+	relation?: string;
+	/** Whether this VN relation is official. */
+	relation_official?: boolean;
+};
+
 /** @see https://api.vndb.org/kana#vn-fields */
 export type ResponsePostVisualNovel = {
 	id: string;
@@ -145,6 +152,8 @@ export type ResponsePostVisualNovel = {
 	/** Number of votes. */
 	votecount?: number;
 	screenshots?: ResponsePostVisualNovelScreenshot[];
+	/** List of VNs directly related to this entry. */
+	relations?: ResponsePostVisualNovelRelations[];
 	/** Only directly applied tags are returned, parent tags are not included. */
 	tags?: ResponsePostVisualNovelTag[];
 	/**
