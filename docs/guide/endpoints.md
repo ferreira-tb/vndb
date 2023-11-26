@@ -23,22 +23,22 @@ const info = await vndb.get.authinfo('MY SECRET');
 
 Returns a JSON object with metadata about several API objects, including enumeration values, which fields are available for querying and a list of supported external links.
 
--   Response: [ResponseGetSchema](https://tb.dev.br/vndb-query/api/types/ResponseGetSchema.html)
--   Read more: [GET /schema](https://api.vndb.org/kana#get-schema)
+- Response: [ResponseGetSchema](https://tb.dev.br/vndb-query/api/types/ResponseGetSchema.html)
+- Read more: [GET /schema](https://api.vndb.org/kana#get-schema)
 
 ## GET /stats
 
 Returns a few overall database statistics.
 
--   Response: [ResponseGetStats](https://tb.dev.br/vndb-query/api/types/ResponseGetStats.html)
--   Read more: [GET /stats](https://api.vndb.org/kana#get-stats)
+- Response: [ResponseGetStats](https://tb.dev.br/vndb-query/api/types/ResponseGetStats.html)
+- Read more: [GET /stats](https://api.vndb.org/kana#get-stats)
 
 ## GET /user
 
 Lookup users by id or username.
 
--   Response: [ResponseGetUser](https://tb.dev.br/vndb-query/api/types/ResponseGetUser.html)
--   Read more: [GET /user](https://api.vndb.org/kana#get-user)
+- Response: [ResponseGetUser](https://tb.dev.br/vndb-query/api/types/ResponseGetUser.html)
+- Read more: [GET /user](https://api.vndb.org/kana#get-user)
 
 ### Example
 
@@ -54,8 +54,8 @@ const many = await vndb.get.user(['u1', 'u2', 'u3']);
 
 Fetch the list labels for a certain user.
 
--   Response: [ResponseGetUserListLabels](https://tb.dev.br/vndb-query/api/types/ResponseGetUserListLabels.html)
--   Read more: [GET /ulist_labels](https://api.vndb.org/kana#get-ulist_labels)
+- Response: [ResponseGetUserListLabels](https://tb.dev.br/vndb-query/api/types/ResponseGetUserListLabels.html)
+- Read more: [GET /ulist_labels](https://api.vndb.org/kana#get-ulist_labels)
 
 ### Example
 
@@ -69,16 +69,16 @@ The name of the method is not written in [snake_case](https://en.wikipedia.org/w
 
 ## POST /character
 
--   Response: [ResponsePostCharacter](https://tb.dev.br/vndb-query/api/types/ResponsePostCharacter.html)
--   Read more: [POST /character](https://api.vndb.org/kana#post-character)
+- Response: [ResponsePostCharacter](https://tb.dev.br/vndb-query/api/types/ResponsePostCharacter.html)
+- Read more: [POST /character](https://api.vndb.org/kana#post-character)
 
 ### Example
 
 ```ts
 const query = new QueryBuilder({
-	fields: ['name', 'original', 'age'],
-	sort: 'name',
-	results: 10
+  fields: ['name', 'original', 'age'],
+  sort: 'name',
+  results: 10
 });
 
 query.filter('search').equal.value('Ame');
@@ -87,30 +87,30 @@ const vn = await vndb.post.vn(query);
 
 ## POST /producer
 
--   Response: [ResponsePostProducer](https://tb.dev.br/vndb-query/api/types/ResponsePostProducer.html)
--   Read more: [POST /producer](https://api.vndb.org/kana#post-producer)
+- Response: [ResponsePostProducer](https://tb.dev.br/vndb-query/api/types/ResponsePostProducer.html)
+- Read more: [POST /producer](https://api.vndb.org/kana#post-producer)
 
 ## POST /release
 
--   Response: [ResponsePostRelease](https://tb.dev.br/vndb-query/api/types/ResponsePostRelease.html)
--   Read more: [POST /release](https://api.vndb.org/kana#post-release)
+- Response: [ResponsePostRelease](https://tb.dev.br/vndb-query/api/types/ResponsePostRelease.html)
+- Read more: [POST /release](https://api.vndb.org/kana#post-release)
 
 ## POST /tag
 
--   Response: [ResponsePostTag](https://tb.dev.br/vndb-query/api/types/ResponsePostTag.html)
--   Read more: [POST /tag](https://api.vndb.org/kana#post-tag)
+- Response: [ResponsePostTag](https://tb.dev.br/vndb-query/api/types/ResponsePostTag.html)
+- Read more: [POST /tag](https://api.vndb.org/kana#post-tag)
 
 ## POST /trait
 
--   Response: [ResponsePostTrait](https://tb.dev.br/vndb-query/api/types/ResponsePostTrait.html)
--   Read more: [POST /trait](https://api.vndb.org/kana#post-trait)
+- Response: [ResponsePostTrait](https://tb.dev.br/vndb-query/api/types/ResponsePostTrait.html)
+- Read more: [POST /trait](https://api.vndb.org/kana#post-trait)
 
 ## POST /vn
 
 Query visual novel entries.
 
--   Response: [ResponsePostVisualNovel](https://tb.dev.br/vndb-query/api/types/ResponsePostVisualNovel.html)
--   Read more: [POST /vn](https://api.vndb.org/kana#post-vn)
+- Response: [ResponsePostVisualNovel](https://tb.dev.br/vndb-query/api/types/ResponsePostVisualNovel.html)
+- Read more: [POST /vn](https://api.vndb.org/kana#post-vn)
 
 ### Example
 
@@ -124,16 +124,16 @@ const vn = await vndb.post.vn(query);
 
 Add or update a visual novel in the user’s list. Requires the [`listwrite`](https://api.vndb.org/kana#get-authinfo) permission.
 
--   Read more: [PATCH /ulist/\<id\>](https://api.vndb.org/kana#patch-ulistid)
+- Read more: [PATCH /ulist/\<id\>](https://api.vndb.org/kana#patch-ulistid)
 
 ### Example
 
 ```ts
 const vndb = new VNDB();
 vndb.patch.ulist('v6540', {
-	token: 'MY TOKEN',
-	vote: 100,
-	notes: 'Nemu best girl'
+  token: 'MY TOKEN',
+  vote: 100,
+  notes: 'Nemu best girl'
 });
 ```
 
@@ -141,20 +141,20 @@ vndb.patch.ulist('v6540', {
 
 Add or update a release in the user’s list. Requires the [`listwrite`](https://api.vndb.org/kana#get-authinfo) permission. All visual novels linked to the release are also added to the user’s visual novel list, if they aren’t in the list yet.
 
--   Read more: [PATCH /rlist/\<id\>](https://api.vndb.org/kana#patch-rlistid)
+- Read more: [PATCH /rlist/\<id\>](https://api.vndb.org/kana#patch-rlistid)
 
 ## DELETE /ulist/\<id\>
 
 Remove a visual novel from the user’s list. Removing a VN also removes any associated releases from the user’s list.
 
--   Read more: [DELETE /ulist/\<id\>](https://api.vndb.org/kana#delete-ulistid)
+- Read more: [DELETE /ulist/\<id\>](https://api.vndb.org/kana#delete-ulistid)
 
 ### Example
 
 ```ts
 const vndb = new VNDB();
 vndb.delete.ulist('v6710', {
-	token: 'MY TOKEN'
+  token: 'MY TOKEN'
 });
 ```
 
@@ -162,4 +162,4 @@ vndb.delete.ulist('v6710', {
 
 Remove a release from the user’s list. Removing a release does not remove the associated visual novels from the user’s visual novel list, that requires separate calls to [DELETE /ulist](./endpoints.md#delete-ulistid).
 
--   Read more: [DELETE /rlist/\<id\>](https://api.vndb.org/kana#delete-rlistid)
+- Read more: [DELETE /rlist/\<id\>](https://api.vndb.org/kana#delete-rlistid)

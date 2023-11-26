@@ -5,14 +5,14 @@ import { existsSync as exists } from 'node:fs';
 import { execa } from 'execa';
 
 try {
-	await execa('pnpm', ['rollup'], { stdio: 'inherit' });
+  await execa('pnpm', ['rollup'], { stdio: 'inherit' });
 
-	const dirname = path.dirname(fileURLToPath(import.meta.url));
-	const src = path.join(dirname, 'dist/src');
-	if (exists(src)) await fs.rm(src, { recursive: true });
+  const dirname = path.dirname(fileURLToPath(import.meta.url));
+  const src = path.join(dirname, 'dist/src');
+  if (exists(src)) await fs.rm(src, { recursive: true });
 
-	await execa('pnpm', ['minify'], { stdio: 'inherit' });
+  await execa('pnpm', ['minify'], { stdio: 'inherit' });
 } catch (err) {
-	console.error(err);
-	process.exit(1);
+  console.error(err);
+  process.exit(1);
 }

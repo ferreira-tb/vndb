@@ -19,8 +19,8 @@ import { VNDB } from 'vndb-query';
 
 const vndb = new VNDB();
 const vns = await vndb.search('vn', 'Kagura Reimeiki', {
-	fields: ['title', 'alttitle', 'devstatus', 'image.url'],
-	results: 20
+  fields: ['title', 'alttitle', 'devstatus', 'image.url'],
+  results: 20
 });
 ```
 
@@ -30,8 +30,8 @@ If we were to use the [Query Builder](https://tb.dev.br/vndb-query/api/classes/Q
 import { VNDB, QueryBuilder } from 'vndb-query';
 
 const query = new QueryBuilder({
-	fields: ['title', 'alttitle', 'devstatus', 'image.url'],
-	results: 20
+  fields: ['title', 'alttitle', 'devstatus', 'image.url'],
+  results: 20
 });
 
 query.filter('search').equal.value('Kagura Reimeiki');
@@ -62,8 +62,8 @@ Let's combine some filters now. We will build a query to look for a visual novel
 // We do this so that we can collect the `filter` function for use within `and`.
 // Don't have to do the same with `value`, because it is returned by the `equal` operator.
 query.and(({ filter }) => {
-	filter('lang').equal.value('en'); // ["lang", "=", "en"]
-	filter('olang').not.value('ja'); // ["lang", "!=", "ja"]
+  filter('lang').equal.value('en'); // ["lang", "=", "en"]
+  filter('olang').not.value('ja'); // ["lang", "!=", "ja"]
 });
 ```
 
@@ -71,15 +71,15 @@ Finally, something a bit more complex.
 
 ```ts
 query.and(({ f, or }) => {
-	or(() => {
-		// Remember that `f` is just a shorthand for `filter`.
-		// Just like `eq` is for `equal` and `v` is for `value`.
-		f('lang').eq.v('en'); // ["lang", "=", "en"]
-		f('lang').eq.v('de'); // ["lang", "=", "de"]
-		f('lang').eq.v('fr'); // ["lang", "=", "fr"]
-	});
+  or(() => {
+    // Remember that `f` is just a shorthand for `filter`.
+    // Just like `eq` is for `equal` and `v` is for `value`.
+    f('lang').eq.v('en'); // ["lang", "=", "en"]
+    f('lang').eq.v('de'); // ["lang", "=", "de"]
+    f('lang').eq.v('fr'); // ["lang", "=", "fr"]
+  });
 
-	f('olang').not.v('ja'); // ["lang", "!=", "ja"]
+  f('olang').not.v('ja'); // ["lang", "!=", "ja"]
 });
 ```
 
@@ -113,9 +113,9 @@ You can also enter the filters manually, if for some reason you don't want to us
 import { VNDB, QueryBuilder } from 'vndb-query';
 
 const query = new QueryBuilder({
-	fields: ['title'],
-	filters: ['id', '=', 'v31055'],
-	results: 20
+  fields: ['title'],
+  filters: ['id', '=', 'v31055'],
+  results: 20
 });
 
 const vndb = new VNDB();

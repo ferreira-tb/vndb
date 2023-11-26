@@ -2,89 +2,89 @@ import type { QueryBuilderEndpoint, QueryBuilderOptions } from './query';
 import type { ResponsePostUserListRelease } from './response';
 
 export type RequestWithToken = {
-	/**
-	 * @see https://api.vndb.org/kana#user-authentication
-	 */
-	token: string;
+  /**
+   * @see https://api.vndb.org/kana#user-authentication
+   */
+  token: string;
 };
 
 export type RequestBasicOptions = Partial<RequestWithToken>;
 
 export type RequestSearchOptions<T extends QueryBuilderEndpoint> =
-	RequestBasicOptions & Omit<QueryBuilderOptions<T>, 'filters'>;
+  RequestBasicOptions & Omit<QueryBuilderOptions<T>, 'filters'>;
 
 export type RequestGetUserFields = 'lengthvotes' | 'lengthvotes_sum';
 
 /** @see https://api.vndb.org/kana#vn-filters */
 export type RequestPostVisualNovelFilters =
-	| 'id'
-	| 'search'
-	| 'lang'
-	| 'olang'
-	| 'platform'
-	| 'length'
-	| 'released'
-	| 'rating'
-	| 'votecount'
-	| 'has_description'
-	| 'has_anime'
-	| 'has_screenshot'
-	| 'has_review'
-	| 'devstatus'
-	| 'tag'
-	| 'dtag'
-	| 'anime_id'
-	| 'label'
-	| 'release'
-	| 'character'
-	| 'staff'
-	| 'developer';
+  | 'id'
+  | 'search'
+  | 'lang'
+  | 'olang'
+  | 'platform'
+  | 'length'
+  | 'released'
+  | 'rating'
+  | 'votecount'
+  | 'has_description'
+  | 'has_anime'
+  | 'has_screenshot'
+  | 'has_review'
+  | 'devstatus'
+  | 'tag'
+  | 'dtag'
+  | 'anime_id'
+  | 'label'
+  | 'release'
+  | 'character'
+  | 'staff'
+  | 'developer';
 
 /** @see https://api.vndb.org/kana#release-filters */
 export type RequestPostReleaseFilters =
-	| 'id'
-	| 'search'
-	| 'lang'
-	| 'platform'
-	| 'released'
-	| 'resolution'
-	| 'resolution_aspect'
-	| 'minage'
-	| 'medium'
-	| 'voiced'
-	| 'engine'
-	| 'rtype'
-	| 'extlink'
-	| 'patch'
-	| 'freeware'
-	| 'uncensored'
-	| 'official'
-	| 'has_ero'
-	| 'vn'
-	| 'producer';
+  | 'id'
+  | 'search'
+  | 'lang'
+  | 'platform'
+  | 'released'
+  | 'resolution'
+  | 'resolution_aspect'
+  | 'minage'
+  | 'medium'
+  | 'voiced'
+  | 'engine'
+  | 'rtype'
+  | 'extlink'
+  | 'patch'
+  | 'freeware'
+  | 'uncensored'
+  | 'official'
+  | 'has_ero'
+  | 'vn'
+  | 'producer';
 
 /** @see https://api.vndb.org/kana#producer-filters */
 export type RequestPostProducerFilters = 'id' | 'search' | 'lang' | 'type';
 
 /** @see https://api.vndb.org/kana#character-filters */
 export type RequestPostCharacterFilters =
-	| 'id'
-	| 'search'
-	| 'role'
-	| 'blood_type'
-	| 'sex'
-	| 'height'
-	| 'weight'
-	| 'bust'
-	| 'waist'
-	| 'hips'
-	| 'cup'
-	| 'age'
-	| 'trait'
-	| 'dtrait'
-	| 'birthday'
-	| 'seiyuu'
-	| 'vn';
+  | 'id'
+  | 'search'
+  | 'role'
+  | 'blood_type'
+  | 'sex'
+  | 'height'
+  | 'weight'
+  | 'bust'
+  | 'waist'
+  | 'hips'
+  | 'cup'
+  | 'age'
+  | 'trait'
+  | 'dtrait'
+  | 'birthday'
+  | 'seiyuu'
+  | 'vn';
 
 /** @see https://api.vndb.org/kana#filters-1 */
 export type RequestPostTagFilters = 'id' | 'search' | 'category';
@@ -97,12 +97,12 @@ export type RequestPostUserListFilters = RequestPostVisualNovelFilters;
 
 /** @see https://api.vndb.org/kana#post-vn */
 export type RequestPostVisualNovelSort =
-	| 'id'
-	| 'title'
-	| 'released'
-	| 'rating'
-	| 'votecount'
-	| 'searchrank';
+  | 'id'
+  | 'title'
+  | 'released'
+  | 'rating'
+  | 'votecount'
+  | 'searchrank';
 
 /** @see https://api.vndb.org/kana#post-release */
 export type RequestPostReleaseSort = 'id' | 'title' | 'released' | 'searchrank';
@@ -121,31 +121,31 @@ export type RequestPostCharacterSort = 'id' | 'name' | 'searchrank';
 
 /** @see https://api.vndb.org/kana#post-ulist */
 export type RequestPostUserListSort =
-	| 'id'
-	| 'title'
-	| 'released'
-	| 'rating'
-	| 'votecount'
-	| 'voted'
-	| 'vote'
-	| 'added'
-	| 'lastmod'
-	| 'started'
-	| 'finished'
-	| 'searchrank';
+  | 'id'
+  | 'title'
+  | 'released'
+  | 'rating'
+  | 'votecount'
+  | 'voted'
+  | 'vote'
+  | 'added'
+  | 'lastmod'
+  | 'started'
+  | 'finished'
+  | 'searchrank';
 
 export type RequestDeletePatchUserListGenericOptions<
-	T extends 'u' | 'r',
-	U extends 'DELETE' | 'PATCH'
+  T extends 'u' | 'r',
+  U extends 'DELETE' | 'PATCH'
 > = U extends 'PATCH'
-	? T extends 'u'
-		? RequestPatchUserList
-		: RequestPatchUserListReleaseList
-	: U extends 'DELETE'
-	  ? T extends 'u'
-			? RequestDeleteUserList
-			: RequestDeleteUserListReleaseList
-	  : never;
+  ? T extends 'u'
+    ? RequestPatchUserList
+    : RequestPatchUserListReleaseList
+  : U extends 'DELETE'
+    ? T extends 'u'
+      ? RequestDeleteUserList
+      : RequestDeleteUserListReleaseList
+    : never;
 
 /**
  * All members are be optional (except the token), missing members are not modified.
@@ -171,26 +171,26 @@ export type RequestDeletePatchUserListGenericOptions<
  * @see https://api.vndb.org/kana#patch-ulistid
  */
 export type RequestPatchUserList = RequestWithToken & {
-	/** Integer between 10 and 100. */
-	vote?: number;
-	notes?: string;
-	started?: Date;
-	finished?: Date;
-	/**
-	 * Array of integers, label ids.
-	 * Setting this will overwrite any existing labels assigned to the VN with the given array.
-	 */
-	labels?: number[];
-	/**
-	 * Array of label ids to add to the VN, any already existing labels will be unaffected.
-	 */
-	labels_set?: number[];
-	/** Array of label ids to remove from the VN. */
-	labels_unset?: number[];
+  /** Integer between 10 and 100. */
+  vote?: number;
+  notes?: string;
+  started?: Date;
+  finished?: Date;
+  /**
+   * Array of integers, label ids.
+   * Setting this will overwrite any existing labels assigned to the VN with the given array.
+   */
+  labels?: number[];
+  /**
+   * Array of label ids to add to the VN, any already existing labels will be unaffected.
+   */
+  labels_set?: number[];
+  /** Array of label ids to remove from the VN. */
+  labels_unset?: number[];
 };
 
 export type RequestPatchUserListReleaseList = RequestWithToken & {
-	status?: ResponsePostUserListRelease['list_status'];
+  status?: ResponsePostUserListRelease['list_status'];
 };
 
 export type RequestDeleteUserList = RequestWithToken;

@@ -11,18 +11,18 @@ export type Nullable<T> = T | null | undefined;
 export type VNDBConstructorOptions = Partial<Pick<RequestWithToken, 'token'>>;
 
 export type VNDBEndpoint =
-	| 'schema'
-	| 'stats'
-	| 'user'
-	| 'authinfo'
-	| 'vn'
-	| 'release'
-	| 'producer'
-	| 'character'
-	| 'tag'
-	| 'trait'
-	| 'ulist'
-	| `ulist/${string}`
-	| 'ulist_labels'
-	| 'rlist'
-	| `rlist/${string}`;
+  | 'schema'
+  | 'stats'
+  | 'user'
+  | 'authinfo'
+  | 'vn'
+  | 'release'
+  | 'producer'
+  | 'character'
+  | 'tag'
+  | 'trait'
+  | 'ulist'
+  | `ulist/${string}`
+  | 'ulist_labels'
+  | 'rlist'
+  | `rlist/${string}`;
