@@ -54,7 +54,7 @@
     "format": "pnpm exec prettier . --write",
     "minify": "pnpm exec minify-it dist",
     "prepare": "husky install",
-    "rollup": "rollup --config rollup.config.ts --configPlugin typescript={tsconfig:'tsconfig.rollup.json'}",
+    "rollup": "rollup --config rollup.config.mjs",
     "script:publish": "node --loader ts-node/esm scripts/publish.ts",
     "taze": "pnpm exec taze -w -f",
     "test": "vitest",
