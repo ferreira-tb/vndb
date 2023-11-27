@@ -34,7 +34,7 @@ devDependencies:
     version: 15.1.0
   miho:
     specifier: ^1.7.0
-    version: 1.7.0
+    version: 1.7.9
   minify-it:
     specifier: ^1.1.1
     version: 1.1.1
@@ -3375,8 +3375,8 @@ packages:
       picomatch: 2.3.1
     dev: true
 
-  /miho@1.7.0:
-    resolution: {integrity: sha512-Z4c4DZFWLBvkGw7hrOxsYDUqwVwiWwmd7Y5QaMyCtfvEupihqPE3d2Q24gB6PEDMq+nJbeyTwOkj35BWyTYAKw==}
+  /miho@1.7.9:
+    resolution: {integrity: sha512-xoGutepUiyZYjOO7wX0b1JtmflJAAUleTdZZrr7VtI0hPmVXdpf/ZYvPCj38pLSjkRY2xJPxz0wC7BCmCfr1nA==}
     hasBin: true
     dependencies:
       c12: 1.5.1
