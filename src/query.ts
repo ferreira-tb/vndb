@@ -1,8 +1,9 @@
+/* eslint-disable perfectionist/sort-classes */
 import type {
   QueryBuilderBase,
+  QueryBuilderEndpoint,
   QueryBuilderFilter,
   QueryBuilderOptions,
-  QueryBuilderEndpoint,
   QueryBuilderPush
 } from '../types';
 
@@ -246,6 +247,7 @@ class QueryBuilderOperator<T extends QueryBuilderEndpoint> {
 
   constructor(builder: QueryBuilder<T>, push: QueryBuilderPush) {
     // Operators follow a filter.
+    // eslint-disable-next-line no-constructor-return
     return new Proxy(this, {
       get: (_target, key) => {
         push(this.#parse(key), null, (i) => i + 1);

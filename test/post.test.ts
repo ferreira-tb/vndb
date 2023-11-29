@@ -1,6 +1,6 @@
-import { expect, test } from 'vitest';
 import { z } from 'zod';
-import { VNDB, QueryBuilder } from '../src';
+import { expect, test } from 'vitest';
+import { QueryBuilder, VNDB } from '../src';
 
 const vndb = new VNDB();
 

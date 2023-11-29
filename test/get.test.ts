@@ -1,5 +1,5 @@
-import { expect, test } from 'vitest';
 import { z } from 'zod';
+import { expect, test } from 'vitest';
 import { VNDB } from '../src';
 import config from '../config.json' assert { type: 'json' };
 
@@ -46,9 +46,9 @@ test('GET /user', async () => {
 
   z.record(z.union([parser, z.null()])).parse(user);
 
-  parser.parse(user['u135653']);
-  expect(() => parser.parse(user['NoUserWithThisNameExists'])).toThrowError();
-  z.null().parse(user['NoUserWithThisNameExists']);
+  parser.parse(user.u135653);
+  expect(() => parser.parse(user.NoUserWithThisNameExists)).toThrowError();
+  z.null().parse(user.NoUserWithThisNameExists);
 });
 
 test('GET /authinfo', async () => {

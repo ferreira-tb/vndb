@@ -55,6 +55,6 @@ test('fields as array', async () => {
 
   const { results } = await vndb.post.vn(query);
   expect(results[0].title).toBe('Bishoujo');
-  expect(results?.[0].developers?.[0].original).toBe('たぬきそふと');
-  expect(results?.[0].titles?.[0].title).toBe('微少女');
+  expect(results[0].developers?.[0].original).toBe('たぬきそふと');
+  expect(results[0].titles?.[0].title).toBe('微少女');
 });
