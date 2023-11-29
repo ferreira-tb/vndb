@@ -10,8 +10,6 @@ try {
   const dirname = path.dirname(fileURLToPath(import.meta.url));
   const src = path.join(dirname, 'dist/src');
   if (exists(src)) await fs.rm(src, { recursive: true });
-
-  await execa('pnpm', ['minify'], { stdio: 'inherit' });
 } catch (err) {
   console.error(err);
   process.exit(1);
