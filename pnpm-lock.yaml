@@ -21,10 +21,10 @@ devDependencies:
     specifier: ^0.58.0
     version: 0.58.0
   '@vitest/coverage-istanbul':
-    specifier: ^1.0.0
+    specifier: ^1.0.1
     version: 1.0.1(vitest@1.0.1)
   '@vitest/ui':
-    specifier: ^1.0.0
+    specifier: ^1.0.1
     version: 1.0.1(vitest@1.0.1)
   eslint:
     specifier: ^8.55.0
@@ -81,7 +81,7 @@ devDependencies:
     specifier: ^1.0.0-rc.31
     version: 1.0.0-rc.31(@algolia/client-search@4.20.0)(@types/node@20.10.3)(postcss@8.4.32)(search-insights@2.11.0)(typescript@5.2.2)
   vitest:
-    specifier: ^1.0.0
+    specifier: ^1.0.1
     version: 1.0.1(@types/node@20.10.3)(@vitest/ui@1.0.1)
   vue:
     specifier: ^3.3.10

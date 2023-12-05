@@ -67,8 +67,8 @@
     "@tb-dev/eslint-config": "^1.4.3",
     "@types/node": "^20.10.3",
     "@unocss/preset-uno": "^0.58.0",
-    "@vitest/coverage-istanbul": "^1.0.0",
-    "@vitest/ui": "^1.0.0",
+    "@vitest/coverage-istanbul": "^1.0.1",
+    "@vitest/ui": "^1.0.1",
     "eslint": "^8.55.0",
     "execa": "^8.0.1",
     "husky": "^8.0.3",
@@ -87,7 +87,7 @@
     "vite": "^5.0.5",
     "vite-plugin-dts": "^3.6.4",
     "vitepress": "^1.0.0-rc.31",
-    "vitest": "^1.0.0",
+    "vitest": "^1.0.1",
     "vue": "^3.3.10",
     "zod": "^3.22.4"
   }
