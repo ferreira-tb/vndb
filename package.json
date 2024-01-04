@@ -1,10 +1,10 @@
 {
   "name": "vndb-query",
-  "version": "1.7.8",
+  "version": "1.7.9",
   "description": "VNDB HTTPS API with custom query builder",
   "type": "module",
   "private": false,
-  "packageManager": "pnpm@8.13.1",
+  "packageManager": "pnpm@8.14.0",
   "author": {
     "name": "Andrew Ferreira",
     "email": "andrew.shien2@gmail.com",
@@ -61,9 +61,9 @@
     "@rollup/plugin-typescript": "^11.1.5",
     "@tb-dev/eslint-config": "^1.5.8",
     "@types/node": "^20.10.6",
-    "@unocss/preset-uno": "^0.58.2",
-    "@vitest/coverage-istanbul": "^1.1.1",
-    "@vitest/ui": "^1.1.1",
+    "@unocss/preset-uno": "^0.58.3",
+    "@vitest/coverage-istanbul": "^1.1.2",
+    "@vitest/ui": "^1.1.2",
     "eslint": "^8.56.0",
     "husky": "^8.0.3",
     "lint-staged": "^15.2.0",
@@ -75,12 +75,12 @@
     "typedoc": "^0.25.6",
     "typedoc-plugin-mdn-links": "^3.1.10",
     "typescript": "5.3.3",
-    "unocss": "^0.58.2",
+    "unocss": "^0.58.3",
     "vite": "^5.0.10",
     "vite-plugin-dts": "^3.7.0",
-    "vitepress": "^1.0.0-rc.34",
-    "vitest": "^1.1.1",
-    "vue": "^3.4.3",
+    "vitepress": "^1.0.0-rc.35",
+    "vitest": "^1.1.2",
+    "vue": "^3.4.5",
     "zod": "^3.22.4"
   }
 }
