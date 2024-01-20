@@ -16,7 +16,7 @@ hero:
 ---
 
 <script setup>
-import JSFiddle from './components/JSFiddle.vue';
+import JsFiddle from './components/JsFiddle.vue';
 </script>
 
-<JSFiddle />
+<JsFiddle />

@@ -49,6 +49,6 @@ const { results } = await vndb.post.vn(query);
 console.log(results);
 ```
 
-::: tip TYPESCRIPT
+::: tip TypeScript
 Thanks to [TypeScript](https://www.typescriptlang.org/), VNDB Query provides detailed typing for each VNDB enpoint, drastically reducing the need to consult the VNDB documentation. And that's even if you don't use it!
 :::

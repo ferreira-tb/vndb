@@ -1,5 +1,4 @@
 import { defineConfig } from 'vitepress';
-import UnoCSS from 'unocss/vite';
 
 export default defineConfig({
   base: '/vndb-query/',
@@ -8,12 +7,14 @@ export default defineConfig({
   lang: 'en',
   lastUpdated: true,
 
-  sitemap: {
-    hostname: 'https://tb.dev.br/vndb-query'
+  markdown: {
+    attrs: {
+      disable: true
+    }
   },
 
-  vite: {
-    plugins: [UnoCSS()]
+  sitemap: {
+    hostname: 'https://tb.dev.br/vndb-query'
   },
 
   head: [
