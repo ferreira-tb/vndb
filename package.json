@@ -1,6 +1,6 @@
 {
   "name": "vndb-query",
-  "version": "1.7.12",
+  "version": "1.7.13",
   "description": "VNDB HTTPS API with custom query builder",
   "type": "module",
   "private": false,
@@ -32,10 +32,10 @@
     "dist"
   ],
   "main": "./dist/index.cjs",
-  "module": "./dist/index.mjs",
+  "module": "./dist/index.js",
   "exports": {
     ".": {
-      "import": "./dist/index.mjs",
+      "import": "./dist/index.js",
       "require": "./dist/index.cjs",
       "types": "./dist/index.d.ts"
     }
@@ -44,42 +44,44 @@
     "*.{?(c|m)@(j|t)s,css,vue,md,json,yaml}": "prettier --write"
   },
   "scripts": {
-    "build": "rollup --config rollup.config.mjs",
-    "bump": "miho bump --no-ask --add .",
+    "build": "vite build",
     "deploy": "pnpm run docs:build && pnpm run docs:typedoc",
-    "deps": "taze -w -f -l",
     "docs:dev": "vitepress dev docs",
     "docs:build": "vitepress build docs",
     "docs:preview": "vitepress preview docs",
     "docs:typedoc": "typedoc --plugin typedoc-plugin-mdn-links",
     "format": "prettier . --write",
+    "format-check": "prettier . --check",
     "prepare": "husky install",
     "test": "vitest",
-    "test:ui": "vitest --ui --watch --coverage.enabled=true"
+    "test:ui": "vitest --ui --watch --coverage.enabled=true",
+    "type-check": "tsc --noEmit"
   },
   "devDependencies": {
-    "@rollup/plugin-typescript": "^11.1.6",
-    "@tb-dev/eslint-config": "^1.5.15",
-    "@types/node": "^20.11.0",
+    "@tb-dev/eslint-config": "^1.6.5",
+    "@tb-dev/utility-types": "^1.0.10",
+    "@types/node": "^20.11.5",
     "@unocss/preset-uno": "^0.58.3",
-    "@vitest/coverage-istanbul": "^1.2.0",
-    "@vitest/ui": "^1.2.0",
+    "@vitest/coverage-istanbul": "^1.2.1",
+    "@vitest/ui": "^1.2.1",
     "eslint": "^8.56.0",
     "husky": "^8.0.3",
     "lint-staged": "^15.2.0",
-    "prettier": "^3.2.1",
-    "rollup": "^4.9.5",
+    "prettier": "^3.2.4",
     "taze": "^0.13.1",
     "tslib": "^2.6.2",
     "typedoc": "^0.25.7",
-    "typedoc-plugin-mdn-links": "^3.1.11",
+    "typedoc-plugin-mdn-links": "^3.1.12",
     "typescript": "5.3.3",
     "unocss": "^0.58.3",
-    "vite": "^5.0.11",
-    "vite-plugin-dts": "^3.7.0",
-    "vitepress": "^1.0.0-rc.36",
-    "vitest": "^1.2.0",
-    "vue": "^3.4.13",
+    "vite": "^5.0.12",
+    "vite-plugin-dts": "^3.7.1",
+    "vitepress": "^1.0.0-rc.39",
+    "vitest": "^1.2.1",
+    "vue": "^3.4.15",
     "zod": "^3.22.4"
+  },
+  "dependencies": {
+    "@tb-dev/utils": "^1.1.5"
   }
 }

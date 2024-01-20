@@ -1,4 +1,4 @@
-import type { MaybeArray } from './index';
+import type { MaybeArray } from '@tb-dev/utility-types';
 import type { QueryBuilder, QueryBuilderOperator } from '../src/query';
 import type {
   RequestPostCharacterFilters,

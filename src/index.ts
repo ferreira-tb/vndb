@@ -1,8 +1,8 @@
 import { QueryBuilder } from './query';
-import { toArray } from './utils';
+import { toArray } from '@tb-dev/utils';
 import { regexId } from './utils/regex';
+import type { MaybeArray } from '@tb-dev/utility-types';
 import type {
-  MaybeArray,
   RequestBasicOptions,
   QueryBuilderOptions,
   QueryBuilderEndpoint,
