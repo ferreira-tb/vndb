@@ -31,6 +31,7 @@ jobs:
       - run: pnpm install
       - run: |
           pnpm run docs:build
+          pnpm run docs:typedoc
           touch docs/.vitepress/dist/.nojekyll
 
       - name: Upload artifact
