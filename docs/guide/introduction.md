@@ -19,7 +19,7 @@ VNDB Query can be used in any javascript environment, such as browsers and [Node
 Alternatively, you can use VNDB Query directly from a CDN via a script tag:
 
 ```html
-<script src="https://unpkg.com/vndb-query/dist/index.umd.js"></script>
+<script src="https://unpkg.com/vndb-query/dist/index.umd.cjs"></script>
 ```
 
 Here we are using [unpkg](https://unpkg.com/), but you can also use any other CDN that serves npm packages. Of course, you can also download this file and serve it yourself.

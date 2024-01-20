@@ -18,7 +18,7 @@ export default defineConfig({
 
   head: [
     ['link', { rel: 'icon', href: '/vndb-query/favicon.ico' }],
-    ['script', { src: 'https://unpkg.com/vndb-query/dist/index.umd.js' }],
+    ['script', { src: 'https://unpkg.com/vndb-query/dist/index.umd.cjs' }],
     [
       'meta ',
       {

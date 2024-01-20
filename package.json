@@ -1,6 +1,6 @@
 {
   "name": "vndb-query",
-  "version": "1.7.13",
+  "version": "1.7.14",
   "description": "VNDB HTTPS API with custom query builder",
   "type": "module",
   "private": false,
