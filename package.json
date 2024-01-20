@@ -1,6 +1,6 @@
 {
   "name": "vndb-query",
-  "version": "1.7.16",
+  "version": "1.7.17",
   "description": "VNDB HTTPS API with custom query builder",
   "type": "module",
   "private": false,
@@ -8,7 +8,7 @@
   "author": {
     "name": "Andrew Ferreira",
     "email": "andrew.shien2@gmail.com",
-    "url": "https://github.com/ferreira-tb"
+    "url": "https://tb.dev.br"
   },
   "homepage": "https://tb.dev.br/vndb-query",
   "repository": {
