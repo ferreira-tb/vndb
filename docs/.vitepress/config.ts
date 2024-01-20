@@ -7,19 +7,12 @@ export default defineConfig({
   lang: 'en',
   lastUpdated: true,
 
-  markdown: {
-    attrs: {
-      disable: true
-    }
-  },
-
   sitemap: {
     hostname: 'https://tb.dev.br/vndb-query'
   },
 
   head: [
     ['link', { rel: 'icon', href: '/vndb-query/favicon.ico' }],
-    ['script', { src: 'https://unpkg.com/vndb-query/dist/index.umd.cjs' }],
     [
       'meta ',
       {
@@ -40,10 +33,6 @@ export default defineConfig({
       {
         text: 'API',
         link: 'https://tb.dev.br/vndb-query/api/index.html'
-      },
-      {
-        text: 'Playground',
-        link: 'https://jsfiddle.net/ferreiratb/0Lezvkfa/27/'
       }
     ],
 

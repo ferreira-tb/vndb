@@ -57,6 +57,9 @@
     "test:ui": "vitest --ui --watch --coverage.enabled=true",
     "type-check": "tsc --noEmit"
   },
+  "dependencies": {
+    "@tb-dev/utils": "^1.1.5"
+  },
   "devDependencies": {
     "@tb-dev/eslint-config": "^1.6.5",
     "@tb-dev/utility-types": "^1.0.10",
@@ -76,10 +79,6 @@
     "vite-plugin-dts": "^3.7.1",
     "vitepress": "^1.0.0-rc.39",
     "vitest": "^1.2.1",
-    "vue": "^3.4.15",
     "zod": "^3.22.4"
-  },
-  "dependencies": {
-    "@tb-dev/utils": "^1.1.5"
   }
 }

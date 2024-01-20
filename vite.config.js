@@ -10,7 +10,7 @@ export default defineConfig({
     minify: false,
     lib: {
       entry: resolve(__dirname, 'src/index.ts'),
-      formats: ['es', 'cjs', 'umd'],
+      formats: ['es', 'cjs'],
       name: 'VNDBQuery',
       fileName: 'index'
     }

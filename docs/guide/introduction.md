@@ -6,30 +6,25 @@ You can use VNDB Query to create applications, browser extensions or simply for 
 
 ## Installation
 
-```sh
+::: code-group
+
+```sh [npm]
 npm i vndb-query
 ```
+
+```sh [pnpm]
+pnpm i vndb-query
+```
+
+```sh [yarn]
+yarn add vndb-query
+```
+
+:::
 
 ### Prerequisites
 
 VNDB Query can be used in any javascript environment, such as browsers and [Node.js](https://nodejs.org/), as long as it supports [private class features](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Classes/Private_class_fields#browser_compatibility) and [proxies](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Proxy#browser_compatibility).
-
-### Using from CDN
-
-Alternatively, you can use VNDB Query directly from a CDN via a script tag:
-
-```html
-<script src="https://unpkg.com/vndb-query/dist/index.umd.cjs"></script>
-```
-
-Here we are using [unpkg](https://unpkg.com/), but you can also use any other CDN that serves npm packages. Of course, you can also download this file and serve it yourself.
-
-The above link loads the UMD build of VNDB Query, where all top-level classes are exposed as properties on the global `VNDBQuery` object.
-
-```js
-const vndb = new VNDBQuery.VNDB();
-const query = new VNDBQuery.QueryBuilder();
-```
 
 ## Usage
 

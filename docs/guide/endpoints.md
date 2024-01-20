@@ -3,7 +3,7 @@
 Endpoints can be accessed from properties whose name is the HTTP method you want to use. For more details on each endpoint, check the [VNDB API documentation](https://api.vndb.org/kana#simple-requests).
 
 ::: tip
-If the endpoint name is **unambiguous**, i.e. only work with a single HTTP method, you don't need to use the method name. In other words, something like [`vndb.get.stats()`](https://tb.dev.br/vndb-query/api/classes/VNDB.html#get) could be rewritten as [`vndb.stats()`](https://tb.dev.br/vndb-query/api/classes/VNDB.html#stats-1).
+If the endpoint name is **unambiguous**, i.e. only work with a single HTTP method, you don't need to use the method name. In other words, something like [`vndb.get.stats()`](https://tb.dev.br/vndb-query/api/classes/VNDB.html#get) could be written as [`vndb.stats()`](https://tb.dev.br/vndb-query/api/classes/VNDB.html#stats-1).
 :::
 
 ## GET /authinfo
