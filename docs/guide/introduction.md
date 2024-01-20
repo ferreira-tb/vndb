@@ -13,11 +13,15 @@ npm i vndb-query
 ```
 
 ```sh [pnpm]
-pnpm i vndb-query
+pnpm add vndb-query
 ```
 
 ```sh [yarn]
 yarn add vndb-query
+```
+
+```sh [bun]
+bun add vndb-query
 ```
 
 :::
