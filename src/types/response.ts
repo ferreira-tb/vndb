@@ -1,10 +1,10 @@
-export type ResponseGetSchema = {
+export interface ResponseGetSchema {
   api_fields: unknown;
   enums: unknown;
   extlinks: unknown;
-};
+}
 
-export type ResponseGetStats = {
+export interface ResponseGetStats {
   chars: number;
   producers: number;
   releases: number;
@@ -12,9 +12,9 @@ export type ResponseGetStats = {
   tags: number;
   traits: number;
   vn: number;
-};
+}
 
-export type ResponseGetUserUser = {
+export interface ResponseGetUserUser {
   /** String in `u123` format. */
   id: string;
   username: string;
@@ -22,7 +22,7 @@ export type ResponseGetUserUser = {
   lengthvotes?: number;
   /** Integer, sum of the user’s play time votes, in minutes. */
   lengthvotes_sum?: number;
-};
+}
 
 /**
  * The response object contains one key for each given parameter,
@@ -32,7 +32,7 @@ export type ResponseGetUser = Record<string, ResponseGetUserUser | null>;
 
 export type ResponseGetAuthinfoPermissions = 'listread' | 'listwrite';
 
-export type ResponseGetAuthinfo = {
+export interface ResponseGetAuthinfo {
   id: string;
   username: string;
   /**
@@ -41,10 +41,10 @@ export type ResponseGetAuthinfo = {
    * `listwrite`: Allows write access to the user’s visual novel list.
    */
   permissions: ResponseGetAuthinfoPermissions[];
-};
+}
 
 /** @see https://api.vndb.org/kana#vn-fields */
-export type ResponsePostVisualNovelTitleEntry = {
+export interface ResponsePostVisualNovelTitleEntry {
   /** Each language appears at most once in the titles list. */
   lang?: string;
   /** Title in the original script. */
@@ -61,9 +61,9 @@ export type ResponsePostVisualNovelTitleEntry = {
    * you can of course also use the olang field to grab the main title.
    */
   main?: boolean;
-};
+}
 
-export type ResponsePostVisualNovelImage = {
+export interface ResponsePostVisualNovelImage {
   /** Image identifier. */
   id?: string;
   url?: string;
@@ -75,7 +75,7 @@ export type ResponsePostVisualNovelImage = {
   violence?: number;
   /** Number of image flagging votes. */
   votecount?: number;
-};
+}
 
 export type ResponsePostVisualNovelScreenshot = ResponsePostVisualNovelImage & {
   /** URL to the thumbnail. */
@@ -110,7 +110,7 @@ export type ResponsePostVisualNovelRelations = ResponsePostVisualNovel & {
 };
 
 /** @see https://api.vndb.org/kana#vn-fields */
-export type ResponsePostVisualNovel = {
+export interface ResponsePostVisualNovel {
   id: string;
   /** Main title as displayed on the site, typically romanized from the original script.  */
   title?: string;
@@ -162,9 +162,9 @@ export type ResponsePostVisualNovel = {
    * but if all you need is the list of developers then querying this field is faster.
    */
   developers?: ResponsePostProducer[];
-};
+}
 
-export type ResponsePostReleaseLanguage = {
+export interface ResponsePostReleaseLanguage {
   /** Each language appears at most once. */
   lang?: string;
   /**
@@ -178,13 +178,13 @@ export type ResponsePostReleaseLanguage = {
   mtl?: boolean;
   /** Whether this language is used to determine the “main” title for the release entry. */
   main?: boolean;
-};
+}
 
-export type ResponsePostReleaseMedia = {
+export interface ResponsePostReleaseMedia {
   medium?: string;
   /** This is 0 for media where a quantity does not make sense, like “internet download”. */
   qty?: number;
-};
+}
 
 /**
  * @see https://api.vndb.org/kana#release-fields
@@ -200,7 +200,7 @@ export type ResponsePostReleaseProducer = ResponsePostProducer & {
   publisher?: boolean;
 };
 
-export type ResponsePostReleaseExternalLink = {
+export interface ResponsePostReleaseExternalLink {
   url?: string;
   /** English human-readable label for this link. */
   label?: string;
@@ -215,10 +215,10 @@ export type ResponsePostReleaseExternalLink = {
    * as part of their URL format, in such cases this field is simply equivalent to the URL.
    */
   id?: string;
-};
+}
 
 /** @see https://api.vndb.org/kana#release-fields */
-export type ResponsePostRelease = {
+export interface ResponsePostRelease {
   id: string;
   /** Main title as displayed on the site, typically romanized from the original script.  */
   title?: string;
@@ -261,10 +261,10 @@ export type ResponsePostRelease = {
    * These extra sites are not listed in the extlinks list of the schema.
    */
   extlinks?: ResponsePostReleaseExternalLink[];
-};
+}
 
 /** @see https://api.vndb.org/kana#producer-fields */
-export type ResponsePostProducer = {
+export interface ResponsePostProducer {
   id: string;
   name?: string;
   /** Name in the original script. */
@@ -278,7 +278,7 @@ export type ResponsePostProducer = {
    * @see https://vndb.org/d9#4
    */
   description?: string | null;
-};
+}
 
 export type ResponsePostCharacterImage = ResponsePostVisualNovelImage;
 
@@ -298,7 +298,7 @@ export type ResponsePostCharacterTrait = ResponsePostTrait & {
 };
 
 /** @see https://api.vndb.org/kana#fields */
-export type ResponsePostCharacter = {
+export interface ResponsePostCharacter {
   id: string;
   name?: string;
   /** Name in the original script. */
@@ -339,10 +339,10 @@ export type ResponsePostCharacter = {
    */
   vns?: ResponsePostCharacterVisualNovel[];
   traits?: ResponsePostCharacterTrait[];
-};
+}
 
 /** @see https://api.vndb.org/kana#tag-fields */
-export type ResponsePostTag = {
+export interface ResponsePostTag {
   id: string;
   name?: string;
   aliases?: string[];
@@ -357,9 +357,9 @@ export type ResponsePostTag = {
   applicable?: boolean;
   /** Number of VNs this tag has been applied to, including any child tags. */
   vn_count?: number;
-};
+}
 
-export type ResponsePostTrait = {
+export interface ResponsePostTrait {
   id: string;
   name?: string;
   aliases?: string[];
@@ -374,12 +374,12 @@ export type ResponsePostTrait = {
   group_name?: string;
   /** Number of characters this trait has been applied to, including child traits. */
   char_count?: number;
-};
+}
 
-export type ResponsePostUserListLabel = {
+export interface ResponsePostUserListLabel {
   id: number;
   label?: string;
-};
+}
 
 export type ResponsePostUserListVisualNovel = ResponsePostVisualNovel;
 
@@ -388,7 +388,7 @@ export type ResponsePostUserListRelease = ResponsePostRelease & {
   list_status?: 0 | 1 | 2 | 3 | 4;
 };
 
-export type ResponsePostUserList = {
+export interface ResponsePostUserList {
   id: string;
   /**
    * Unix timestamp.
@@ -420,9 +420,9 @@ export type ResponsePostUserList = {
   /** Visual novel info. */
   vn?: ResponsePostUserListVisualNovel;
   releases?: ResponsePostUserListRelease[];
-};
+}
 
-export type ResponseGetUserListLabelsLabel = {
+export interface ResponseGetUserListLabelsLabel {
   /** Integer identifier of the label. */
   id: number;
   /**
@@ -436,13 +436,13 @@ export type ResponseGetUserListLabelsLabel = {
    * The ‘Voted’ label may have different counts depending on whether the user has authenticated.
    */
   count: number;
-};
+}
 
 /**
  * Labels with an id below 10 are the pre-defined labels and are the same for everyone,
  * though even pre-defined labels are excluded if they are marked private.
  * @see https://api.vndb.org/kana#get-ulist_labels
  */
-export type ResponseGetUserListLabels = {
+export interface ResponseGetUserListLabels {
   labels: ResponseGetUserListLabelsLabel[];
-};
+}

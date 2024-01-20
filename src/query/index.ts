@@ -1,10 +1,10 @@
-/* eslint-disable perfectionist/sort-classes */
+import { IndexMap } from './map';
+import { QueryBuilderOperator } from './operator';
 import type {
   QueryBuilderBase,
   QueryBuilderEndpoint,
   QueryBuilderFilter,
-  QueryBuilderOptions,
-  QueryBuilderPush
+  QueryBuilderOptions
 } from '../types';
 
 export class QueryBuilder<T extends QueryBuilderEndpoint>
@@ -37,25 +37,25 @@ export class QueryBuilder<T extends QueryBuilderEndpoint>
   /** Used to combine different filters. */
   public readonly and: (
     cb: (builder: QueryBuilderBase<T>) => void
-  ) => QueryBuilder<T> = this.#proxify(this.#and);
+  ) => QueryBuilder<T> = this.#proxify(this.#and.bind(this));
 
   /** Used to combine different filters. */
   public readonly or: (
     cb: (builder: QueryBuilderBase<T>) => void
-  ) => QueryBuilder<T> = this.#proxify(this.#or);
+  ) => QueryBuilder<T> = this.#proxify(this.#or.bind(this));
 
   /** Alias for {@link QueryBuilder.filter} */
   public readonly f: (name: QueryBuilderFilter<T>) => QueryBuilderOperator<T> =
-    this.#proxify(this.#filter);
+    this.#proxify(this.#filter.bind(this));
 
   /** Starts building a filter block (like ["id", "=", "v17"]). */
   public readonly filter: (
     name: QueryBuilderFilter<T>
-  ) => QueryBuilderOperator<T> = this.#proxify(this.#filter);
+  ) => QueryBuilderOperator<T> = this.#proxify(this.#filter.bind(this));
 
   /** Alias for {@link QueryBuilder.value} */
   public readonly v: (value: any) => QueryBuilder<T> = this.#proxify(
-    this.#value
+    this.#value.bind(this)
   );
 
   /**
@@ -65,7 +65,7 @@ export class QueryBuilder<T extends QueryBuilderEndpoint>
    * For example, in the block `["id", "=", "v17"]`, the value would be `"v17"`.
    */
   public readonly value: (value: any) => QueryBuilder<T> = this.#proxify(
-    this.#value
+    this.#value.bind(this)
   );
 
   public toArray(): any[] {
@@ -137,7 +137,7 @@ export class QueryBuilder<T extends QueryBuilderEndpoint>
     return currentArray;
   }
 
-  #proxify<T extends (...args: any[]) => any>(fn: T) {
+  #proxify<P extends (...args: any[]) => any>(fn: P) {
     return new Proxy(fn.bind(this), {
       apply: (target, thisArg, argumentsList) => {
         if (this.compactFilters) {
@@ -145,6 +145,7 @@ export class QueryBuilder<T extends QueryBuilderEndpoint>
             'Builder is locked: did you already set some compact filters?'
           );
         }
+
         return Reflect.apply(target, thisArg, argumentsList);
       }
     });
@@ -211,107 +212,4 @@ export class QueryBuilder<T extends QueryBuilderEndpoint>
   }
 }
 
-class QueryBuilderOperator<T extends QueryBuilderEndpoint> {
-  /** Alias for {@link QueryBuilderOperator.equal} */
-  public declare readonly eq: QueryBuilder<T>;
-
-  /** Equality operator (`=`). */
-  public declare readonly equal: QueryBuilder<T>;
-
-  /** Inequality operator (`!=`). */
-  public declare readonly not: QueryBuilder<T>;
-
-  /** Alias for {@link QueryBuilderOperator.greater} */
-  public declare readonly gt: QueryBuilder<T>;
-
-  /**  "Greater than" operator (`>`). */
-  public declare readonly greater: QueryBuilder<T>;
-
-  /** Alias for {@link QueryBuilderOperator.greaterOrEqual} */
-  public declare readonly gte: QueryBuilder<T>;
-
-  /** "Greater than or equal" operator (`>=`). */
-  public declare readonly greaterOrEqual: QueryBuilder<T>;
-
-  /** Alias for {@link QueryBuilderOperator.lower} */
-  public declare readonly lt: QueryBuilder<T>;
-
-  /** "Lower than" operator (`<`). */
-  public declare readonly lower: QueryBuilder<T>;
-
-  /** Alias for {@link QueryBuilderOperator.lowerOrEqual} */
-  public declare readonly lte: QueryBuilder<T>;
-
-  /** "Lower than or equal" operator (`<=`). */
-  public declare readonly lowerOrEqual: QueryBuilder<T>;
-
-  constructor(builder: QueryBuilder<T>, push: QueryBuilderPush) {
-    // Operators follow a filter.
-    // eslint-disable-next-line no-constructor-return
-    return new Proxy(this, {
-      get: (_target, key) => {
-        push(this.#parse(key), null, (i) => i + 1);
-        return builder;
-      }
-    });
-  }
-
-  #parse(key: string | symbol) {
-    switch (key) {
-      case 'eq':
-        return '=';
-      case 'equal':
-        return '=';
-      case 'not':
-        return '!=';
-      case 'gt':
-        return '>';
-      case 'greater':
-        return '>';
-      case 'gte':
-        return '>=';
-      case 'greaterOrEqual':
-        return '>=';
-      case 'lt':
-        return '<';
-      case 'lower':
-        return '<';
-      case 'lte':
-        return '<=';
-      case 'lowerOrEqual':
-        return '<=';
-      default:
-        throw new Error('Invalid key');
-    }
-  }
-}
-
-class IndexMap extends Map<number, number> {
-  /** Returns the deepest block level. */
-  public depth() {
-    return Math.max(...this.keys());
-  }
-
-  public index() {
-    return this.get(this.depth())!;
-  }
-
-  public override get(index: number) {
-    const value = super.get(index);
-    if (typeof value !== 'number') {
-      throw new TypeError(`No such index: ${index}`);
-    }
-
-    return value;
-  }
-
-  public override set(depth: number, index: number) {
-    while (this.depth() > depth) {
-      this.delete(this.depth());
-    }
-
-    return super.set(depth, index);
-  }
-}
-
-export type { QueryBuilderOperator, IndexMap };
+export type { IndexMap, QueryBuilderOperator };

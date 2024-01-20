@@ -1,14 +1,24 @@
-// import config from '@tb-dev/eslint-config';
+import config from '@tb-dev/eslint-config';
 
-/*
 export default config({
-  vue: true,
+  vue: false,
   project: [
     'tsconfig.json',
     'docs/tsconfig.json',
     'scripts/tsconfig.json',
     'test/tsconfig.json'
-  ]
-});*/
-
-export default {};
+  ],
+  overrides: {
+    javascript: {
+      'no-constructor-return': 'off'
+    },
+    typescript: {
+      '@typescript-eslint/no-explicit-any': 'off'
+    },
+    perfectionist: {
+      'perfectionist/sort-classes': 'off',
+      'perfectionist/sort-interfaces': 'off',
+      'perfectionist/sort-object-types': 'off'
+    }
+  }
+});

@@ -1,12 +1,12 @@
-import type { QueryBuilderEndpoint, QueryBuilderOptions } from './query';
 import type { ResponsePostUserListRelease } from './response';
+import type { QueryBuilderEndpoint, QueryBuilderOptions } from './query';
 
-export type RequestWithToken = {
+export interface RequestWithToken {
   /**
    * @see https://api.vndb.org/kana#user-authentication
    */
   token: string;
-};
+}
 
 export type RequestBasicOptions = Partial<RequestWithToken>;
 

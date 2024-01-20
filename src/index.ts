@@ -1,33 +1,33 @@
-import { QueryBuilder } from './query';
 import { toArray } from '@tb-dev/utils';
+import type { MaybeArray, Nullish } from '@tb-dev/utility-types';
+import { QueryBuilder } from './query';
 import { regexId } from './utils/regex';
-import type { MaybeArray } from '@tb-dev/utility-types';
 import type {
-  RequestBasicOptions,
-  QueryBuilderOptions,
   QueryBuilderEndpoint,
+  QueryBuilderFilter,
+  QueryBuilderOptions,
+  QueryBuilderResponse,
+  RequestBasicOptions,
+  RequestDeletePatchUserListGenericOptions,
   RequestGetUserFields,
+  RequestSearchOptions,
   ResponseGetAuthinfo,
+  ResponseGetSchema,
   ResponseGetStats,
   ResponseGetUser,
   ResponseGetUserListLabels,
-  VNDBEndpoint,
-  ResponseGetSchema,
-  QueryBuilderResponse,
-  RequestDeletePatchUserListGenericOptions,
-  QueryBuilderFilter,
-  RequestSearchOptions,
-  VNDBConstructorOptions
-} from '../types';
+  VNDBConstructorOptions,
+  VNDBEndpoint
+} from './types';
 
 export * from './query';
-export * from '../types';
+export * from './types';
 
 export class VNDB {
-  #token: string | null = null;
+  readonly #token: string | null;
 
   constructor(options?: VNDBConstructorOptions) {
-    if (options?.token) this.#token = options.token;
+    this.#token = options?.token ?? null;
   }
 
   readonly #delete = {
@@ -54,7 +54,7 @@ export class VNDB {
      */
     authinfo: (token?: string): Promise<ResponseGetAuthinfo> => {
       const headers = this.#headers(token);
-      return this.#json(VNDB.endpoint('authinfo'), { headers });
+      return VNDB.json(VNDB.endpoint('authinfo'), { headers });
     },
 
     /**
@@ -64,7 +64,7 @@ export class VNDB {
      */
     schema: (options: RequestBasicOptions = {}): Promise<ResponseGetSchema> => {
       const headers = this.#headers(options.token);
-      return this.#json(VNDB.endpoint('schema'), { headers });
+      return VNDB.json(VNDB.endpoint('schema'), { headers });
     },
 
     /**
@@ -73,7 +73,7 @@ export class VNDB {
      */
     stats: (options: RequestBasicOptions = {}): Promise<ResponseGetStats> => {
       const headers = this.#headers(options.token);
-      return this.#json(VNDB.endpoint('stats'), { headers });
+      return VNDB.json(VNDB.endpoint('stats'), { headers });
     },
 
     /**
@@ -94,7 +94,7 @@ export class VNDB {
       if (fields) url.searchParams.append('fields', toArray(fields).join(','));
 
       const headers = this.#headers(options.token);
-      return this.#json(url, { headers });
+      return VNDB.json(url, { headers });
     },
 
     /**
@@ -110,11 +110,14 @@ export class VNDB {
       options: RequestBasicOptions = {}
     ): Promise<ResponseGetUser> => {
       const url = VNDB.endpoint('user');
-      toArray(users).forEach((user) => void url.searchParams.append('q', user));
-      if (fields) url.searchParams.append('fields', toArray(fields).join(','));
+      for (const user of toArray(users)) {
+        url.searchParams.append('q', user);
+      }
+
+      url.searchParams.append('fields', toArray(fields).join(','));
 
       const headers = this.#headers(options.token);
-      return this.#json(url, { headers });
+      return VNDB.json(url, { headers });
     }
   };
 
@@ -138,7 +141,7 @@ export class VNDB {
     query: <T extends QueryBuilderEndpoint>(
       endpoint: QueryBuilderEndpoint,
       query: QueryBuilder<T>,
-      options: RequestBasicOptions = {}
+      options?: Nullish<RequestBasicOptions>
     ): Promise<QueryBuilderResponse<T>> => {
       const fn = this.#query(endpoint);
       return fn(query, options);
@@ -238,7 +241,7 @@ export class VNDB {
     const { token, ...rest } = options;
     const query = new QueryBuilder<T>(rest);
     query.f('search' as QueryBuilderFilter<T>).eq.v(value);
-    return this.post.query(endpoint, query, token ? { token } : undefined);
+    return this.post.query(endpoint, query, token ? { token } : null);
   }
 
   get delete() {
@@ -321,21 +324,12 @@ export class VNDB {
     return headers;
   }
 
-  async #json<T extends Record<string, any>>(
-    input: RequestInfo | URL,
-    init?: RequestInit
-  ): Promise<T> {
-    const response = await fetch(input, init);
-    if (!response.ok)
-      throw new Error(`${response.status}: ${response.statusText}`);
-    return response.json();
-  }
-
   #query<T extends QueryBuilderEndpoint>(endpoint: T) {
     return (
       query: QueryBuilder<T>,
-      options: RequestBasicOptions = {}
+      options?: Nullish<RequestBasicOptions>
     ): Promise<QueryBuilderResponse<T>> => {
+      options ??= {};
       const headers = this.#headers(options.token);
       headers.append('Content-Type', 'application/json');
 
@@ -356,7 +350,7 @@ export class VNDB {
         body: JSON.stringify(body, null, 0)
       });
 
-      return this.#json(request);
+      return VNDB.json(request);
     };
   }
 
@@ -399,5 +393,17 @@ export class VNDB {
    */
   public static endpoint(input?: VNDBEndpoint) {
     return new URL(`https://api.vndb.org/kana/${input ?? ''}`);
+  }
+
+  private static async json<T extends Record<string, any>>(
+    input: RequestInfo | URL,
+    init?: RequestInit
+  ): Promise<T> {
+    const response = await fetch(input, init);
+    if (!response.ok) {
+      throw new Error(`${response.status}: ${response.statusText}`);
+    }
+
+    return response.json();
   }
 }

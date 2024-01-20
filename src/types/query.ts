@@ -1,5 +1,14 @@
 import type { MaybeArray } from '@tb-dev/utility-types';
-import type { QueryBuilder, QueryBuilderOperator } from '../src/query';
+import type { QueryBuilder, QueryBuilderOperator } from '../query';
+import type {
+  ResponsePostCharacter,
+  ResponsePostProducer,
+  ResponsePostRelease,
+  ResponsePostTag,
+  ResponsePostTrait,
+  ResponsePostUserList,
+  ResponsePostVisualNovel
+} from './response';
 import type {
   RequestPostCharacterFilters,
   RequestPostCharacterSort,
@@ -16,24 +25,15 @@ import type {
   RequestPostVisualNovelFilters,
   RequestPostVisualNovelSort
 } from './request';
-import type {
-  ResponsePostCharacter,
-  ResponsePostProducer,
-  ResponsePostRelease,
-  ResponsePostTag,
-  ResponsePostTrait,
-  ResponsePostUserList,
-  ResponsePostVisualNovel
-} from './response';
 
-export type QueryBuilderBase<T extends QueryBuilderEndpoint> = {
+export interface QueryBuilderBase<T extends QueryBuilderEndpoint> {
   and: (cb: (builder: QueryBuilderBase<T>) => void) => QueryBuilder<T>;
   or: (cb: (builder: QueryBuilderBase<T>) => void) => QueryBuilder<T>;
   f: (name: QueryBuilderFilter<T>) => QueryBuilderOperator<T>;
   filter: (name: QueryBuilderFilter<T>) => QueryBuilderOperator<T>;
   v: (value: any) => QueryBuilder<T>;
   value: (value: any) => QueryBuilder<T>;
-};
+}
 
 export type QueryBuilderPush = (
   value: any,
@@ -44,7 +44,7 @@ export type QueryBuilderPush = (
 /**
  * @see https://api.vndb.org/kana#query-format
  */
-export type QueryBuilderOptions<T extends QueryBuilderEndpoint> = {
+export interface QueryBuilderOptions<T extends QueryBuilderEndpoint> {
   /**
    * Determine which database items to fetch.
    * @see https://api.vndb.org/kana#filters
@@ -128,7 +128,7 @@ export type QueryBuilderOptions<T extends QueryBuilderEndpoint> = {
    * It is a normalized JSON representation of the filters given in the query.
    */
   normalized_filters?: boolean;
-};
+}
 
 /** @see https://api.vndb.org/kana#database-querying */
 export type QueryBuilderEndpoint =
@@ -191,7 +191,7 @@ export type QueryBuilderResponseResult<T extends QueryBuilderEndpoint> =
                 ? ResponsePostUserList
                 : never;
 
-export type QueryBuilderResponse<T extends QueryBuilderEndpoint> = {
+export interface QueryBuilderResponse<T extends QueryBuilderEndpoint> {
   /** Array of objects representing the query results. */
   results: QueryBuilderResponseResult<T>[];
   /**
@@ -214,4 +214,4 @@ export type QueryBuilderResponse<T extends QueryBuilderEndpoint> = {
    * This is a normalized JSON representation of the filters given in the query.
    */
   normalized_filters?: string[];
-};
+}
