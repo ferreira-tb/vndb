@@ -59,7 +59,7 @@ devDependencies:
     specifier: ^3.7.1
     version: 3.7.1(@types/node@20.11.5)(typescript@5.3.3)(vite@5.0.12)
   vitepress:
-    specifier: 1.0.0-rc.39
+    specifier: ^1.0.0-rc.39
     version: 1.0.0-rc.39(@algolia/client-search@4.22.1)(@types/node@20.11.5)(search-insights@2.13.0)(typescript@5.3.3)
   vitest:
     specifier: ^1.2.1
