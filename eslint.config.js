@@ -2,12 +2,7 @@ import config from '@tb-dev/eslint-config';
 
 export default config({
   vue: false,
-  project: [
-    'tsconfig.json',
-    'docs/tsconfig.json',
-    'scripts/tsconfig.json',
-    'test/tsconfig.json'
-  ],
+  project: ['tsconfig.json', 'docs/tsconfig.json', 'test/tsconfig.json'],
   overrides: {
     javascript: {
       'no-constructor-return': 'off'
