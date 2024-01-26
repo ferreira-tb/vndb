@@ -1,10 +1,10 @@
 {
   "name": "vndb-query",
-  "version": "1.7.18",
+  "version": "1.7.19",
   "description": "Custom query builder for VNDB",
   "type": "module",
   "private": false,
-  "packageManager": "pnpm@8.14.1",
+  "packageManager": "pnpm@8.14.3",
   "author": {
     "name": "Andrew Ferreira",
     "email": "andrew.shien2@gmail.com",
@@ -58,12 +58,12 @@
     "type-check": "tsc --noEmit"
   },
   "dependencies": {
-    "@tb-dev/utils": "^1.1.5"
+    "@tb-dev/utils": "^1.2.1"
   },
   "devDependencies": {
-    "@tb-dev/eslint-config": "^1.6.5",
-    "@tb-dev/utility-types": "^1.0.10",
-    "@types/node": "^20.11.5",
+    "@tb-dev/eslint-config": "^1.6.7",
+    "@tb-dev/utility-types": "^1.1.0",
+    "@types/node": "^20.11.7",
     "@vitest/coverage-istanbul": "^1.2.1",
     "@vitest/ui": "^1.2.1",
     "eslint": "^8.56.0",
@@ -73,11 +73,11 @@
     "taze": "^0.13.1",
     "tslib": "^2.6.2",
     "typedoc": "^0.25.7",
-    "typedoc-plugin-mdn-links": "^3.1.12",
+    "typedoc-plugin-mdn-links": "^3.1.13",
     "typescript": "5.3.3",
     "vite": "^5.0.12",
-    "vite-plugin-dts": "^3.7.1",
-    "vitepress": "^1.0.0-rc.39",
+    "vite-plugin-dts": "^3.7.2",
+    "vitepress": "^1.0.0-rc.40",
     "vitest": "^1.2.1",
     "zod": "^3.22.4"
   }

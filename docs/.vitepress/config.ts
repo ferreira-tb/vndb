@@ -26,11 +26,6 @@ export default defineConfig({
     logo: '/favicon.ico',
     nav: [
       {
-        text: 'Guide',
-        link: '/guide/introduction',
-        activeMatch: '/guide/introduction'
-      },
-      {
         text: 'API',
         link: 'https://tb.dev.br/vndb-query/api/index.html'
       }
@@ -42,7 +37,7 @@ export default defineConfig({
           text: 'Getting Started',
           collapsed: false,
           items: [
-            { text: 'Introduction ', link: '/guide/introduction' },
+            { text: 'Introduction ', link: '/' },
             {
               text: 'Troubleshooting',
               link: '/guide/troubleshooting'
