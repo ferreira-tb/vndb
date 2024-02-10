@@ -18,6 +18,7 @@ website
 *.local
 **/.vitepress/temp
 **/.vitepress/cache
+**/*vite*timestamp*
 
 /cypress/videos/
 /cypress/screenshots/
@@ -35,4 +36,7 @@ website
 *.sw?
 
 *.env
+.temp
+.eslintcache
+.stylelintcache
 config.json

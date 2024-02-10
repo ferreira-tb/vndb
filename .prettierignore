@@ -1,3 +1,4 @@
 dist
+target
 **/.vitepress/temp
 **/.vitepress/cache
