@@ -59,26 +59,26 @@
     "type-check": "tsc --noEmit"
   },
   "dependencies": {
-    "@tb-dev/utils": "^1.2.5"
+    "@tb-dev/utils": "^1.2.8"
   },
   "devDependencies": {
-    "@tb-dev/eslint-config": "^2.0.1",
-    "@tb-dev/utility-types": "^1.1.4",
-    "@types/node": "^20.11.17",
-    "@vitest/coverage-istanbul": "^1.2.2",
-    "@vitest/ui": "^1.2.2",
-    "eslint": "^8.56.0",
-    "husky": "^9.0.10",
+    "@tb-dev/eslint-config": "^2.1.1",
+    "@tb-dev/utility-types": "^1.1.6",
+    "@types/node": "^20.11.20",
+    "@vitest/coverage-istanbul": "^1.3.1",
+    "@vitest/ui": "^1.3.1",
+    "eslint": "^8.57.0",
+    "husky": "^9.0.11",
     "lint-staged": "^15.2.2",
     "prettier": "^3.2.5",
     "tslib": "^2.6.2",
-    "typedoc": "^0.25.8",
-    "typedoc-plugin-mdn-links": "^3.1.16",
+    "typedoc": "^0.25.9",
+    "typedoc-plugin-mdn-links": "^3.1.17",
     "typescript": "5.3.3",
-    "vite": "^5.1.1",
-    "vite-plugin-dts": "^3.7.2",
-    "vitepress": "^1.0.0-rc.42",
-    "vitest": "^1.2.2",
+    "vite": "^5.1.4",
+    "vite-plugin-dts": "^3.7.3",
+    "vitepress": "^1.0.0-rc.44",
+    "vitest": "^1.3.1",
     "zod": "^3.22.4"
   }
 }
