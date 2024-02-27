@@ -38,6 +38,7 @@ export class QueryBuilderOperator<T extends QueryBuilderEndpoint> {
   constructor(builder: QueryBuilder<T>, push: QueryBuilderPush) {
     // Operators follow a filter.
     return new Proxy(this, {
+      // eslint-disable-next-line @typescript-eslint/naming-convention
       get: (_, key) => {
         push(QueryBuilderOperator.parse(key), null, (i) => i + 1);
         return builder;
