@@ -1,6 +1,6 @@
 {
   "name": "vndb-query",
-  "version": "1.7.28",
+  "version": "1.7.29",
   "description": "Custom query builder for VNDB",
   "type": "module",
   "private": false,
