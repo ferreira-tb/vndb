@@ -54,6 +54,7 @@
     "format-check": "prettier . --check",
     "lint": "eslint . --config eslint.config.js --cache",
     "prepare": "husky",
+    "release": "pnpm run type-check && pnpm run build && pnpm publish",
     "test": "vitest",
     "test:ui": "vitest --ui --watch --coverage.enabled=true",
     "type-check": "tsc --noEmit"
