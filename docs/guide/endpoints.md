@@ -37,7 +37,7 @@ Returns a few overall database statistics.
 
 Lookup users by id or username.
 
-- Response: [ResponseGetUser](https://tb.dev.br/vndb/api/interfaces/ResponseGetUser.html)
+- Response: [ResponseGetUser](https://tb.dev.br/vndb/api/types/ResponseGetUser.html)
 - Read more: [GET /user](https://api.vndb.org/kana#get-user)
 
 ### Example

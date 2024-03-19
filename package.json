@@ -1,6 +1,6 @@
 {
   "name": "@tb-dev/vndb",
-  "version": "1.7.33",
+  "version": "1.7.34",
   "description": "Custom query builder for VNDB",
   "type": "module",
   "private": false,
