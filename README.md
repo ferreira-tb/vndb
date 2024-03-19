@@ -6,7 +6,7 @@ For this purpose, it has a custom query builder created specifically to build qu
 You can use it to create applications, browser extensions or simply for some quick queries.
 
 ```
-npm i vndb
+npm i @tb-dev/vndb
 ```
 
 ## Usage
