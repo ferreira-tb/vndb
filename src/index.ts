@@ -1,7 +1,7 @@
 import { toArray } from '@tb-dev/utils';
 import type { MaybeArray, Nullish } from '@tb-dev/utility-types';
+import { regexId } from './utils';
 import { QueryBuilder } from './query';
-import { regexId } from './utils/regex';
 import type {
   QueryBuilderEndpoint,
   QueryBuilderFilter,
@@ -244,74 +244,82 @@ export class VNDB {
     return this.post.query(endpoint, query, token ? { token } : null);
   }
 
+  /** https://developer.mozilla.org/en-US/docs/Web/HTTP/Methods/DELETE */
   get delete() {
     return this.#delete;
   }
 
+  /** https://developer.mozilla.org/en-US/docs/Web/HTTP/Methods/GET */
   get get() {
     return this.#get;
   }
 
+  /** https://developer.mozilla.org/en-US/docs/Web/HTTP/Methods/PATCH */
   get patch() {
     return this.#patch;
   }
 
+  /** https://developer.mozilla.org/en-US/docs/Web/HTTP/Methods/POST */
   get post() {
     return this.#post;
   }
 
-  // Simple Requests
-  // https://api.vndb.org/kana#simple-requests
+  /** Shorthand for `vndb.get.authinfo` */
   get authinfo() {
     return this.#get.authinfo;
   }
 
+  /** Shorthand for `vndb.get.schema` */
   get schema() {
     return this.#get.schema;
   }
 
+  /** Shorthand for `vndb.get.stats` */
   get stats() {
     return this.#get.stats;
   }
 
+  /** Shorthand for `vndb.get.user` */
   get user() {
     return this.#get.user;
   }
 
-  // Database Querying
-  // https://api.vndb.org/kana#database-querying
+  /** Shorthand for `vndb.post.character` */
   get character() {
     return this.#post.character;
   }
 
+  /** Shorthand for `vndb.post.producer` */
   get producer() {
     return this.#post.producer;
   }
 
+  /** Shorthand for `vndb.post.release` */
   get release() {
     return this.#post.release;
   }
 
+  /** Shorthand for `vndb.post.tag` */
   get tag() {
     return this.#post.tag;
   }
 
+  /** Shorthand for `vndb.post.trait` */
   get trait() {
     return this.#post.trait;
   }
 
-  /** Query visual novel entries. */
+  /** Shorthand for `vndb.post.vn` */
   get vn() {
     return this.#post.vn;
   }
 
-  // List Management
-  // https://api.vndb.org/kana#list-management
+  /** Shorthand for `vndb.post.ulist` */
   get ulist() {
     return this.#post.ulist;
   }
 
-  /** Fetch the list labels for a certain user. */
+  /** Shorthand for `vndb.get.ulistLabels` */
   get ulistLabels() {
     return this.#get.ulistLabels;
   }
@@ -335,6 +343,7 @@ export class VNDB {
 
       let { fields, ...queryOptions } = query.options;
       fields = Array.isArray(fields) ? fields.join(',') : fields ?? '';
+
       const filters = query.compactFilters
         ? query.compactFilters
         : query.toArray();
@@ -344,6 +353,7 @@ export class VNDB {
         fields,
         filters
       };
+
       const request = new Request(VNDB.endpoint(endpoint), {
         method: 'POST',
         headers,
@@ -385,10 +395,10 @@ export class VNDB {
   /**
    * @example
    * ```
-   * const vnEndpoint = VNDB.endpoint('vn');
+   * const endpoint = VNDB.endpoint('vn');
    *
    * // Should be "https://api.vndb.org/kana/vn"
-   * console.log(vnEndpoint);
+   * console.log(endpoint);
    * ```
    */
   public static endpoint(input?: VNDBEndpoint) {

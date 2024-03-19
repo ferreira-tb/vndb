@@ -8,7 +8,8 @@ export default config({
       'no-constructor-return': 'off'
     },
     typescript: {
-      '@typescript-eslint/no-explicit-any': 'off'
+      '@typescript-eslint/no-explicit-any': 'off',
+      '@typescript-eslint/naming-convention': 'off'
     },
     perfectionist: {
       'perfectionist/sort-classes': 'off',

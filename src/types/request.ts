@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/naming-convention */
-
 import type { ResponsePostUserListRelease } from './response';
 import type { QueryBuilderEndpoint, QueryBuilderOptions } from './query';
 

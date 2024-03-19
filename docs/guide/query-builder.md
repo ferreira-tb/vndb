@@ -1,21 +1,21 @@
 # Query Builder
 
-The query builder is the tool used to refine the database searches. It provides a series of functions that, used in sequence, build the array that will be sent in the body of the request to the VNDB API.
+The query builder is used to easily refine the database searches. It provides some methods that, used in sequence, build the array that will be sent as the body of the request to the VNDB API.
 
 As long as you pay attention to the order in which each function is used, you don't have to use them exactly as in the examples. This gives you the flexibility to find your own style.
 
-For more details, check out the [Query Builder API](https://tb.dev.br/vndb-query/api/classes/QueryBuilder.html).
+For more details, check out the [Query Builder API](https://tb.dev.br/vndb/api/classes/QueryBuilder.html).
 
 ::: tip
-You can use the [`toArray()`](https://tb.dev.br/vndb-query/api/classes/QueryBuilder.html#toArray) and [`toJSON()`](https://tb.dev.br/vndb-query/api/classes/QueryBuilder.html#toJSON) methods while testing to see how the query looks.
+You can use the [`toArray()`](https://tb.dev.br/vndb/api/classes/QueryBuilder.html#toArray) and [`toJSON()`](https://tb.dev.br/vndb/api/classes/QueryBuilder.html#toJSON) methods while testing to see how the query looks.
 :::
 
 ## Basic search
 
-If you just want, for example, to search for some visual novels or characters by name, you can use the [`search()`](https://tb.dev.br/vndb-query/api/classes/VNDB.html#search) method present in objects of the [`VNDB`](https://tb.dev.br/vndb-query/api/classes/VNDB.html) class.
+If you just want, for example, to search for some visual novels or characters by name, you can use the [`search()`](https://tb.dev.br/vndb/api/classes/VNDB.html#search) method present in objects of the [`VNDB`](https://tb.dev.br/vndb/api/classes/VNDB.html) class.
 
 ```ts
-import { VNDB } from 'vndb-query';
+import { VNDB } from '@tb-dev/vndb';
 
 const vndb = new VNDB();
 const vns = await vndb.search('vn', 'Kagura Reimeiki', {
@@ -24,10 +24,10 @@ const vns = await vndb.search('vn', 'Kagura Reimeiki', {
 });
 ```
 
-If we were to use the [Query Builder](https://tb.dev.br/vndb-query/api/classes/QueryBuilder.html), the search above would look like this:
+If we were to use the [Query Builder](https://tb.dev.br/vndb/api/classes/QueryBuilder.html), the search above would look like this:
 
 ```ts
-import { VNDB, QueryBuilder } from 'vndb-query';
+import { VNDB, QueryBuilder } from '@tb-dev/vndb';
 
 const query = new QueryBuilder({
   fields: ['title', 'alttitle', 'devstatus', 'image.url'],
@@ -45,14 +45,14 @@ const vns = await vndb.post.vn(query);
 To build `["id", "=", "v17"]`:
 
 ```ts
-import { QueryBuilder } from 'vndb-query';
+import { QueryBuilder } from '@tb-dev/vndb';
 
 const query = new QueryBuilder();
 query.filter('id').equal.value('v17');
 
-// To do the same using shorthands:
-const otherQuery = new QueryBuilder();
-simpleQuery.f('id').eq.v('v17');
+// The same, but using shorthands:
+const other = new QueryBuilder();
+other.f('id').eq.v('v17');
 ```
 
 Let's combine some filters now. We will build a query to look for a visual novel whose `lang` is equal to `en` **AND** whose `olang` is not equal to `ja`.
@@ -83,24 +83,24 @@ query.and(({ f, or }) => {
 });
 ```
 
-Look carefully at the query built above and the order in which each function was used. First, we call [`and`](https://tb.dev.br/vndb-query/api/classes/QueryBuilder.html#and) to start combining with the **AND** predicate. Next, we call [`or`](https://tb.dev.br/vndb-query/api/classes/QueryBuilder.html#or) to define that any of the blocks defined within it are valid for our purposes (after all, we use [`eq`](https://tb.dev.br/vndb-query/api/classes/QueryBuilderOperator.html#eq) as an operator in all of them).
+Look carefully at the query built above and the order in which each method was called. First, we call [`and`](https://tb.dev.br/vndb/api/classes/QueryBuilder.html#and) to start combining with the **AND** predicate. Next, we call [`or`](https://tb.dev.br/vndb/api/classes/QueryBuilder.html#or) to define that any of the blocks within it are valid (after all, we use [`eq`](https://tb.dev.br/vndb/api/classes/QueryBuilderOperator.html#eq) as an operator in all of them).
 
-After closing `or`, we start building a new block, where we call [`f`](https://tb.dev.br/vndb-query/api/classes/QueryBuilder.html#f) (or `filter`) to define that `olang` cannot be equal to `ja`. Immediately after creating this block, we have the end of the `and` that we called at the beginning, which ends the construction of the query.
+After closing `or`, we start building a new block, where we call [`f`](https://tb.dev.br/vndb/api/classes/QueryBuilder.html#f) (or `filter`) to define that `olang` cannot be equal to `ja`. Immediately after creating this block, we have the end of the `and` that we called at the beginning, which ends the construction of the query.
 
 What we have now is a query that will fetch a visual novel whose language (`lang`) **can be any of** `en`, `de` or `fr`, but its original language (`olang`) **must be different** from `ja`.
 
-If we use the [`toArray()`](https://tb.dev.br/vndb-query/api/classes/QueryBuilder.html#toArray) method of the query object to inspect the resulting filters, it will return:
+If we use the [`toArray()`](https://tb.dev.br/vndb/api/classes/QueryBuilder.html#toArray) method of the query object to inspect the resulting filters, it will return:
 
 <!-- prettier-ignore-start -->
 ```js
 [
 	'and',
-        ['or',
-            ['lang', '=', 'en'],
-            ['lang', '=', 'de'],
-            ['lang', '=', 'fr']
-        ],
-        ['olang', '!=', 'ja']
+      ['or',
+          ['lang', '=', 'en'],
+          ['lang', '=', 'de'],
+          ['lang', '=', 'fr']
+      ],
+      ['olang', '!=', 'ja']
 ];
 ```
 <!-- prettier-ignore-end -->
@@ -110,7 +110,7 @@ If we use the [`toArray()`](https://tb.dev.br/vndb-query/api/classes/QueryBuilde
 You can also enter the filters manually, if for some reason you don't want to use the Query Builder.
 
 ```ts
-import { VNDB, QueryBuilder } from 'vndb-query';
+import { VNDB, QueryBuilder } from '@tb-dev/vndb';
 
 const query = new QueryBuilder({
   fields: ['title'],

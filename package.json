@@ -1,22 +1,22 @@
 {
-  "name": "vndb-query",
+  "name": "@tb-dev/vndb",
   "version": "1.7.33",
   "description": "Custom query builder for VNDB",
   "type": "module",
   "private": false,
-  "packageManager": "pnpm@8.15.2",
+  "packageManager": "pnpm@8.15.5",
   "author": {
     "name": "Andrew Ferreira",
     "email": "andrew.shien2@gmail.com",
     "url": "https://tb.dev.br"
   },
-  "homepage": "https://tb.dev.br/vndb-query",
+  "homepage": "https://tb.dev.br/vndb",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/ferreira-tb/vndb-query.git"
+    "url": "git+https://github.com/ferreira-tb/vndb.git"
   },
   "bugs": {
-    "url": "https://github.com/ferreira-tb/vndb-query/issues",
+    "url": "https://github.com/ferreira-tb/vndb/issues",
     "email": "andrew.shien2@gmail.com"
   },
   "license": "MIT",

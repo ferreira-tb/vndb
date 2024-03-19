@@ -1,18 +1,18 @@
 import { defineConfig } from 'vitepress';
 
 export default defineConfig({
-  base: '/vndb-query/',
-  title: 'VNDB Query',
-  description: 'VNDB HTTPS API with custom query builder',
+  base: '/vndb/',
+  title: '@tb-dev/vndb',
+  description: 'Custom query builder for VNDB',
   lang: 'en',
   lastUpdated: true,
 
   sitemap: {
-    hostname: 'https://tb.dev.br/vndb-query'
+    hostname: 'https://tb.dev.br/vndb'
   },
 
   head: [
-    ['link', { rel: 'icon', href: '/vndb-query/favicon.ico' }],
+    ['link', { rel: 'icon', href: '/vndb/favicon.ico' }],
     [
       'meta ',
       {
@@ -27,7 +27,7 @@ export default defineConfig({
     nav: [
       {
         text: 'API',
-        link: 'https://tb.dev.br/vndb-query/api/index.html'
+        link: 'https://tb.dev.br/vndb/api/index.html'
       }
     ],
 
@@ -56,7 +56,7 @@ export default defineConfig({
     },
 
     editLink: {
-      pattern: 'https://github.com/ferreira-tb/vndb-query/edit/main/docs/:path'
+      pattern: 'https://github.com/ferreira-tb/vndb/edit/main/docs/:path'
     },
 
     search: {
@@ -66,7 +66,7 @@ export default defineConfig({
     socialLinks: [
       {
         icon: 'github',
-        link: 'https://github.com/ferreira-tb/vndb-query'
+        link: 'https://github.com/ferreira-tb/vndb'
       }
     ],
 

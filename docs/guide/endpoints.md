@@ -3,7 +3,7 @@
 Endpoints can be accessed from properties whose name is the HTTP method you want to use. For more details on each endpoint, check the [VNDB API documentation](https://api.vndb.org/kana#simple-requests).
 
 ::: tip
-If the endpoint name is **unambiguous**, i.e. only work with a single HTTP method, you don't need to use the method name. In other words, something like [`vndb.get.stats()`](https://tb.dev.br/vndb-query/api/classes/VNDB.html#get) could be written as [`vndb.stats()`](https://tb.dev.br/vndb-query/api/classes/VNDB.html#stats-1).
+Some endpoints have a shorthand. For example, [`vndb.get.stats()`](https://tb.dev.br/vndb/api/classes/VNDB.html#get) could be written as [`vndb.stats()`](https://tb.dev.br/vndb/api/classes/VNDB.html#stats-1).
 :::
 
 ## GET /authinfo
@@ -13,7 +13,7 @@ Validates and returns information about the given [API Token](https://api.vndb.o
 ### Example
 
 ```ts
-import { VNDB } from 'vndb-query';
+import { VNDB } from '@tb-dev/vndb';
 
 const vndb = new VNDB();
 const info = await vndb.get.authinfo('MY SECRET');
@@ -23,21 +23,21 @@ const info = await vndb.get.authinfo('MY SECRET');
 
 Returns a JSON object with metadata about several API objects, including enumeration values, which fields are available for querying and a list of supported external links.
 
-- Response: [ResponseGetSchema](https://tb.dev.br/vndb-query/api/interfaces/ResponseGetSchema.html)
+- Response: [ResponseGetSchema](https://tb.dev.br/vndb/api/interfaces/ResponseGetSchema.html)
 - Read more: [GET /schema](https://api.vndb.org/kana#get-schema)
 
 ## GET /stats
 
 Returns a few overall database statistics.
 
-- Response: [ResponseGetStats](https://tb.dev.br/vndb-query/api/interfaces/ResponseGetStats.html)
+- Response: [ResponseGetStats](https://tb.dev.br/vndb/api/interfaces/ResponseGetStats.html)
 - Read more: [GET /stats](https://api.vndb.org/kana#get-stats)
 
 ## GET /user
 
 Lookup users by id or username.
 
-- Response: [ResponseGetUser](https://tb.dev.br/vndb-query/api/interfaces/ResponseGetUser.html)
+- Response: [ResponseGetUser](https://tb.dev.br/vndb/api/interfaces/ResponseGetUser.html)
 - Read more: [GET /user](https://api.vndb.org/kana#get-user)
 
 ### Example
@@ -54,7 +54,7 @@ const many = await vndb.get.user(['u1', 'u2', 'u3']);
 
 Fetch the list labels for a certain user.
 
-- Response: [ResponseGetUserListLabels](https://tb.dev.br/vndb-query/api/interfaces/ResponseGetUserListLabels.html)
+- Response: [ResponseGetUserListLabels](https://tb.dev.br/vndb/api/interfaces/ResponseGetUserListLabels.html)
 - Read more: [GET /ulist_labels](https://api.vndb.org/kana#get-ulist_labels)
 
 ### Example
@@ -69,7 +69,7 @@ The name of the method is not written in [snake_case](https://en.wikipedia.org/w
 
 ## POST /character
 
-- Response: [ResponsePostCharacter](https://tb.dev.br/vndb-query/api/interfaces/ResponsePostCharacter.html)
+- Response: [ResponsePostCharacter](https://tb.dev.br/vndb/api/interfaces/ResponsePostCharacter.html)
 - Read more: [POST /character](https://api.vndb.org/kana#post-character)
 
 ### Example
@@ -82,34 +82,34 @@ const query = new QueryBuilder({
 });
 
 query.filter('search').equal.value('Ame');
-const vn = await vndb.post.vn(query);
+const vn = await vndb.post.character(query);
 ```
 
 ## POST /producer
 
-- Response: [ResponsePostProducer](https://tb.dev.br/vndb-query/api/interfaces/ResponsePostProducer.html)
+- Response: [ResponsePostProducer](https://tb.dev.br/vndb/api/interfaces/ResponsePostProducer.html)
 - Read more: [POST /producer](https://api.vndb.org/kana#post-producer)
 
 ## POST /release
 
-- Response: [ResponsePostRelease](https://tb.dev.br/vndb-query/api/interfaces/ResponsePostRelease.html)
+- Response: [ResponsePostRelease](https://tb.dev.br/vndb/api/interfaces/ResponsePostRelease.html)
 - Read more: [POST /release](https://api.vndb.org/kana#post-release)
 
 ## POST /tag
 
-- Response: [ResponsePostTag](https://tb.dev.br/vndb-query/api/interfaces/ResponsePostTag.html)
+- Response: [ResponsePostTag](https://tb.dev.br/vndb/api/interfaces/ResponsePostTag.html)
 - Read more: [POST /tag](https://api.vndb.org/kana#post-tag)
 
 ## POST /trait
 
-- Response: [ResponsePostTrait](https://tb.dev.br/vndb-query/api/interfaces/ResponsePostTrait.html)
+- Response: [ResponsePostTrait](https://tb.dev.br/vndb/api/interfaces/ResponsePostTrait.html)
 - Read more: [POST /trait](https://api.vndb.org/kana#post-trait)
 
 ## POST /vn
 
 Query visual novel entries.
 
-- Response: [ResponsePostVisualNovel](https://tb.dev.br/vndb-query/api/interfaces/ResponsePostVisualNovel.html)
+- Response: [ResponsePostVisualNovel](https://tb.dev.br/vndb/api/interfaces/ResponsePostVisualNovel.html)
 - Read more: [POST /vn](https://api.vndb.org/kana#post-vn)
 
 ### Example

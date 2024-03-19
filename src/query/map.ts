@@ -11,7 +11,7 @@ export class IndexMap extends Map<number, number> {
   public override get(index: number) {
     const value = super.get(index);
     if (typeof value !== 'number') {
-      throw new TypeError(`No such index: ${index}`);
+      throw new TypeError(`no such index: ${index}`);
     }
 
     return value;
