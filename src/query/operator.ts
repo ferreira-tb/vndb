@@ -49,25 +49,20 @@ export class QueryBuilderOperator<T extends QueryBuilderEndpoint> {
   private static parse(key: string | symbol) {
     switch (key) {
       case 'eq':
-        return '=';
       case 'equal':
         return '=';
       case 'not':
         return '!=';
       case 'gt':
-        return '>';
       case 'greater':
         return '>';
       case 'gte':
-        return '>=';
       case 'greaterOrEqual':
         return '>=';
       case 'lt':
-        return '<';
       case 'lower':
         return '<';
       case 'lte':
-        return '<=';
       case 'lowerOrEqual':
         return '<=';
       default:
