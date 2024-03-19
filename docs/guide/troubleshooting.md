@@ -1,8 +1,8 @@
 # Troubleshooting
 
-If you find any bugs or have any doubts about any aspect of VNDB Query, don't hesitate to open an issue in the [repository](https://github.com/ferreira-tb/vndb-query/issues).
+If you find some bug or have any doubts, don't hesitate to open an issue in the [repository](https://github.com/ferreira-tb/vndb/issues).
 
-Remember that it's also important to check the [original documentation for the VNDB API](https://api.vndb.org/kana), as it describes various peculiarities that need to be taken into account when using this tool.
+Remember that it's also important to check the [original documentation for the VNDB API](https://api.vndb.org/kana), as it describes various peculiarities that need to be taken into account when using this package.
 
 ## Top level await
 

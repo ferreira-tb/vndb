@@ -142,7 +142,7 @@ export class QueryBuilder<T extends QueryBuilderEndpoint>
       apply: (target, thisArg, argumentsList) => {
         if (this.compactFilters) {
           throw new Error(
-            'Builder is locked: did you already set some compact filters?'
+            'builder is locked: did you already set some compact filters?'
           );
         }
 
@@ -205,7 +205,7 @@ export class QueryBuilder<T extends QueryBuilderEndpoint>
     }
 
     if (Array.isArray(filters) && filters.every((f) => Array.isArray(f))) {
-      throw new TypeError('Every root value is an array.');
+      throw new TypeError('every root value is an array.');
     }
 
     return filters;

@@ -6,5 +6,5 @@ module.exports = {
   excludePrivate: true,
   excludeProtected: true,
   githubPages: false,
-  titleLink: 'https://tb.dev.br/vndb-query/'
+  titleLink: 'https://tb.dev.br/vndb/'
 };

@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/naming-convention */
-
 export interface ResponseGetSchema {
   api_fields: unknown;
   enums: unknown;

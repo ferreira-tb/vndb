@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/naming-convention */
-
 import type { MaybeArray } from '@tb-dev/utility-types';
 import type { QueryBuilder, QueryBuilderOperator } from '../query';
 import type {
