@@ -1,6 +1,6 @@
 {
   "name": "@tb-dev/vndb",
-  "version": "1.7.37",
+  "version": "1.7.38",
   "description": "Custom query builder for VNDB",
   "type": "module",
   "private": false,
@@ -60,9 +60,9 @@
     "type-check": "tsc --noEmit"
   },
   "devDependencies": {
-    "@tb-dev/eslint-config": "^3.2.2",
-    "@tb-dev/utility-types": "^1.2.2",
-    "@tb-dev/utils": "^1.3.2",
+    "@tb-dev/eslint-config": "^3.2.4",
+    "@tb-dev/utility-types": "^1.2.4",
+    "@tb-dev/utils": "^1.3.4",
     "@types/node": "^20.11.30",
     "@vitest/coverage-istanbul": "^1.4.0",
     "@vitest/ui": "^1.4.0",
@@ -74,7 +74,7 @@
     "typedoc": "^0.25.12",
     "typedoc-plugin-mdn-links": "^3.1.18",
     "typescript": "^5.4.3",
-    "vite": "^5.2.3",
+    "vite": "^5.2.6",
     "vite-plugin-dts": "^3.7.3",
     "vitepress": "^1.0.1",
     "vitest": "^1.4.0",
