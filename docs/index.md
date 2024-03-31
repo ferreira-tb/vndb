@@ -1,9 +1,6 @@
 # Introduction
 
-This package is designed to help you interact with the [VNDB database](https://vndb.org/) via its [HTTPS API](https://api.vndb.org/kana).
-For this purpose, it has a [custom query builder](./guide/query-builder.md) created specifically to build queries for the VNDB API.
-
-You can use it to create applications, browser extensions or simply for some quick queries.
+Custom query builder to interact with the [VNDB database](https://vndb.org/) via its [HTTPS API](https://api.vndb.org/kana).
 
 ## Installation
 
@@ -29,7 +26,7 @@ bun add @tb-dev/vndb
 
 ### Prerequisites
 
-It can be used in any JavaScript environment, such as browsers and [Node.js](https://nodejs.org/), as long as it supports [JavaScript Proxies](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Proxy#browser_compatibility).
+This package can be used in any JavaScript environment, such as browsers and [Node.js](https://nodejs.org/), as long as it supports [JavaScript Proxies](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Proxy#browser_compatibility).
 
 ## Usage
 
@@ -50,5 +47,5 @@ console.log(results);
 ```
 
 ::: tip TypeScript
-Thanks to [TypeScript](https://www.typescriptlang.org/), this package provides detailed typing for each VNDB enpoint, drastically reducing the need to consult documentation.
+Thanks to [TypeScript](https://www.typescriptlang.org/), it provides detailed typing for each enpoint, drastically reducing the need to consult documentation.
 :::

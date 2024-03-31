@@ -1,9 +1,6 @@
 # @tb-dev/vndb
 
-This package is designed to help you interact with the [VNDB database](https://vndb.org/) via its [HTTPS API](https://api.vndb.org/kana).
-For this purpose, it has a custom query builder created specifically to build queries for the VNDB API.
-
-You can use it to create applications, browser extensions or simply for some quick queries.
+Custom query builder to interact with the [VNDB database](https://vndb.org/) via its [HTTPS API](https://api.vndb.org/kana).
 
 ```
 npm i @tb-dev/vndb

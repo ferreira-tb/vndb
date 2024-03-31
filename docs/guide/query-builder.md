@@ -1,8 +1,6 @@
 # Query Builder
 
-The query builder is used to easily refine the database searches. It provides some methods that, used in sequence, build the array that will be sent as the body of the request to the VNDB API.
-
-As long as you pay attention to the order in which each function is used, you don't have to use them exactly as in the examples. This gives you the flexibility to find your own style.
+The query builder is used refine the database searches. It provides some methods that, used in sequence, build the JSON array that will be sent as the body of the request to the VNDB API.
 
 For more details, check out the [Query Builder API](https://tb.dev.br/vndb/api/classes/QueryBuilder.html).
 
