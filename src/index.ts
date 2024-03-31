@@ -1,4 +1,4 @@
-import { toArray } from '@tb-dev/utils';
+import { toArray } from '@tb-dev/utils/array';
 import type { MaybeArray, Nullish } from '@tb-dev/utility-types';
 import { regexId } from './utils';
 import { QueryBuilder } from './query';
