@@ -77,7 +77,7 @@ export interface ResponsePostVisualNovelImage {
   votecount?: number;
 }
 
-export type ResponsePostVisualNovelScreenshot = ResponsePostVisualNovelImage & {
+export type ResponsePostVisualNovelScreenshot = {
   /** URL to the thumbnail. */
   thumbnail?: string;
   /** Pixel dimensions of the thumbnail, array with two integer elements. */
@@ -92,22 +92,22 @@ export type ResponsePostVisualNovelScreenshot = ResponsePostVisualNovelImage & {
    * then grab detailed release info with a separate request.
    */
   release?: ResponsePostRelease;
-};
+} & ResponsePostVisualNovelImage;
 
-export type ResponsePostVisualNovelTag = ResponsePostTag & {
+export type ResponsePostVisualNovelTag = {
   /** Tag rating between 0 (exclusive) and 3 (inclusive). */
   rating?: 1 | 2 | 3;
   /** Spoiler level. */
   spoiler?: 0 | 1 | 2;
   lie?: boolean;
-};
+} & ResponsePostTag;
 
-export type ResponsePostVisualNovelRelations = ResponsePostVisualNovel & {
+export type ResponsePostVisualNovelRelations = {
   /** Relation type. */
   relation?: string;
   /** Whether this VN relation is official. */
   relation_official?: boolean;
-};
+} & ResponsePostVisualNovel;
 
 /** @see https://api.vndb.org/kana#vn-fields */
 export interface ResponsePostVisualNovel {
@@ -190,15 +190,15 @@ export interface ResponsePostReleaseMedia {
  * @see https://api.vndb.org/kana#release-fields
  * @see https://api.vndb.org/kana#vn-fields
  */
-export type ResponsePostReleaseVisualNovel = ResponsePostVisualNovel & {
+export type ResponsePostReleaseVisualNovel = {
   /** The release type for this visual novel. */
   rtype?: 'trial' | 'partial' | 'complete';
-};
+} & ResponsePostVisualNovel;
 
-export type ResponsePostReleaseProducer = ResponsePostProducer & {
+export type ResponsePostReleaseProducer = {
   developer?: boolean;
   publisher?: boolean;
-};
+} & ResponsePostProducer;
 
 export interface ResponsePostReleaseExternalLink {
   url?: string;
@@ -284,18 +284,18 @@ export type ResponsePostCharacterImage = ResponsePostVisualNovelImage;
 
 export type ResponsePostCharacterSex = 'm' | 'f' | 'b' | null;
 
-export type ResponsePostCharacterVisualNovel = ResponsePostVisualNovel & {
+export type ResponsePostCharacterVisualNovel = {
   spoiler?: number;
   /** "main" for protagonist, "primary" for main characters. */
   role?: 'main' | 'primary' | 'side' | 'appears';
   /** Specific release that this character appears in. */
   release?: ResponsePostRelease | null;
-};
+} & ResponsePostVisualNovel;
 
-export type ResponsePostCharacterTrait = ResponsePostTrait & {
+export type ResponsePostCharacterTrait = {
   spoiler?: 0 | 1 | 2;
   lie?: boolean;
-};
+} & ResponsePostTrait;
 
 /** @see https://api.vndb.org/kana#fields */
 export interface ResponsePostCharacter {
@@ -383,10 +383,10 @@ export interface ResponsePostUserListLabel {
 
 export type ResponsePostUserListVisualNovel = ResponsePostVisualNovel;
 
-export type ResponsePostUserListRelease = ResponsePostRelease & {
+export type ResponsePostUserListRelease = {
   /** 0 for “Unknown”, 1 for “Pending”, 2 for “Obtained”, 3 for “On loan”, 4 for “Deleted”. */
   list_status?: 0 | 1 | 2 | 3 | 4;
-};
+} & ResponsePostRelease;
 
 export interface ResponsePostUserList {
   id: string;

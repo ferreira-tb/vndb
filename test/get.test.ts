@@ -1,6 +1,6 @@
 import { z } from 'zod';
-import { expect, test } from 'vitest';
 import { VNDB } from '../src';
+import { expect, test } from 'vitest';
 import config from '../config.json' assert { type: 'json' };
 
 const vndb = new VNDB();

@@ -1,8 +1,8 @@
 import type { RequestWithToken } from './request';
 
 export * from './query';
-export * from './response';
 export * from './request';
+export * from './response';
 
 export type VNDBConstructorOptions = Partial<Pick<RequestWithToken, 'token'>>;
 

@@ -10,8 +10,11 @@ export interface RequestWithToken {
 
 export type RequestBasicOptions = Partial<RequestWithToken>;
 
-export type RequestSearchOptions<T extends QueryBuilderEndpoint> =
-  RequestBasicOptions & Omit<QueryBuilderOptions<T>, 'filters'>;
+export type RequestSearchOptions<T extends QueryBuilderEndpoint> = Omit<
+  QueryBuilderOptions<T>,
+  'filters'
+> &
+  RequestBasicOptions;
 
 export type RequestGetUserFields = 'lengthvotes' | 'lengthvotes_sum';
 
@@ -170,7 +173,7 @@ export type RequestDeletePatchUserListGenericOptions<
  *
  * @see https://api.vndb.org/kana#patch-ulistid
  */
-export type RequestPatchUserList = RequestWithToken & {
+export type RequestPatchUserList = {
   /** Integer between 10 and 100. */
   vote?: number;
   notes?: string;
@@ -187,11 +190,11 @@ export type RequestPatchUserList = RequestWithToken & {
   labels_set?: number[];
   /** Array of label ids to remove from the VN. */
   labels_unset?: number[];
-};
+} & RequestWithToken;
 
-export type RequestPatchUserListReleaseList = RequestWithToken & {
+export type RequestPatchUserListReleaseList = {
   status?: ResponsePostUserListRelease['list_status'];
-};
+} & RequestWithToken;
 
 export type RequestDeleteUserList = RequestWithToken;
 export type RequestDeleteUserListReleaseList = RequestWithToken;
